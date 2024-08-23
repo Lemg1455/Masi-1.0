@@ -45,6 +45,9 @@
 
   "masi.panel.exp.message": "经验不足，无法学习",
   "masi.panel.learned.message": "已经学习",
-  "masi.scroll.fail.message": "使用失败"
+  "masi.scroll.fail.message": "使用失败",
+
+  "enchantment.masi.multiple_release": "多重施法",
+  "enchantment.masi.energy_conservation": "节能"
 }
 

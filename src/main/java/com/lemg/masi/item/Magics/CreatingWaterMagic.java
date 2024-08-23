@@ -61,6 +61,10 @@ public class CreatingWaterMagic extends Magic{
         return 3;
     }
     @Override
+    public boolean Multiple(){
+        return true;
+    }
+    @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         MinecraftClient client = MinecraftClient.getInstance();
         HitResult hit = client.crosshairTarget;
@@ -75,8 +79,8 @@ public class CreatingWaterMagic extends Magic{
                 buf.writeUuid(entity.getUuid());
                 buf.writeItemStack(this.getDefaultStack());
                 ClientPlayNetworking.send(ModMessage.CROSSHAIR_ENTITY_ID, buf);
+                world.setBlockState(entity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());
             }
-            world.setBlockState(entity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());
         }else if(Objects.requireNonNull(hit.getType()) == HitResult.Type.BLOCK){
             BlockHitResult blockHit = (BlockHitResult) hit;
 

@@ -35,6 +35,10 @@ public class RandomMagic extends Magic{
         return 999;
     }
     @Override
+    public boolean Multiple(){
+        return false;
+    }
+    @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         List<Item> items = new ArrayList<>();
         for(List<Object> magicGroup : MagicGroups.magicGroups){

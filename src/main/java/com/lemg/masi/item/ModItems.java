@@ -12,7 +12,7 @@ import net.minecraft.util.Rarity;
 
 public class ModItems {
     //Items
-    public static final Item MAGE_CERTIFICATE = registerItems("mage_certificate",new MageCertificate(new FabricItemSettings().rarity(Rarity.COMMON)));
+    public static final Item MAGE_CERTIFICATE = registerItems("mage_certificate",new MageCertificate(new FabricItemSettings().fireproof().rarity(Rarity.COMMON)));
     public static final Item STAFF = registerItems("staff",new Staff(new FabricItemSettings().maxDamage(64).rarity(Rarity.COMMON)));
     public static final Item MAGIC_SCROLL = registerItems("magic_scroll",new MagicScroll(new FabricItemSettings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ENERGY_BOTTLE = registerItems("energy_bottle",new EnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));

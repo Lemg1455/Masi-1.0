@@ -60,6 +60,7 @@ public class HealMagic extends Magic{
     public int studyNeed(){
         return 3;
     }
+
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         MinecraftClient client = MinecraftClient.getInstance();

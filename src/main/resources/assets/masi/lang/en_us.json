@@ -42,6 +42,9 @@
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
   "masi.panel.learned.message": "Already Learned",
-  "masi.scroll.fail.message": "Use Fail"
+  "masi.scroll.fail.message": "Use Fail",
+
+  "enchantment.masi.multiple_release": "Multiple Release",
+  "enchantment.masi.energy_conservation": "Energy Conservation"
 
 }

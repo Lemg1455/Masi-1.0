@@ -53,7 +53,9 @@ public abstract class Magic extends Item {
     public int studyNeed(){
         return 1;
     }
-
+    public boolean Multiple(){
+        return false;
+    }
 
     //魔法的描述
     @Override

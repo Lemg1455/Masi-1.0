@@ -40,27 +40,32 @@ public class FireBallMagic extends Magic{
     public int studyNeed(){
         return 3;
     }
+    @Override
+    public boolean Multiple(){
+        return true;
+    }
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
+            float f = user.getYaw();
+            float g = user.getPitch();
+            float h = -MathHelper.sin(f * ((float)Math.PI / 180)) * MathHelper.cos(g * ((float)Math.PI / 180));
+            float k = -MathHelper.sin(g * ((float)Math.PI / 180));
+            float l = MathHelper.cos(f * ((float)Math.PI / 180)) * MathHelper.cos(g * ((float)Math.PI / 180));
+            float m = MathHelper.sqrt(h * h + k * k + l * l);
+            float n = 3.0f * ((1.0f + (float)1) / 4.0f);
 
-        float f = user.getYaw();
-        float g = user.getPitch();
-        float h = -MathHelper.sin(f * ((float)Math.PI / 180)) * MathHelper.cos(g * ((float)Math.PI / 180));
-        float k = -MathHelper.sin(g * ((float)Math.PI / 180));
-        float l = MathHelper.cos(f * ((float)Math.PI / 180)) * MathHelper.cos(g * ((float)Math.PI / 180));
-        float m = MathHelper.sqrt(h * h + k * k + l * l);
-        float n = 3.0f * ((1.0f + (float)1) / 4.0f);
+            double yawRadians = Math.toRadians(user.getYaw()+90);
+            double forwardX = user.getX() + Math.cos(yawRadians) * 1;
+            double forwardZ = user.getZ() + Math.sin(yawRadians) * 1;
 
-        double yawRadians = Math.toRadians(user.getYaw()+90);
-        double forwardX = user.getX() + Math.cos(yawRadians) * 1;
-        double forwardZ = user.getZ() + Math.sin(yawRadians) * 1;
+            FireballEntity fireballEntity = new FireballEntity(world, user, h *= n / m, k *= n / m, l *= n / m, 1);
+            fireballEntity.setPosition(forwardX, user.getY()+2, forwardZ);
+            world.spawnEntity(fireballEntity);
 
-        FireballEntity fireballEntity = new FireballEntity(world, user, h *= n / m, k *= n / m, l *= n / m, 1);
-        fireballEntity.setPosition(forwardX, user.getY()+2, forwardZ);
-        world.spawnEntity(fireballEntity);
 
-        super.release(stack,world,user,singingTicks);
+
+
     }
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){

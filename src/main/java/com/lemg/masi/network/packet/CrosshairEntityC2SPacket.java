@@ -5,6 +5,7 @@ import com.lemg.masi.item.Magics.CreatingWaterMagic;
 import com.lemg.masi.item.Magics.HealMagic;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,7 @@ public class CrosshairEntityC2SPacket {
                 }
             }else if(itemStack.getItem() instanceof CreatingWaterMagic){
                 livingEntity.setAir(0);
+                livingEntity.getWorld().setBlockState(livingEntity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());
             }
         }
 

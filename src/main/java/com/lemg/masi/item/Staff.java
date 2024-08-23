@@ -1,5 +1,6 @@
 package com.lemg.masi.item;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.MasiClient;
 import com.lemg.masi.event.KeyInputHandler;
 import com.lemg.masi.item.Magics.Magic;
@@ -9,6 +10,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,7 +40,9 @@ public class Staff extends Item {
 
     public ItemStack magic = null;
     float singingTick = 0;
-
+    int timeOut = 0;
+    int time = 0;
+    private PlayerEntity playerEntity;
     public Staff(Settings settings) {
         super(settings);
     }
@@ -59,11 +64,27 @@ public class Staff extends Item {
 
         if(magic.getItem() instanceof Magic magic1){
             if((double) (singingTick) >= magic1.singFinishTick()){
+                //如果魔法可以响应多重释放的附魔
+                if(magic1.Multiple()){
+                    int j = EnchantmentHelper.getLevel(Masi.MULTIPLE_RELEASE, stack);
+                    this.timeOut = j*10;
+                    time = timeOut;
+                }
+
                 magic1.release(stack, world, user, magic1.singFinishTick());//释放的效果
+
                 //消耗魔力
                 if(!player.getAbilities().creativeMode){
                     if(world.isClient()){
-                        int energy = MagicUtil.ENERGY.get(player) - magic1.energyConsume();
+                        //节约魔力附魔，最高减少三分之一消耗
+                        int e = EnchantmentHelper.getLevel(Masi.ENERGY_CONSERVATION, stack);
+                        int energyConsume = magic1.energyConsume();
+                        if(e>0){
+                            energyConsume = (int)(energyConsume - (float)(energyConsume*e*(0.11)));
+                        }
+
+                        int energy = MagicUtil.ENERGY.get(player) - energyConsume;
+
                         MagicUtil.ENERGY.put(player,energy);
                         PacketByteBuf buf = PacketByteBufs.create();
                         buf.writeInt(0);
@@ -73,6 +94,7 @@ public class Staff extends Item {
                 }
             }
         }
+
         stack.damage(1, player, p -> p.sendToolBreakStatus(player.getActiveHand()));
         player.incrementStat(Stats.USED.getOrCreateStat(this));
     }
@@ -86,6 +108,7 @@ public class Staff extends Item {
             if(magic.getItem() instanceof Magic magic1){
                 if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
                     user.setCurrentHand(hand);
+                    playerEntity = user;
                     return TypedActionResult.consume(handStack);
                 }
             }
@@ -94,14 +117,23 @@ public class Staff extends Item {
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
-        if(entity instanceof PlayerEntity player){
-            if(player.isUsingItem() && player.getStackInHand(player.getActiveHand()).getItem() instanceof Staff && magic!=null) {
+        if(entity instanceof PlayerEntity player && player == playerEntity && magic!=null){
+            if(player.isUsingItem() && player.getStackInHand(player.getActiveHand()).getItem() instanceof Staff) {
                 if(magic.getItem() instanceof Magic magic1){
                     magic1.onSinging(stack,world,(LivingEntity)entity, singingTick);//咏唱开始之后，释放之前期间的效果
                 }
             }
+
+            if(time>=0){
+                time--;
+                if((timeOut-time)%10==0){
+                    ((Magic)magic.getItem()).release(stack, world, player, ((Magic)magic.getItem()).singFinishTick());
+                }
+            }
         }
     }
+
+
     @Override
     public int getMaxUseTime(ItemStack stack) {
         return 72000;
