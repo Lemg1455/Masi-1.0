@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "  B",
+    " A ",
+    "A  "
+  ],
+  "result": {
+    "item": "masi:staff"
+  },
+  "show_notification": true
+}

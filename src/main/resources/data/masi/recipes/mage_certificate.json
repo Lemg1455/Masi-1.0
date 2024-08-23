@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "AAA"
+  ],
+  "result": {
+    "item": "masi:mage_certificate"
+  },
+  "show_notification": true
+}

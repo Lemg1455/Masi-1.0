@@ -1,0 +1,50 @@
+{
+  "key.category.masi.masi": "魔法咏唱模组",
+  "key.masi.panel": "魔法界面",
+  "key.masi.change": "切换魔法",
+
+  "item.masi.magic.nbtstring1": "学习经验花费 : ",
+  "item.masi.magic.nbtstring2": "魔力消耗 : ",
+  "item.masi.magic.nbtstring3": "咏唱时间 : ",
+
+  "itemGroup.masi_group": "魔法咏唱物品组",
+  "magicGroup.elemental": "元素魔法",
+  "magicGroup.arcane": "奥术魔法",
+  "magicGroup.space": "空间魔法",
+  "magicGroup.misc": "杂项魔法",
+
+  "item.masi.staff": "法杖",
+  "item.masi.mage_certificate": "法师之证",
+  "item.masi.magic_scroll": "魔法卷轴",
+  "item.masi.energy_bottle": "回魔药剂",
+  "item.masi.max_energy_bottle": "魔源秘药",
+
+
+  "item.masi.fire_ball_magic": "火球术",
+  "item.masi.creating_water_magic": "生成水",
+  "item.masi.heal_magic": "治疗术",
+  "item.masi.flicker_magic": "闪烁",
+  "item.masi.random_magic": "随机魔法",
+  "item.masi.arcane_shield": "魔力护盾",
+
+  "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
+  "item.masi.mage_certificate.tooltip": "记录了一位法师的魔法之路，右键使用，切勿丢失",
+  "item.masi.magic_scroll.tooltip": "使用后,学会上面记载的魔法",
+  "item.masi.energy_bottle.tooltip": "使用后,补充一点魔力",
+  "item.masi.max_energy_bottle.tooltip": "使用后,永久增加魔力总量",
+
+
+  "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
+  "item.masi.creating_water_magic.tooltip": "吟唱0.5秒后生成水,近距离瞄准生物使用可使其窒息",
+  "item.masi.heal_magic.tooltip": "吟唱1秒后治疗面前的目标,若无目标则治疗自己",
+  "item.masi.flicker_magic.tooltip": "吟唱0.5秒后向面朝的方向闪烁",
+  "item.masi.random_magic.tooltip": "释放后,随机变成其他魔法。无论你是否学过",
+  "item.masi.arcane_shield_magic.tooltip": "获得魔力护盾,吸收伤害",
+
+
+
+  "masi.panel.exp.message": "经验不足，无法学习",
+  "masi.panel.learned.message": "已经学习",
+  "masi.scroll.fail.message": "使用失败"
+}
+

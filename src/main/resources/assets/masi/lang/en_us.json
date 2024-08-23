@@ -1,0 +1,47 @@
+{
+  "key.category.masi.masi": "Magical Singing Mod",
+  "key.masi.panel": "Magic Panel",
+  "key.masi.change": "Magic Change",
+
+  "item.masi.magic.nbtstring1": "ExperienceLevels Cost : ",
+  "item.masi.magic.nbtstring2": "EnergyConsume : ",
+  "item.masi.magic.nbtstring3": "SingFinishTick : ",
+
+  "itemGroup.masi_group": "Magic Singing Group",
+  "magicGroup.elemental": "Elemental Magic",
+  "magicGroup.arcane": "Arcane Magic",
+  "magicGroup.space": "Space Magic",
+  "magicGroup.misc": "Misc Magic",
+
+  "item.masi.staff": "Staff",
+  "item.masi.mage_certificate": "Mage Certificate",
+  "item.masi.magic_scroll": "Magic Scroll",
+  "item.masi.energy_bottle": "Energy Bottle",
+  "item.masi.max_energy_bottle": "Max Energy Bottle",
+
+  "item.masi.fire_ball_magic": "Fire Ball Magic",
+  "item.masi.creating_water_magic": "Creating Water Magic",
+  "item.masi.heal_magic": "Heal Magic",
+  "item.masi.flicker_magic": "Flicker Magic",
+  "item.masi.random_magic": "Random Magic",
+  "item.masi.arcane_shield": "Arcane Shield Magic",
+
+  "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
+  "item.masi.staff.tooltip": "Staff, right-click to chant magic",
+  "item.masi.magic_scroll.tooltip": "Learn a magic",
+  "item.masi.energy_bottle.tooltip": "Restore some magic after use",
+  "item.masi.max_energy_bottle.tooltip": "Improve max magic after use",
+
+
+  "item.masi.fire_ball_magic.tooltip": "Sing for 1 second and release fireball",
+  "item.masi.creating_water_magic.tooltip": "Sing for 0.5 second and put water,set target air -20 if use on LivingEntity",
+  "item.masi.heal_magic.tooltip": "Sing for 1 second and treat the goal in front of you, otherwise treat yourself",
+  "item.masi.flicker_magic.tooltip": "Sing for 1 second and tp to the position where you are looking",
+  "item.masi.random_magic.tooltip": "After release, it randomly changes to other magics, whether you have learned them",
+  "item.masi.arcane_shield_magic.tooltip": "Obtain a magic shield to counteract damage",
+
+  "masi.panel.exp.message": "Lack of experience, unable to learn",
+  "masi.panel.learned.message": "Already Learned",
+  "masi.scroll.fail.message": "Use Fail"
+
+}
