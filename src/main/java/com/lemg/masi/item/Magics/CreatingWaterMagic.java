@@ -82,17 +82,24 @@ public class CreatingWaterMagic extends Magic{
                 world.setBlockState(entity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());
             }
         }else if(Objects.requireNonNull(hit.getType()) == HitResult.Type.BLOCK){
-            BlockHitResult blockHit = (BlockHitResult) hit;
+            if(world.isClient()){
+                BlockHitResult blockHit = (BlockHitResult) hit;
 
-            BlockPos blockPos3;
-            BlockPos blockPos = blockHit.getBlockPos();
-            Direction direction = blockHit.getSide();
-            BlockPos blockPos2 = blockPos.offset(direction);
+                BlockPos blockPos3;
+                BlockPos blockPos = blockHit.getBlockPos();
+                Direction direction = blockHit.getSide();
+                BlockPos blockPos2 = blockPos.offset(direction);
 
-            if (!world.canPlayerModifyAt((PlayerEntity) user, blockPos) || !((PlayerEntity)user).canPlaceOn(blockPos2, direction, new ItemStack(Blocks.WATER))) {
-                return;
+                if (!world.canPlayerModifyAt((PlayerEntity) user, blockPos) || !((PlayerEntity)user).canPlaceOn(blockPos2, direction, new ItemStack(Blocks.WATER))) {
+                    return;
+                }
+                this.placeFluid((PlayerEntity) user, world, blockPos, blockHit);
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeItemStack(this.getDefaultStack());
+                buf.writeBlockHitResult(blockHit);
+                ClientPlayNetworking.send(ModMessage.CROSSHAIR_BLOCK_ID, buf);
             }
-            this.placeFluid((PlayerEntity) user, world, blockPos, blockHit);
         }else {
             world.setBlockState(user.getBlockPos(), Blocks.WATER.getDefaultState());
         }
