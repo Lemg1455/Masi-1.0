@@ -38,10 +38,11 @@ import java.util.List;
  */
 public class Staff extends Item {
 
-    public ItemStack magic = null;
-    float singingTick = 0;
-    int timeOut = 0;
-    int time = 0;
+    public ItemStack magic = null;//要咏唱的魔法
+    float singingTick = 0;//咏唱时间
+    int multiple_timeOut = 0;//多重施法的间隔
+    int multiple_time = 0;//多重施法的时间
+    int release_continue_time = 0;//魔法在释放后持续的时间，例如释放后持续一段时间造成伤害
     private PlayerEntity playerEntity;
     public Staff(Settings settings) {
         super(settings);
@@ -67,11 +68,14 @@ public class Staff extends Item {
                 //如果魔法可以响应多重释放的附魔
                 if(magic1.Multiple()){
                     int j = EnchantmentHelper.getLevel(Masi.MULTIPLE_RELEASE, stack);
-                    this.timeOut = j*10;
-                    time = timeOut;
+                    this.multiple_timeOut = j*10;
+                    multiple_time = multiple_timeOut;
                 }
-
-                magic1.release(stack, world, user, magic1.singFinishTick());//释放的效果
+                if(magic1.releaseContinueTime()>0){
+                    release_continue_time = magic1.releaseContinueTime();
+                }else {
+                    magic1.release(stack, world, user, magic1.singFinishTick());//释放的效果
+                }
 
                 //消耗魔力
                 if(!player.getAbilities().creativeMode){
@@ -102,14 +106,17 @@ public class Staff extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack handStack = user.getStackInHand(hand);
-        //当前选择的魔法，如果不为空，且魔力足够
-        magic = MagicNow(user);
-        if (magic!=null) {
-            if(magic.getItem() instanceof Magic magic1){
-                if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
-                    user.setCurrentHand(hand);
-                    playerEntity = user;
-                    return TypedActionResult.consume(handStack);
+        //如果上一个魔法已经释放完毕
+        if(release_continue_time==0 && multiple_time<=0){
+            //当前选择的魔法，如果不为空，且魔力足够
+            magic = MagicNow(user);
+            if (magic!=null) {
+                if(magic.getItem() instanceof Magic magic1){
+                    if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
+                        user.setCurrentHand(hand);
+                        playerEntity = user;
+                        return TypedActionResult.consume(handStack);
+                    }
                 }
             }
         }
@@ -124,9 +131,15 @@ public class Staff extends Item {
                 }
             }
 
-            if(time>=0){
-                time--;
-                if((timeOut-time)%10==0){
+            if(release_continue_time>0){
+                ((Magic)magic.getItem()).release(stack, world, player, release_continue_time);
+                release_continue_time--;
+            }
+
+            //多重释放的次数和每次的时间间隔，如果想实现释放后，会持续一段时间的魔法的多重释放，在魔法的类中单独写
+            if(multiple_time>=0){
+                multiple_time--;
+                if((multiple_timeOut-multiple_time)%10==0){
                     ((Magic)magic.getItem()).release(stack, world, player, ((Magic)magic.getItem()).singFinishTick());
                 }
             }

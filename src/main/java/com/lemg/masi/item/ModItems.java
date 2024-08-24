@@ -27,9 +27,11 @@ public class ModItems {
     public static final Item ARCANE_SHIELD_MAGIC = registerItems("arcane_shield",new ArcaneShieldMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.COMMON)));
     public static final Item RANDOM_MAGIC = registerItems("random_magic",new RandomMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LIGHTNING_MAGIC = registerItems("lightning_magic",new LightningMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item ARCANE_MISSILE_MAGIC = registerItems("arcane_missile_magic",new ArcaneMissileMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     //Bullets
     public static final Item LIGHTNING_BULLET = registerItems("lightning_bullet",new Item(new FabricItemSettings().maxDamage(64)));
+    public static final Item ARCANE_BULLET = registerItems("arcane_bullet",new Item(new FabricItemSettings().maxDamage(64)));
 
     private static Item registerItems(String name,Item item){
         return Registry.register(Registries.ITEM,new Identifier(Masi.MOD_ID,name),item);

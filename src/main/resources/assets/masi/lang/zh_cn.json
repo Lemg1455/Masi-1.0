@@ -27,6 +27,8 @@
   "item.masi.random_magic": "随机魔法",
   "item.masi.arcane_shield": "魔力护盾",
   "item.masi.lightning_magic": "召雷术",
+  "item.masi.arcane_missile_magic": "奥术飞弹",
+
 
   "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
   "item.masi.mage_certificate.tooltip": "记录了一位法师的魔法之路，右键使用，切勿丢失",
@@ -42,7 +44,7 @@
   "item.masi.random_magic.tooltip": "释放后,随机变成其他魔法。无论你是否学过",
   "item.masi.arcane_shield_magic.tooltip": "释放后获得魔力护盾,吸收伤害",
   "item.masi.lightning_magic.tooltip": "释放后发射引导，碰撞后降下闪电",
-
+  "item.masi.arcane_missile_magic.tooltip": "释放飞弹攻击20*20*20范围内的目标，魔力总量越高，伤害越高",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

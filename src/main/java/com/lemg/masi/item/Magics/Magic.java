@@ -38,7 +38,12 @@ public abstract class Magic extends Item {
 
     //魔法咏唱中，释放前的效果
     public void onSinging(ItemStack staffStack, World world, LivingEntity user, float singingTicks){
-
+        if(!user.getWorld().isClient()){
+            MagicUtil.circleGround(0,user);
+            if(user.getItemUseTime() >= singFinishTick()){
+                MagicUtil.circleForward(1,user);
+            }
+        }
     }
 
     public void BulletEffect(HitResult hitResult, PlayerEntity player, MagicBulletEntity magicBullet){
@@ -58,8 +63,15 @@ public abstract class Magic extends Item {
     public int studyNeed(){
         return 1;
     }
+
+    //是否具有多重释放的附魔效果
     public boolean Multiple(){
         return false;
+    }
+
+    //如果魔法在释放后会持续一段时间，此为持续的时间
+    public int releaseContinueTime(){
+        return 0;
     }
 
         //魔法的描述

@@ -99,12 +99,7 @@ public class HealMagic extends Magic{
     }
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(0,user);
-            if(user.getItemUseTime() >= singFinishTick()){
-                MagicUtil.circleForward(1,user);
-            }
-        }
+        super.onSinging(stack,world,user,singingTicks);
     }
 
 

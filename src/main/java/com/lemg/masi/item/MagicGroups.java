@@ -16,7 +16,7 @@ public class MagicGroups {
         List<Item> items = Arrays.asList(ModItems.FIRE_BALL_MAGIC,ModItems.CREATING_WATER_MAGIC,ModItems.HEAL_MAGIC,ModItems.LIGHTNING_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.elemental"),0,0,ModItems.FIRE_BALL_MAGIC.getDefaultStack());
 
-        items = Arrays.asList(ModItems.ARCANE_SHIELD_MAGIC);
+        items = Arrays.asList(ModItems.ARCANE_SHIELD_MAGIC, ModItems.ARCANE_MISSILE_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.arcane"),0,1,ModItems.ARCANE_SHIELD_MAGIC.getDefaultStack());
 
         items = Arrays.asList(ModItems.FLICKER_MAGIC);

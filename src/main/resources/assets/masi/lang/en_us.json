@@ -26,6 +26,7 @@
   "item.masi.random_magic": "Random Magic",
   "item.masi.arcane_shield": "Arcane Shield Magic",
   "item.masi.lightning_magic": "Lightning Magic",
+  "item.masi.arcane_missile_magic": "Arcane Missile Magic",
 
   "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
   "item.masi.staff.tooltip": "Staff, right-click to chant magic",
@@ -41,6 +42,7 @@
   "item.masi.random_magic.tooltip": "After release, it randomly changes to other magics, whether you have learned them",
   "item.masi.arcane_shield_magic.tooltip": "Obtain a magic shield to counteract damage",
   "item.masi.lightning_magic.tooltip": "Launch an electric ball, collide and drop lightning",
+  "item.masi.arcane_missile_magic.tooltip": "Release missiles to attack targets within a range of 20 * 20 * 20. The higher the total magic, the greater the damage",
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
   "masi.panel.learned.message": "Already Learned",
