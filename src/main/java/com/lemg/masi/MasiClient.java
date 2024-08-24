@@ -1,5 +1,6 @@
 package com.lemg.masi;
 
+
 import com.lemg.masi.event.KeyInputHandler;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.Staff;
@@ -9,6 +10,7 @@ import com.lemg.masi.particles.Circle_Ground_Particle;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -36,6 +38,8 @@ public class MasiClient implements ClientModInitializer  {
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_BLUE, Circle_Ground_Particle.Factory::new);
+
+
 
     }
     private void renderBar(DrawContext context, float tickDelta) {

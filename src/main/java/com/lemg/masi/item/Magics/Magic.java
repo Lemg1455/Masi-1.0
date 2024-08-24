@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.entity.MagicBulletEntity;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
 import it.unimi.dsi.fastutil.io.TextIO;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +41,9 @@ public abstract class Magic extends Item {
 
     }
 
+    public void BulletEffect(HitResult hitResult, PlayerEntity player, MagicBulletEntity magicBullet){
+
+    }
     //需要咏唱的时间
     public int singFinishTick(){
         return 60;
@@ -57,7 +62,7 @@ public abstract class Magic extends Item {
         return false;
     }
 
-    //魔法的描述
+        //魔法的描述
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.literal(Text.translatable("item.masi.magic.nbtstring1").getString() + studyNeed()));

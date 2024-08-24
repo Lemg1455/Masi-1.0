@@ -18,6 +18,7 @@ public class ModItems {
     public static final Item ENERGY_BOTTLE = registerItems("energy_bottle",new EnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
     public static final Item MAX_ENERGY_BOTTLE = registerItems("max_energy_bottle",new MaxEnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
 
+
     //Magics
     public static final Item FIRE_BALL_MAGIC = registerItems("fire_ball_magic",new FireBallMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.COMMON)));
     public static final Item CREATING_WATER_MAGIC = registerItems("creating_water_magic",new CreatingWaterMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.COMMON)));
@@ -25,6 +26,10 @@ public class ModItems {
     public static final Item FLICKER_MAGIC = registerItems("flicker_magic",new FlickerMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.COMMON)));
     public static final Item ARCANE_SHIELD_MAGIC = registerItems("arcane_shield",new ArcaneShieldMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.COMMON)));
     public static final Item RANDOM_MAGIC = registerItems("random_magic",new RandomMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item LIGHTNING_MAGIC = registerItems("lightning_magic",new LightningMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+    //Bullets
+    public static final Item LIGHTNING_BULLET = registerItems("lightning_bullet",new Item(new FabricItemSettings().maxDamage(64)));
 
     private static Item registerItems(String name,Item item){
         return Registry.register(Registries.ITEM,new Identifier(Masi.MOD_ID,name),item);

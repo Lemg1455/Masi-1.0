@@ -26,6 +26,7 @@
   "item.masi.flicker_magic": "闪烁",
   "item.masi.random_magic": "随机魔法",
   "item.masi.arcane_shield": "魔力护盾",
+  "item.masi.lightning_magic": "召雷术",
 
   "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
   "item.masi.mage_certificate.tooltip": "记录了一位法师的魔法之路，右键使用，切勿丢失",
@@ -39,7 +40,8 @@
   "item.masi.heal_magic.tooltip": "吟唱1秒后治疗面前的目标,若无目标则治疗自己",
   "item.masi.flicker_magic.tooltip": "吟唱0.5秒后向面朝的方向闪烁",
   "item.masi.random_magic.tooltip": "释放后,随机变成其他魔法。无论你是否学过",
-  "item.masi.arcane_shield_magic.tooltip": "获得魔力护盾,吸收伤害",
+  "item.masi.arcane_shield_magic.tooltip": "释放后获得魔力护盾,吸收伤害",
+  "item.masi.lightning_magic.tooltip": "释放后发射引导，碰撞后降下闪电",
 
 
 

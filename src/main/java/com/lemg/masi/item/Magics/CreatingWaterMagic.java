@@ -101,7 +101,7 @@ public class CreatingWaterMagic extends Magic{
                 ClientPlayNetworking.send(ModMessage.CROSSHAIR_BLOCK_ID, buf);
             }
         }else {
-            world.setBlockState(user.getBlockPos(), Blocks.WATER.getDefaultState());
+            //world.setBlockState(user.getBlockPos(), Blocks.WATER.getDefaultState());
         }
 
         super.release(stack,world,user,singingTicks);

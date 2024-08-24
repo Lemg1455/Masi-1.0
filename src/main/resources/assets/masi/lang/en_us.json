@@ -25,6 +25,7 @@
   "item.masi.flicker_magic": "Flicker Magic",
   "item.masi.random_magic": "Random Magic",
   "item.masi.arcane_shield": "Arcane Shield Magic",
+  "item.masi.lightning_magic": "Lightning Magic",
 
   "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
   "item.masi.staff.tooltip": "Staff, right-click to chant magic",
@@ -39,6 +40,7 @@
   "item.masi.flicker_magic.tooltip": "Sing for 1 second and tp to the position where you are looking",
   "item.masi.random_magic.tooltip": "After release, it randomly changes to other magics, whether you have learned them",
   "item.masi.arcane_shield_magic.tooltip": "Obtain a magic shield to counteract damage",
+  "item.masi.lightning_magic.tooltip": "Launch an electric ball, collide and drop lightning",
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
   "masi.panel.learned.message": "Already Learned",
