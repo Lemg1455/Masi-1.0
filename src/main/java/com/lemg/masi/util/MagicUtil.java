@@ -26,6 +26,11 @@ public class MagicUtil {
     public static final Map<PlayerEntity, Integer> ENERGY = new HashMap<>();//当前魔力
     public static final Map<PlayerEntity, Integer> ENERGY_RESTORED = new HashMap<>();//每1秒的魔力回复
     public static final Map<PlayerEntity, Integer> MAGIC_CHOOSE = new HashMap<>();//当前选择的魔法
+    public static final Map<PlayerEntity, List<Object>> TIME_REQUIRED = new HashMap<>();//魔法释放后持续的时间，如果它是持续攻击的话
+
+    //如果你希望魔法的效果不是立即生效的，或者应该生效一段时间的，Map<释放者，Map<目标，Map<魔法，持续的时间>>>
+    public static final Map<PlayerEntity, Map<Object,Map<Magic,Integer>>> EFFECT = new HashMap<>();
+
     public static final Map<PlayerEntity, List<ItemStack>> LEARNED_MAGICS = new HashMap<>();//已经学会的魔法
     public static final Map<PlayerEntity, List<ItemStack>> EQUIP_MAGICS = new HashMap<>();//装备在快捷栏的魔法
 

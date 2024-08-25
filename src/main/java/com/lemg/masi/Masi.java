@@ -33,8 +33,42 @@ public class Masi implements ModInitializer {
 
 	public static final String MOD_ID = "masi";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
 	public static final DefaultParticleType CIRCLE_FORWARD_BLUE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_BLUE = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType CIRCLE_GROUND_BLUE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_BLUE = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_BLACK = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_BLACK = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_BLACK = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_BLACK = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_GREEN = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_GREEN = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_GREEN = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_GREEN = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_PURPLE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_PURPLE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_PURPLE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_PURPLE = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_RED = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_RED = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_RED = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_RED = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_WHITE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_WHITE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_WHITE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_WHITE = FabricParticleTypes.simple(true);
+
+	public static final DefaultParticleType CIRCLE_FORWARD_YELLOW = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_YELLOW = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType CIRCLE_GROUND_YELLOW = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType LARGE_CIRCLE_GROUND_YELLOW = FabricParticleTypes.simple(true);
+
 	public static Enchantment MULTIPLE_RELEASE = new MultipleReleaseEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND);
 	public static Enchantment ENERGY_CONSERVATION = new EnergyConservationEnchantment(Enchantment.Rarity.UNCOMMON, EquipmentSlot.MAINHAND);
 
@@ -49,7 +83,39 @@ public class Masi implements ModInitializer {
 		MagicGroups.registryMagicGroups();
 
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_blue"), CIRCLE_FORWARD_BLUE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_blue"), LARGE_CIRCLE_FORWARD_BLUE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_blue"), CIRCLE_GROUND_BLUE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_blue"), LARGE_CIRCLE_GROUND_BLUE);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_black"), CIRCLE_FORWARD_BLACK);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_black"), LARGE_CIRCLE_FORWARD_BLACK);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_black"), CIRCLE_GROUND_BLACK);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_black"), LARGE_CIRCLE_GROUND_BLACK);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_white"), CIRCLE_FORWARD_WHITE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_white"), LARGE_CIRCLE_FORWARD_WHITE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_white"), CIRCLE_GROUND_WHITE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_white"), LARGE_CIRCLE_GROUND_WHITE);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_red"), CIRCLE_FORWARD_RED);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_red"), LARGE_CIRCLE_FORWARD_RED);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_red"), CIRCLE_GROUND_RED);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_red"), LARGE_CIRCLE_GROUND_RED);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_green"), CIRCLE_FORWARD_GREEN);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_green"), LARGE_CIRCLE_FORWARD_GREEN);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_green"), CIRCLE_GROUND_GREEN);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_green"), LARGE_CIRCLE_GROUND_GREEN);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_yellow"), CIRCLE_FORWARD_YELLOW);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_yellow"), LARGE_CIRCLE_FORWARD_YELLOW);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_yellow"), CIRCLE_GROUND_YELLOW);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_yellow"), LARGE_CIRCLE_GROUND_YELLOW);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_forward_purple"), CIRCLE_FORWARD_PURPLE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_purple"), LARGE_CIRCLE_FORWARD_PURPLE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_purple"), CIRCLE_GROUND_PURPLE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_purple"), LARGE_CIRCLE_GROUND_PURPLE);
 
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "multiple_release"),MULTIPLE_RELEASE);
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "energy_conservation"),ENERGY_CONSERVATION);

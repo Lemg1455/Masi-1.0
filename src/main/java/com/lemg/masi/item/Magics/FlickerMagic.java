@@ -70,7 +70,7 @@ public class FlickerMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(0,user);
+            MagicUtil.circleGround(8,user);
             if(user.getItemUseTime() >= singFinishTick()){
                 float yaw = user.getYaw();
                 float pitch = user.getPitch();
@@ -79,7 +79,7 @@ public class FlickerMagic extends Magic{
                 float hh = MathHelper.cos(yaw * ((float)Math.PI / 180)) * MathHelper.cos(pitch * ((float)Math.PI / 180));
 
                 PacketByteBuf buf2 = PacketByteBufs.create();
-                buf2.writeInt(1);
+                buf2.writeInt(9);
                 buf2.writeDouble(user.getX()+ff*15);
                 buf2.writeDouble(user.getY()+gg*15);
                 buf2.writeDouble(user.getZ()+hh*15);

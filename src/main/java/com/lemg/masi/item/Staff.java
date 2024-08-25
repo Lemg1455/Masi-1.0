@@ -31,18 +31,16 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 /**
  *法杖
  */
 public class Staff extends Item {
 
     public ItemStack magic = null;//要咏唱的魔法
-    float singingTick = 0;//咏唱时间
-    int multiple_timeOut = 0;//多重施法的间隔
-    int multiple_time = 0;//多重施法的时间
-    int release_continue_time = 0;//魔法在释放后持续的时间，例如释放后持续一段时间造成伤害
+    public float singingTick = 0;//咏唱时间
+    public int release_continue_time = 0;//魔法在释放后持续的时间，例如释放后持续一段时间造成伤害
     private PlayerEntity playerEntity;
     public Staff(Settings settings) {
         super(settings);
@@ -65,14 +63,17 @@ public class Staff extends Item {
 
         if(magic.getItem() instanceof Magic magic1){
             if((double) (singingTick) >= magic1.singFinishTick()){
+
                 //如果魔法可以响应多重释放的附魔
                 if(magic1.Multiple()){
                     int j = EnchantmentHelper.getLevel(Masi.MULTIPLE_RELEASE, stack);
-                    this.multiple_timeOut = j*10;
-                    multiple_time = multiple_timeOut;
+                    List<Object> list = Arrays.asList(magic1, j * 10);
+                    MagicUtil.TIME_REQUIRED.put(player,list);
                 }
-                if(magic1.releaseContinueTime()>0){
-                    release_continue_time = magic1.releaseContinueTime();
+                //如果魔法释放后持续一段时间，与多重释放冲突
+                else if(magic1.releaseContinueTime()>0){
+                    List<Object> list = Arrays.asList(magic1, magic1.releaseContinueTime());
+                    MagicUtil.TIME_REQUIRED.put(player,list);
                 }else {
                     magic1.release(stack, world, user, magic1.singFinishTick());//释放的效果
                 }
@@ -107,19 +108,21 @@ public class Staff extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack handStack = user.getStackInHand(hand);
         //如果上一个魔法已经释放完毕
-        if(release_continue_time==0 && multiple_time<=0){
-            //当前选择的魔法，如果不为空，且魔力足够
-            magic = MagicNow(user);
-            if (magic!=null) {
-                if(magic.getItem() instanceof Magic magic1){
-                    if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
-                        user.setCurrentHand(hand);
-                        playerEntity = user;
-                        return TypedActionResult.consume(handStack);
-                    }
+        if(MagicUtil.TIME_REQUIRED.get(user)!=null && (int)MagicUtil.TIME_REQUIRED.get(user).get(1)>=0){
+            return TypedActionResult.fail(handStack);
+        }
+        //当前选择的魔法，如果不为空，且魔力足够
+        magic = MagicNow(user);
+        if (magic!=null) {
+            if(magic.getItem() instanceof Magic magic1){
+                if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
+                    user.setCurrentHand(hand);
+                    playerEntity = user;
+                    return TypedActionResult.consume(handStack);
                 }
             }
         }
+
         return TypedActionResult.fail(handStack);
     }
 
@@ -128,19 +131,6 @@ public class Staff extends Item {
             if(player.isUsingItem() && player.getStackInHand(player.getActiveHand()).getItem() instanceof Staff) {
                 if(magic.getItem() instanceof Magic magic1){
                     magic1.onSinging(stack,world,(LivingEntity)entity, singingTick);//咏唱开始之后，释放之前期间的效果
-                }
-            }
-
-            if(release_continue_time>0){
-                ((Magic)magic.getItem()).release(stack, world, player, release_continue_time);
-                release_continue_time--;
-            }
-
-            //多重释放的次数和每次的时间间隔，如果想实现释放后，会持续一段时间的魔法的多重释放，在魔法的类中单独写
-            if(multiple_time>=0){
-                multiple_time--;
-                if((multiple_timeOut-multiple_time)%10==0){
-                    ((Magic)magic.getItem()).release(stack, world, player, ((Magic)magic.getItem()).singFinishTick());
                 }
             }
         }

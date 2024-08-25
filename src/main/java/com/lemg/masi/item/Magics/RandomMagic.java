@@ -54,7 +54,12 @@ public class RandomMagic extends Magic{
     }
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        super.onSinging(stack,world,user,singingTicks);
+        if(!user.getWorld().isClient()){
+            MagicUtil.circleGround(4,user);
+            if(user.getItemUseTime() >= singFinishTick()){
+                MagicUtil.circleForward(5,user);
+            }
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.lemg.masi.item;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.event.KeyInputHandler;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.network.ModMessage;

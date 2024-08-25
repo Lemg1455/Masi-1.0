@@ -15,13 +15,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MasiClient implements ClientModInitializer  {
@@ -37,9 +42,39 @@ public class MasiClient implements ClientModInitializer  {
         ModMessage.registerS2CPackets();
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.LargeFactory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_BLUE, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_BLUE, Circle_Ground_Particle.LargeFactory::new);
 
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLACK, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLACK, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_BLACK, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_BLACK, Circle_Ground_Particle.LargeFactory::new);
 
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_RED, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_RED, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_RED, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_RED, Circle_Ground_Particle.LargeFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_GREEN, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_GREEN, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_GREEN, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_GREEN, Circle_Ground_Particle.LargeFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_YELLOW, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_YELLOW, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_YELLOW, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_YELLOW, Circle_Ground_Particle.LargeFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_PURPLE, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_PURPLE, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_PURPLE, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_PURPLE, Circle_Ground_Particle.LargeFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_WHITE, Circle_Forward_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_WHITE, Circle_Forward_Particle.LargeFactory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_WHITE, Circle_Ground_Particle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_WHITE, Circle_Ground_Particle.LargeFactory::new);
 
     }
     private void renderBar(DrawContext context, float tickDelta) {

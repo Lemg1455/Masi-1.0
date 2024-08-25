@@ -15,6 +15,7 @@ public class ModMessage {
     public static final Identifier MAGIC_CHOOSE_ID = new Identifier(Masi.MOD_ID,"magic_choose");//选择魔法同步
     public static final Identifier CROSSHAIR_ENTITY_ID = new Identifier(Masi.MOD_ID,"crosshair_entity");//获取指向生物
     public static final Identifier CROSSHAIR_BLOCK_ID = new Identifier(Masi.MOD_ID,"crosshair_block");//获取指向方块
+    public static final Identifier TIME_REQUIRED_ID = new Identifier(Masi.MOD_ID,"time_required");//获取指向方块
 
     public static void registerC2SPackets(){
         ServerPlayNetworking.registerGlobalReceiver(ADD_PARTICLE_ID, AddParticleC2SPacket::receive);
@@ -29,6 +30,7 @@ public class ModMessage {
     public static void registerS2CPackets(){
         ClientPlayNetworking.registerGlobalReceiver(ADD_PARTICLE_ID, AddParticleS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(ENERGY_UPDATE_ID, EnergyUpdateS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(TIME_REQUIRED_ID, TimeRequiredS2CPacket::receive);
 
     }
 }

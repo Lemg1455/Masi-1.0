@@ -134,9 +134,9 @@ public class MagicPanelScreen
                                 buf.writeInt(magic.studyNeed());
                                 ClientPlayNetworking.send(ModMessage.LEARNED_MAGICS_ID, buf);
 
-                                client.player.sendMessage(Text.translatable("masi.panel.learned.message"));
+                                client.player.sendMessage(Text.translatable("masi.panel.learned.message"),true);
                             }else {
-                                client.player.sendMessage(Text.translatable("masi.panel.exp.message"));
+                                client.player.sendMessage(Text.translatable("masi.panel.exp.message"),true);
                             }
                             return;
                         }

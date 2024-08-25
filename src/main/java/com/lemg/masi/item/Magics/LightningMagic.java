@@ -69,7 +69,12 @@ public class LightningMagic extends Magic{
     }
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        super.onSinging(stack,world,user,singingTicks);
+        if(!user.getWorld().isClient()){
+            MagicUtil.circleGround(24,user);
+            if(user.getItemUseTime() >= singFinishTick()){
+                MagicUtil.circleForward(25,user);
+            }
+        }
     }
     @Override
     public void BulletEffect(HitResult hitResult, PlayerEntity player,MagicBulletEntity magicBullet){
