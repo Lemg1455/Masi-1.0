@@ -1,7 +1,8 @@
 {
   "key.category.masi.masi": "魔法咏唱模组",
   "key.masi.panel": "魔法界面",
-  "key.masi.change": "切换魔法",
+  "key.masi.change": "切换下一个魔法",
+  "key.masi.change_left": "切换上一个魔法",
 
   "item.masi.magic.nbtstring1": "学习经验花费 : ",
   "item.masi.magic.nbtstring2": "魔力消耗 : ",
@@ -18,6 +19,16 @@
   "item.masi.magic_scroll": "魔法卷轴",
   "item.masi.energy_bottle": "回魔药剂",
   "item.masi.max_energy_bottle": "魔源秘药",
+  "item.masi.trial_card": "传奇法师巅峰体验卡",
+
+
+  "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
+  "item.masi.mage_certificate.tooltip": "一位法师的魔法凭证，右键使用打开面板，放在背包中缓慢恢复魔力，记录个人信息",
+  "item.masi.magic_scroll.tooltip": "使用后,学会上面记载的魔法",
+  "item.masi.energy_bottle.tooltip": "使用后,补充一点魔力",
+  "item.masi.max_energy_bottle.tooltip": "使用后,永久增加魔力总量",
+  "item.masi.trial_card.tooltip": "传奇法师巅峰体验卡，使用后一分钟内魔法瞬发，无限魔力(别点太快,会崩)",
+
 
 
   "item.masi.fire_ball_magic": "火球术",
@@ -28,14 +39,8 @@
   "item.masi.arcane_shield": "魔力护盾",
   "item.masi.lightning_magic": "召雷术",
   "item.masi.arcane_missile_magic": "奥术飞弹",
-
-
-  "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
-  "item.masi.mage_certificate.tooltip": "记录了一位法师的魔法之路，右键使用，切勿丢失",
-  "item.masi.magic_scroll.tooltip": "使用后,学会上面记载的魔法",
-  "item.masi.energy_bottle.tooltip": "使用后,补充一点魔力",
-  "item.masi.max_energy_bottle.tooltip": "使用后,永久增加魔力总量",
-
+  "item.masi.gain_circle_magic": "增益法阵",
+  "item.masi.fly_magic": "滞空术",
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
   "item.masi.creating_water_magic.tooltip": "吟唱0.5秒后生成水,近距离瞄准生物使用可使其窒息",
@@ -45,6 +50,8 @@
   "item.masi.arcane_shield_magic.tooltip": "释放后获得魔力护盾,吸收伤害",
   "item.masi.lightning_magic.tooltip": "释放后发射引导，碰撞后降下闪电",
   "item.masi.arcane_missile_magic.tooltip": "释放飞弹攻击20*20*20范围内的目标，魔力总量越高，伤害越高",
+  "item.masi.gain_circle_magic.tooltip": "在脚下布置增益法阵,持续10秒,赋予其中玩家五种增益效果30秒",
+  "item.masi.fly_magic.tooltip": "持续消耗魔力，提供升力托举自己",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

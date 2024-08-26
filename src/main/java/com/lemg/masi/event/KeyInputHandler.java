@@ -19,9 +19,9 @@ import java.util.List;
 public final class KeyInputHandler {
     public static final String KEY_CATEGORY_MASI = "key.category.masi.masi";
 
-    public static final String KEY_PANEL = "key.masi.panel";
+    public static final String KEY_CHANGE_LEFT = "key.masi.change_left";
     public static final String KEY_CHANGE = "key.masi.change";
-    public static KeyBinding panel;
+    public static KeyBinding change_left;
     public static KeyBinding change;
     public static int solt = 0;
 
@@ -51,6 +51,28 @@ public final class KeyInputHandler {
                         buf.writeInt(solt);
                         ClientPlayNetworking.send(ModMessage.MAGIC_CHOOSE_ID, buf);
                     }
+                }else if(change_left.wasPressed()) {
+                    if(MagicUtil.MAGIC_CHOOSE.get(client.player)!=null){
+                        solt = MagicUtil.MAGIC_CHOOSE.get(client.player);
+                        solt--;
+                        List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(client.player);
+
+                        List<ItemStack> stacks = new ArrayList<>();
+                        if(equip_magics!=null){
+                            for(ItemStack itemStack : equip_magics){
+                                if(!itemStack.isEmpty()){
+                                    stacks.add(itemStack);
+                                }
+                            }
+                        }
+
+                        if(solt<0){solt=stacks.size()-1;}
+                        MagicUtil.MAGIC_CHOOSE.put(client.player,solt);
+
+                        PacketByteBuf buf = PacketByteBufs.create();
+                        buf.writeInt(solt);
+                        ClientPlayNetworking.send(ModMessage.MAGIC_CHOOSE_ID, buf);
+                    }
                 }
             }
         });
@@ -63,7 +85,12 @@ public final class KeyInputHandler {
                 GLFW.GLFW_KEY_R,
                 KEY_CATEGORY_MASI
         ));
-
+        change_left = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                KEY_CHANGE_LEFT,
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_Z,
+                KEY_CATEGORY_MASI
+        ));
         registerKeyInputs();
     }
 }

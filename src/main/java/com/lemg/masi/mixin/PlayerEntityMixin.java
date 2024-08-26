@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
@@ -41,7 +43,6 @@ public abstract class PlayerEntityMixin {
 
 	@Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo ci) {
-		this.sendMessage(Text.literal(String.valueOf(MagicUtil.TIME_REQUIRED.get(this))),true);
 		PlayerEntity player = ((PlayerEntity)(Object)this);
 		if(!player.getWorld().isClient()){
 			//如果魔法在释放后持续攻击，减少持续时间
@@ -56,9 +57,7 @@ public abstract class PlayerEntityMixin {
 						magic.release(player.getStackInHand(Hand.MAIN_HAND), player.getWorld(), player, time_required);
 						//多重释放
 					}else if(magic.Multiple()){
-						System.out.println(time_required);
 						if(time_required%10==0){
-
 							magic.release(player.getStackInHand(Hand.MAIN_HAND), player.getWorld(), player, magic.singFinishTick());
 						}
 					}
@@ -69,7 +68,7 @@ public abstract class PlayerEntityMixin {
 				}
 
 				if(!(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff)){
-					time_required=0;
+					time_required=-1;
 				}
 				list.set(1,time_required);
 				MagicUtil.TIME_REQUIRED.put(((PlayerEntity)(Object)this),list);
@@ -81,10 +80,10 @@ public abstract class PlayerEntityMixin {
 
 			//玩家赋予给目标的魔法效果
 			if(MagicUtil.EFFECT.get(this)!=null){
-				Map<Object, Map<Magic,Integer>> map2 = MagicUtil.EFFECT.get(this);
+				ConcurrentHashMap<Object, ConcurrentHashMap<Magic,Integer>> map2 = MagicUtil.EFFECT.get(this);
 				//目标以及它身上的效果
 				for(Object object : map2.keySet()){
-					Map<Magic,Integer> map1 = map2.get(object);
+					ConcurrentHashMap<Magic,Integer> map1 = map2.get(object);
 					//每种效果以及它对应的时间
 					for(Magic magic : map1.keySet()){
 						int time = map1.get(magic);
@@ -111,5 +110,16 @@ public abstract class PlayerEntityMixin {
 				}
 			}
 		}
+
+
+		ItemStack magic = MagicUtil.MagicNow(player);
+		if(magic!=null){
+			if(player.isUsingItem() && player.getStackInHand(player.getActiveHand()).getItem() instanceof Staff) {
+				if(magic.getItem() instanceof Magic magic1){
+					magic1.onSinging(player.getStackInHand(player.getActiveHand()),player.getWorld(),player, player.getItemUseTime());//咏唱开始之后，释放之前期间的效果
+				}
+			}
+		}
+
 	}
 }

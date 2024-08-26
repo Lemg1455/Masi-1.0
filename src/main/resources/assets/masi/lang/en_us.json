@@ -1,7 +1,8 @@
 {
   "key.category.masi.masi": "Magical Singing Mod",
   "key.masi.panel": "Magic Panel",
-  "key.masi.change": "Magic Change",
+  "key.masi.change": "Change Next Magic",
+  "key.masi.change_left": "Change After Magic",
 
   "item.masi.magic.nbtstring1": "ExperienceLevels Cost : ",
   "item.masi.magic.nbtstring2": "EnergyConsume : ",
@@ -18,6 +19,15 @@
   "item.masi.magic_scroll": "Magic Scroll",
   "item.masi.energy_bottle": "Energy Bottle",
   "item.masi.max_energy_bottle": "Max Energy Bottle",
+  "item.masi.trial_card": "Trial Card",
+
+  "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
+  "item.masi.staff.tooltip": "Staff, right-click to chant magic",
+  "item.masi.magic_scroll.tooltip": "Learn a magic",
+  "item.masi.energy_bottle.tooltip": "Restore some magic after use",
+  "item.masi.max_energy_bottle.tooltip": "Improve max magic after use",
+  "item.masi.trial_card.tooltip": "Legendary Mage Peak Experience Card, instantly unleashes magic within one minute of use, unlimited magic power",
+
 
   "item.masi.fire_ball_magic": "Fire Ball Magic",
   "item.masi.creating_water_magic": "Creating Water Magic",
@@ -27,12 +37,8 @@
   "item.masi.arcane_shield": "Arcane Shield Magic",
   "item.masi.lightning_magic": "Lightning Magic",
   "item.masi.arcane_missile_magic": "Arcane Missile Magic",
-
-  "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
-  "item.masi.staff.tooltip": "Staff, right-click to chant magic",
-  "item.masi.magic_scroll.tooltip": "Learn a magic",
-  "item.masi.energy_bottle.tooltip": "Restore some magic after use",
-  "item.masi.max_energy_bottle.tooltip": "Improve max magic after use",
+  "item.masi.gain_circle_magic": "Gain Circle Magic",
+  "item.masi.fly_magic": "Fly Magic",
 
 
   "item.masi.fire_ball_magic.tooltip": "Sing for 1 second and release fireball",
@@ -43,6 +49,8 @@
   "item.masi.arcane_shield_magic.tooltip": "Obtain a magic shield to counteract damage",
   "item.masi.lightning_magic.tooltip": "Launch an electric ball, collide and drop lightning",
   "item.masi.arcane_missile_magic.tooltip": "Release missiles to attack targets within a range of 20 * 20 * 20. The higher the total magic, the greater the damage",
+  "item.masi.gain_circle_magic.tooltip": "Set up a 10 second magic formation under your feet and give beneficial StatusEffects to the players inside",
+  "item.masi.fly_magic.tooltip": "Continuously consuming magic, providing lift to lift oneself",
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
   "masi.panel.learned.message": "Already Learned",

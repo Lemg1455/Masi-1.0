@@ -47,7 +47,7 @@ public class HealMagic extends Magic{
     }
     @Override
     public int singFinishTick(){
-        return 20;
+        return 10;
     }
 
     @Override
@@ -92,13 +92,6 @@ public class HealMagic extends Magic{
                 }
             }
         }
-
-        Map<Magic,Integer> map1 = new HashMap<>();
-        map1.put(this,20);
-        Map<Object, Map<Magic,Integer>> map2 = new HashMap<>();
-        map2.put(user,map1);
-        MagicUtil.EFFECT.put((PlayerEntity)user,map2);
-
         super.release(stack,world,user,singingTicks);
     }
     @Override
@@ -107,17 +100,6 @@ public class HealMagic extends Magic{
             MagicUtil.circleGround(16,user);
             if(user.getItemUseTime() >= singFinishTick()){
                 MagicUtil.circleForward(17,user);
-            }
-        }
-    }
-
-    @Override
-    public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
-        if(aim instanceof PlayerEntity player){
-            if(player==user){
-                if(ticks%10==0){
-                    player.sendMessage(Text.literal(String.valueOf(ticks)));
-                }
             }
         }
     }

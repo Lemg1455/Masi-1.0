@@ -28,10 +28,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *法杖
@@ -48,12 +50,13 @@ public class Staff extends Item {
 
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+        boolean trial = MagicUtil.isTrial((PlayerEntity) user);
         singingTick = this.getMaxUseTime(stack) - remainingUseTicks;//咏唱时间，tick
         if (!(user instanceof PlayerEntity player)) {
             return;//如果不是玩家实例，就返回
         }
 
-        if ((double) (singingTick/20) < 0.1) {
+        if (((double) (singingTick/20) < 0.1) && !trial) {
             return;//如果咏唱时间不足0.1秒,就不算开始
         }
 
@@ -62,7 +65,7 @@ public class Staff extends Item {
         }
 
         if(magic.getItem() instanceof Magic magic1){
-            if((double) (singingTick) >= magic1.singFinishTick()){
+            if(((double) (singingTick) >= magic1.singFinishTick()) || trial){
 
                 //如果魔法可以响应多重释放的附魔
                 if(magic1.Multiple()){
@@ -79,7 +82,7 @@ public class Staff extends Item {
                 }
 
                 //消耗魔力
-                if(!player.getAbilities().creativeMode){
+                if(!player.getAbilities().creativeMode && !trial){
                     if(world.isClient()){
                         //节约魔力附魔，最高减少三分之一消耗
                         int e = EnchantmentHelper.getLevel(Masi.ENERGY_CONSERVATION, stack);
@@ -112,10 +115,10 @@ public class Staff extends Item {
             return TypedActionResult.fail(handStack);
         }
         //当前选择的魔法，如果不为空，且魔力足够
-        magic = MagicNow(user);
+        magic = MagicUtil.MagicNow(user);
         if (magic!=null) {
             if(magic.getItem() instanceof Magic magic1){
-                if(MagicUtil.ENERGY.get(user)>=magic1.energyConsume()){
+                if((MagicUtil.ENERGY.get(user)>=magic1.energyConsume()) || MagicUtil.isTrial(user) || user.getAbilities().creativeMode){
                     user.setCurrentHand(hand);
                     playerEntity = user;
                     return TypedActionResult.consume(handStack);
@@ -127,13 +130,7 @@ public class Staff extends Item {
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
-        if(entity instanceof PlayerEntity player && player == playerEntity && magic!=null){
-            if(player.isUsingItem() && player.getStackInHand(player.getActiveHand()).getItem() instanceof Staff) {
-                if(magic.getItem() instanceof Magic magic1){
-                    magic1.onSinging(stack,world,(LivingEntity)entity, singingTick);//咏唱开始之后，释放之前期间的效果
-                }
-            }
-        }
+
     }
 
 
@@ -147,25 +144,9 @@ public class Staff extends Item {
         return UseAction.BOW;
     }
 
-    //获取当前选择的魔法
-    public static ItemStack MagicNow(PlayerEntity player){
-        List<ItemStack> inventory = MagicUtil.EQUIP_MAGICS.get(player);
-        if(inventory==null){
-            return null;
-        }
-        List<ItemStack> magics = new ArrayList<>();
 
-        for(ItemStack itemStack : inventory){
-            if(!itemStack.isEmpty()){
-                magics.add(itemStack);
-            }
-        }
 
-        if(!magics.isEmpty()){
-            return magics.get(MagicUtil.MAGIC_CHOOSE.get(player));
-        }
-        return null;
-    }
+
 
     //对法杖的描述
     @Override

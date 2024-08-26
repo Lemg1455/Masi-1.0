@@ -185,8 +185,9 @@ public class MageCertificate extends Item {
                     TimeOut=20;
                     if(MagicUtil.ENERGY.get(player)!=null){
                         if(player.isUsingItem()){
-                            if(player.getStackInHand(player.getActiveHand()).getItem() instanceof EnergyBottle){
-                                //return;
+                            Item item = player.getStackInHand(player.getActiveHand()).getItem();
+                            if(item instanceof Staff || item instanceof EnergyBottle){
+                                return;
                             }
                         }
                         if(MagicUtil.ENERGY.get(player)<MagicUtil.MAX_ENERGY.get(player)){

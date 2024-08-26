@@ -95,7 +95,7 @@ public class Circle_Ground_Particle extends SonicBoomParticle {
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             Circle_Ground_Particle circleGroundParticle = new Circle_Ground_Particle(clientWorld, d, e, f, g, this.spriteProvider);
-            circleGroundParticle.scale(3.0f);
+            circleGroundParticle.scale(5.0f);
             circleGroundParticle.setSprite(this.spriteProvider);
 
             return circleGroundParticle;

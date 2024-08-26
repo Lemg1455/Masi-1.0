@@ -63,7 +63,7 @@ public class MagicScroll extends Item {
             if(b1){
                 Learned_magics.add(magic.getDefaultStack());
                 MagicUtil.LEARNED_MAGICS.put(player,Learned_magics);
-                if(world.isClient()){player.sendMessage(Text.translatable("masi.panel.learned.message"));}
+                if(world.isClient()){player.sendMessage(Text.translatable("masi.panel.learned.message"),true);}
                 if(!player.getAbilities().creativeMode){
                     handStack.decrement(1);
                 }

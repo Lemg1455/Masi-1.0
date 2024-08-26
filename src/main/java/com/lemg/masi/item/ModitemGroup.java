@@ -23,6 +23,7 @@ public class ModitemGroup {
                         entries.add(ModItems.MAGIC_SCROLL);
                         entries.add(ModItems.ENERGY_BOTTLE);
                         entries.add(ModItems.MAX_ENERGY_BOTTLE);
+                        entries.add(ModItems.TRIAL_CARD);
 
                     }).build());
 

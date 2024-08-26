@@ -13,10 +13,11 @@ import net.minecraft.util.Rarity;
 public class ModItems {
     //Items
     public static final Item MAGE_CERTIFICATE = registerItems("mage_certificate",new MageCertificate(new FabricItemSettings().fireproof().rarity(Rarity.COMMON)));
-    public static final Item STAFF = registerItems("staff",new Staff(new FabricItemSettings().maxDamage(64).rarity(Rarity.COMMON)));
+    public static final Item STAFF = registerItems("staff",new Staff(new FabricItemSettings().maxCount(1).maxDamage(64).rarity(Rarity.COMMON)));
     public static final Item MAGIC_SCROLL = registerItems("magic_scroll",new MagicScroll(new FabricItemSettings().maxCount(1).rarity(Rarity.RARE)));
     public static final Item ENERGY_BOTTLE = registerItems("energy_bottle",new EnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
     public static final Item MAX_ENERGY_BOTTLE = registerItems("max_energy_bottle",new MaxEnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
+    public static final Item TRIAL_CARD = registerItems("trial_card",new TrialCard(new FabricItemSettings().maxCount(64).rarity(Rarity.UNCOMMON)));
 
 
     //Magics
@@ -28,6 +29,8 @@ public class ModItems {
     public static final Item RANDOM_MAGIC = registerItems("random_magic",new RandomMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LIGHTNING_MAGIC = registerItems("lightning_magic",new LightningMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item ARCANE_MISSILE_MAGIC = registerItems("arcane_missile_magic",new ArcaneMissileMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item GAIN_CIRCLE_MAGIC = registerItems("gain_circle_magic",new GainCircleMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item FLY_MAGIC = registerItems("fly_magic",new FlyMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
     //Bullets
     public static final Item LIGHTNING_BULLET = registerItems("lightning_bullet",new Item(new FabricItemSettings().maxDamage(64)));
