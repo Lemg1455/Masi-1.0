@@ -351,14 +351,14 @@ public class MagicPanelScreen
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
-        for (List<Object> group : MagicGroups.magicGroups) {
-            if (this.renderTabTooltipIfHovered(context, group, mouseX, mouseY)) break;
-        }
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
         context.getMatrices().push();
         context.getMatrices().translate(this.x, this.y, 0.0f);
         this.renderMagicTab(context);
         context.getMatrices().pop();
+        for (List<Object> group : MagicGroups.magicGroups) {
+            if (this.renderTabTooltipIfHovered(context, group, mouseX, mouseY)) break;
+        }
+        this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
     //提示信息

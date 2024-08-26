@@ -19,7 +19,7 @@ public class MagicGroups {
         items = Arrays.asList(ModItems.ARCANE_SHIELD_MAGIC, ModItems.ARCANE_MISSILE_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.arcane"),0,1,ModItems.ARCANE_SHIELD_MAGIC.getDefaultStack());
 
-        items = Arrays.asList(ModItems.FLICKER_MAGIC,ModItems.FLY_MAGIC);
+        items = Arrays.asList(ModItems.FLICKER_MAGIC,ModItems.FLY_MAGIC,ModItems.DIMENSION_EXILE_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.space"),0,2,ModItems.FLICKER_MAGIC.getDefaultStack());
 
         items = Arrays.asList(ModItems.RANDOM_MAGIC);
