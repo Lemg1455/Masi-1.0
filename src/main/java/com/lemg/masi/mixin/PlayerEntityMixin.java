@@ -16,6 +16,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -149,6 +151,11 @@ public abstract class PlayerEntityMixin {
 				}
 			}
 		}
-
+		if(MagicUtil.ENERGY.get(player)!=null){
+			if(MagicUtil.ENERGY.get(player)<10){
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 0,false,false,false));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20, 0,false,false,false));
+			}
+		}
 	}
 }

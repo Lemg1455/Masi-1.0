@@ -30,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ArcaneMissileMagic extends Magic{
 
@@ -58,9 +59,9 @@ public class ArcaneMissileMagic extends Magic{
         return 0;
     }
 
-    public List<Entity> list = new ArrayList<>();
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
+        List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));
         if(!list.isEmpty()){
             for(Entity entity : list){
                 if(entity instanceof LivingEntity livingEntity){
@@ -112,10 +113,10 @@ public class ArcaneMissileMagic extends Magic{
                 buf2.writeDouble(forwardZ);
                 for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
                     ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
-                };
+                }
             }
         }
-        list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));
+        List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));
         if(!list.isEmpty()){
             for(Entity entity : list) {
                 if (entity instanceof LivingEntity livingEntity) {

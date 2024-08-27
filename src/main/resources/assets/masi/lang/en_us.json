@@ -42,6 +42,9 @@
   "item.masi.dimension_exile_magic": "Dimension Exile Magic",
   "item.masi.imprison_magic": "Imprison Magic ?",
   "item.masi.ingestion_magic": "Space Ingestion magic",
+  "item.masi.taunt_magic": "Taunt Magic",
+  "item.masi.lose_circle_magic": "Lose Circle Magic",
+  "item.masi.shadow_mane_magic": "Shadow Mane Magic",
 
 
   "item.masi.fire_ball_magic.tooltip": "Sing for 1 second and release fireball",
@@ -57,6 +60,9 @@
   "item.masi.dimension_exile_magic.tooltip": "Exile the creatures in front of you to an unknown dimension, which can only be used in the main world",
   "item.masi.imprison_magic.tooltip": "Imprisoned the creatures in front of them, but unable to move themselves",
   "item.masi.ingestion_magic.tooltip": "Suck the entities within the range to the end of the magic",
+  "item.masi.taunt_magic.tooltip": "Mock surrounding targets and attract them to attack oneself",
+  "item.masi.lose_circle_magic.tooltip": "Set up a magic array that lasts for 10 seconds, and creatures touched will experience five negative effects",
+  "item.shadow_mane_magic.tooltip": "Lock in surrounding creatures, then teleport to each target and inflict damage",
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",

@@ -23,7 +23,7 @@
 
 
   "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
-  "item.masi.mage_certificate.tooltip": "一位法师的魔法凭证，右键使用打开面板，放在背包中缓慢恢复魔力，记录个人信息",
+  "item.masi.mage_certificate.tooltip": "一位法师的魔法凭证，右键使用打开面板(存档,退出前务必带着)",
   "item.masi.magic_scroll.tooltip": "使用后,学会上面记载的魔法",
   "item.masi.energy_bottle.tooltip": "使用后,补充一点魔力",
   "item.masi.max_energy_bottle.tooltip": "使用后,永久增加魔力总量",
@@ -44,6 +44,9 @@
   "item.masi.dimension_exile_magic": "维度放逐",
   "item.masi.imprison_magic": "禁锢 ? 魔法",
   "item.masi.ingestion_magic": "空间摄取",
+  "item.masi.taunt_magic": "嘲讽",
+  "item.masi.lose_circle_magic": "天人五衰",
+  "item.masi.shadow_mane_magic": "影鬃",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -56,9 +59,12 @@
   "item.masi.arcane_missile_magic.tooltip": "释放飞弹攻击20*20*20范围内的目标，魔力总量越高，伤害越高",
   "item.masi.gain_circle_magic.tooltip": "在脚下布置增益法阵,持续10秒,赋予其中玩家五种增益效果30秒",
   "item.masi.fly_magic.tooltip": "持续消耗魔力，提供升力托举自己",
-  "item.masi.dimension_exile_magic.tooltip": "将面前生物放逐到未知维度，仅可主世界使用，如果你被放逐了，退出重进似乎有用",
+  "item.masi.dimension_exile_magic.tooltip": "将面前生物放逐到未知维度，仅可主世界使用，如果你被放逐了，重进似乎有用",
   "item.masi.imprison_magic.tooltip": "持续禁锢面前生物,但自己也难以移动",
   "item.masi.ingestion_magic.tooltip": "持续将线路上实体吸至末端",
+  "item.masi.taunt_magic.tooltip": "释放后持续嘲讽周围目标20秒",
+  "item.masi.lose_circle_magic.tooltip": "布置一个持续10秒的法阵,除自己外,触碰的生灵会受到五种衰弱效果30秒",
+  "item.shadow_mane_magic.tooltip": "锁定周围全部生物,然后瞬移到每个目标身边并造成伤害",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",
