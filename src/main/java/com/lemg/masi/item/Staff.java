@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -96,6 +97,7 @@ public class Staff extends Item {
                         MagicUtil.ENERGY.put(player,energy);
                         PacketByteBuf buf = PacketByteBufs.create();
                         buf.writeInt(0);
+                        buf.writeUuid(player.getUuid());
                         buf.writeInt(energy);
                         ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
                     }
@@ -130,7 +132,14 @@ public class Staff extends Item {
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
+        if(entity instanceof PlayerEntity player){
+            if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff){
 
+                if(world.isClient()){
+                    //world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 3.0f), player.getX(), player.getY()+1, player.getZ(), 0.0, 2.0, 0.0);
+                }
+            }
+        }
     }
 
 

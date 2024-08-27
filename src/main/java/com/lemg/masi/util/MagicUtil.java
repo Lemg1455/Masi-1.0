@@ -16,6 +16,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+
+import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -152,6 +156,7 @@ public class MagicUtil {
         }
         return null;
     }
+
     public static List<StatusEffect> beneficial = Arrays.asList(StatusEffects.SPEED,StatusEffects.HASTE,StatusEffects.STRENGTH,StatusEffects.INSTANT_HEALTH,StatusEffects.JUMP_BOOST,StatusEffects.REGENERATION,StatusEffects.RESISTANCE,StatusEffects.FIRE_RESISTANCE,StatusEffects.WATER_BREATHING,StatusEffects.INVISIBILITY,StatusEffects.NIGHT_VISION,StatusEffects.HEALTH_BOOST,StatusEffects.ABSORPTION,StatusEffects.SATURATION,StatusEffects.LUCK,StatusEffects.SLOW_FALLING,StatusEffects.CONDUIT_POWER,StatusEffects.DOLPHINS_GRACE);
     public static List<StatusEffect> harmful = Arrays.asList(StatusEffects.SLOWNESS,StatusEffects.MINING_FATIGUE,StatusEffects.INSTANT_DAMAGE,StatusEffects.NAUSEA,StatusEffects.BLINDNESS,StatusEffects.HUNGER,StatusEffects.WEAKNESS,StatusEffects.POISON,StatusEffects.WITHER,StatusEffects.LEVITATION,StatusEffects.UNLUCK);
 

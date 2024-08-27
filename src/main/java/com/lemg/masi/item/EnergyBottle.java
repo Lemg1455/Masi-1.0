@@ -58,6 +58,7 @@ public class EnergyBottle extends Item {
                             MagicUtil.ENERGY.put(player,energy);
                             PacketByteBuf buf = PacketByteBufs.create();
                             buf.writeInt(0);
+                            buf.writeUuid(player.getUuid());
                             buf.writeInt(energy);
                             ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
                         }

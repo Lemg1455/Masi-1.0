@@ -4,6 +4,7 @@ package com.lemg.masi.network.packet;
 import com.lemg.masi.item.Magics.CreatingWaterMagic;
 import com.lemg.masi.item.Magics.DimensionExileMagic;
 import com.lemg.masi.item.Magics.HealMagic;
+import com.lemg.masi.item.Magics.ImprisonMagic;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.Blocks;
@@ -47,6 +48,9 @@ public class CrosshairEntityC2SPacket {
                     dimensionExileMagic.moveToWorld(serverWorld,livingEntity);
                     livingEntity.playSound(SoundEvents.ENTITY_ENDERMAN_DEATH, 1.0f, livingEntity.getSoundPitch());
                 }
+            }else if(itemStack.getItem() instanceof ImprisonMagic){
+                livingEntity.setVelocity(0,0,0);
+                player.setVelocity(0,0,0);
             }
         }
 

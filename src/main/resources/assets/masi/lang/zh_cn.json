@@ -9,7 +9,7 @@
   "item.masi.magic.nbtstring3": "咏唱时间 : ",
 
   "itemGroup.masi_group": "魔法咏唱物品组",
-  "magicGroup.elemental": "元素魔法",
+  "magicGroup.elemental": "自然魔法",
   "magicGroup.arcane": "奥术魔法",
   "magicGroup.space": "空间魔法",
   "magicGroup.misc": "杂项魔法",
@@ -42,6 +42,8 @@
   "item.masi.gain_circle_magic": "增益法阵",
   "item.masi.fly_magic": "滞空术",
   "item.masi.dimension_exile_magic": "维度放逐",
+  "item.masi.imprison_magic": "禁锢 ? 魔法",
+  "item.masi.ingestion_magic": "空间摄取",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -55,7 +57,8 @@
   "item.masi.gain_circle_magic.tooltip": "在脚下布置增益法阵,持续10秒,赋予其中玩家五种增益效果30秒",
   "item.masi.fly_magic.tooltip": "持续消耗魔力，提供升力托举自己",
   "item.masi.dimension_exile_magic.tooltip": "将面前生物放逐到未知维度，仅可主世界使用，如果你被放逐了，退出重进似乎有用",
-
+  "item.masi.imprison_magic.tooltip": "持续禁锢面前生物,但自己也难以移动",
+  "item.masi.ingestion_magic.tooltip": "持续将线路上实体吸至末端",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

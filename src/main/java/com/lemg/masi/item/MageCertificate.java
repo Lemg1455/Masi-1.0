@@ -177,34 +177,6 @@ public class MageCertificate extends Item {
                 }
                 stack.setNbt(nbt);
             }
-
-            //每秒恢复魔力
-            if(world.isClient()){
-                TimeOut--;
-                if(TimeOut<=0){
-                    TimeOut=20;
-                    if(MagicUtil.ENERGY.get(player)!=null){
-                        if(player.isUsingItem()){
-                            Item item = player.getStackInHand(player.getActiveHand()).getItem();
-                            if(item instanceof Staff || item instanceof EnergyBottle){
-                                return;
-                            }
-                        }
-                        if(MagicUtil.ENERGY.get(player)<MagicUtil.MAX_ENERGY.get(player)){
-                            int energy = MagicUtil.ENERGY.get(player)+MagicUtil.ENERGY_RESTORED.get(player);
-                            if(energy>=MagicUtil.MAX_ENERGY.get(player)){
-                                energy=MagicUtil.MAX_ENERGY.get(player);
-                            }
-                            MagicUtil.ENERGY.put(player,energy);
-
-                            PacketByteBuf buf = PacketByteBufs.create();
-                            buf.writeInt(0);
-                            buf.writeInt(energy);
-                            ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
-                        }
-                    }
-                }
-            }
         }
     }
     @Override

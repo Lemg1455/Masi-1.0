@@ -83,6 +83,9 @@ public class MasiClient implements ClientModInitializer  {
 
         ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 
+        int scaledWidth = context.getScaledWindowWidth();
+        int scaledHeight = context.getScaledWindowHeight();
+
         int singFinishTick = 0;
         if(player.isUsingItem() && stack.getItem() instanceof Staff staff){
             if(staff.magic.getItem() instanceof Magic magic){
@@ -95,10 +98,14 @@ public class MasiClient implements ClientModInitializer  {
             }else {
                 width = (int)((float)(player.getItemUseTime()) / singFinishTick * 92);
             }
-            context.drawTexture(MASI_BAR_TEXTURE, 170, 150, 0, 0, 92, 5);
-            context.drawTexture(MASI_BAR_TEXTURE, 170, 150, 0, 5, width, 5);
+
+            int m = scaledWidth / 2 -45;
+            int o = scaledHeight - 90;
+
+            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 0, 92, 5);
+            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 5, width, 5);
             if(width==92){
-                context.drawTexture(MASI_BAR_TEXTURE, 170, 150, 0, 10, width, 5);
+                context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 10, width, 5);
             }
 
         }
@@ -110,10 +117,13 @@ public class MasiClient implements ClientModInitializer  {
             }else {
                 width = (int)((float)(MagicUtil.ENERGY.get(player)) / MagicUtil.MAX_ENERGY.get(player) * 92);
             }
-            context.drawTexture(MASI_BAR_TEXTURE, 220, 180, 0, 15, 92, 7);
-            context.drawTexture(MASI_BAR_TEXTURE, 220, 180, 0, 22, width, 7);
-            context.drawText(MC.textRenderer, Text.of(MagicUtil.ENERGY.get(player) + " / " +MagicUtil.MAX_ENERGY.get(player)),240,180,0xFFFFFF,false);
-        }
 
+            int m = scaledWidth / 2 + 10;
+            int o = scaledHeight - 60;
+
+            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 15, 92, 7);
+            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 22, width, 7);
+            context.drawText(MC.textRenderer, Text.of(MagicUtil.ENERGY.get(player) + " / " +MagicUtil.MAX_ENERGY.get(player)),m+20,o,0xFFFFFF,false);
+        }
     }
 }

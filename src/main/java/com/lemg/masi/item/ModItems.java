@@ -32,6 +32,8 @@ public class ModItems {
     public static final Item GAIN_CIRCLE_MAGIC = registerItems("gain_circle_magic",new GainCircleMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item FLY_MAGIC = registerItems("fly_magic",new FlyMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item DIMENSION_EXILE_MAGIC = registerItems("dimension_exile_magic",new DimensionExileMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item IMPRISON_MAGIC = registerItems("imprison_magic",new ImprisonMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item INGESTION_MAGIC = registerItems("ingestion_magic",new IngestionMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
     //Bullets
