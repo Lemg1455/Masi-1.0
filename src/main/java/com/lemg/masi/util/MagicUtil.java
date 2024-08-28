@@ -90,28 +90,24 @@ public class MagicUtil {
         return items;
     }
     //添加地面法阵的特效
-    public static void circleGround(int mode, LivingEntity user){
+    public static void circleGround(int mode, LivingEntity user,Double x,Double y ,Double z){
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(mode);
-        buf.writeDouble(user.getX());
-        buf.writeDouble(user.getY());
-        buf.writeDouble(user.getZ());
+        buf.writeDouble(x);
+        buf.writeDouble(y);
+        buf.writeDouble(z);
         for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
             ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
         }
     }
 
     //添加面前法阵的特效
-    public static void circleForward(int mode, LivingEntity user){
-        double yawRadians = Math.toRadians(user.getYaw()+90);
-        double forwardX = user.getX() + Math.cos(yawRadians) * 1;
-        double forwardZ = user.getZ() + Math.sin(yawRadians) * 1;
-        //world.addParticle(Masi.CIRCLE_FORWARD_BLUE, forwardX, player.getY()+1.5, forwardZ, 0, 0, 0);
+    public static void circleForward(int mode, LivingEntity user,Double x,Double y ,Double z){
         PacketByteBuf buf2 = PacketByteBufs.create();
         buf2.writeInt(mode);
-        buf2.writeDouble(forwardX);
-        buf2.writeDouble(user.getY()+2);
-        buf2.writeDouble(forwardZ);
+        buf2.writeDouble(x);
+        buf2.writeDouble(y);
+        buf2.writeDouble(z);
         for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
             ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
         }
@@ -152,7 +148,10 @@ public class MagicUtil {
         }
 
         if(!magics.isEmpty()){
-            return magics.get(MagicUtil.MAGIC_CHOOSE.get(player));
+            int i = MagicUtil.MAGIC_CHOOSE.get(player);
+            if(i<magics.size()){
+                return magics.get(i);
+            }
         }
         return null;
     }

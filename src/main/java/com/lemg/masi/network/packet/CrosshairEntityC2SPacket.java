@@ -1,15 +1,16 @@
 package com.lemg.masi.network.packet;
 
 
-import com.lemg.masi.item.Magics.CreatingWaterMagic;
-import com.lemg.masi.item.Magics.DimensionExileMagic;
-import com.lemg.masi.item.Magics.HealMagic;
-import com.lemg.masi.item.Magics.ImprisonMagic;
+import com.lemg.masi.item.MageCertificate;
+import com.lemg.masi.item.Magics.*;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.PiglinEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -18,8 +19,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.util.CaveSurface;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class CrosshairEntityC2SPacket {
@@ -27,8 +32,10 @@ public class CrosshairEntityC2SPacket {
                                ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender){
         UUID uuid = buf.readUuid();
         Entity entity = server.getOverworld().getEntity(uuid);
+        uuid = buf.readUuid();
+        PlayerEntity playerEntity = server.getPlayerManager().getPlayer(uuid);
         ItemStack itemStack = buf.readItemStack();
-        if(entity instanceof LivingEntity livingEntity){
+        if(entity instanceof LivingEntity livingEntity && playerEntity!=null){
             if(itemStack.getItem() instanceof HealMagic){
                 float health = livingEntity.getHealth()+6;
                 if(health >= livingEntity.getMaxHealth()){
@@ -50,9 +57,71 @@ public class CrosshairEntityC2SPacket {
                 }
             }else if(itemStack.getItem() instanceof ImprisonMagic){
                 livingEntity.setVelocity(0,0,0);
-                player.setVelocity(0,0,0);
+                playerEntity.setVelocity(0,0,0);
+
+                Vec3d Pos1 = livingEntity.getPos().add(0,1,0);
+                Vec3d Pos2 = playerEntity.getPos().add(0,1,0);
+                Vec3d direction = Pos1.subtract(Pos2).normalize();
+                double length = Pos1.distanceTo(Pos2);
+
+                for (int i = 0; i <= 10; i++) {
+                    double fraction = (double) i / 10;
+                    Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
+                    MagicUtil.circleForward(101,playerEntity,particlePos.x, particlePos.y, particlePos.z);
+                }
+
+            }else if(itemStack.getItem() instanceof StealMagic){
+                if(livingEntity instanceof PlayerEntity playerEntity1){
+                    if(!playerEntity1.getInventory().isEmpty()){
+                        Random random = new Random();
+                        ItemStack itemStack1 = ItemStack.EMPTY;
+                        int solt = 0;
+                        while (itemStack1.isEmpty()){
+                            solt = random.nextInt(playerEntity1.getInventory().size());
+                            itemStack1 = playerEntity1.getInventory().getStack(solt);
+                            if(itemStack1.getItem() instanceof MageCertificate){
+                                itemStack1 = ItemStack.EMPTY;
+                            }
+                        }
+                        playerEntity1.getInventory().removeStack(solt);
+                        if(playerEntity.getInventory().getEmptySlot()!=-1){
+                            playerEntity.getInventory().insertStack(itemStack1);
+                        }else {
+                            playerEntity.dropStack(itemStack1);
+                        }
+                    }
+                } else if (livingEntity instanceof PiglinEntity piglin) {
+                    if(!piglin.getInventory().isEmpty()){
+                        Random random = new Random();
+                        ItemStack itemStack1 = ItemStack.EMPTY;
+                        int solt = 0;
+                        while (itemStack1.isEmpty()){
+                            solt = random.nextInt(piglin.getInventory().size());
+                            itemStack1 = piglin.getInventory().getStack(solt);
+                        }
+                        piglin.getInventory().removeStack(solt);
+                        if(playerEntity.getInventory().getEmptySlot()!=-1){
+                            playerEntity.getInventory().insertStack(itemStack1);
+                        }else {
+                            playerEntity.dropStack(itemStack1);
+                        }
+                    }
+                }else {
+                    ItemStack itemStack1;
+                    for(EquipmentSlot equipmentSlot : EquipmentSlot.values()){
+                        if(livingEntity.hasStackEquipped(equipmentSlot)){
+                            itemStack1 = livingEntity.getEquippedStack(equipmentSlot);
+                            livingEntity.equipStack(equipmentSlot,ItemStack.EMPTY);
+                            if(playerEntity.getInventory().getEmptySlot()!=-1){
+                                playerEntity.getInventory().insertStack(itemStack1);
+                            }else {
+                                playerEntity.dropStack(itemStack1);
+                            }
+                            break;
+                        }
+                    }
+                }
             }
         }
-
     }
 }

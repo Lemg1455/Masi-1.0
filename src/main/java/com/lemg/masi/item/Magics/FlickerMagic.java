@@ -70,7 +70,7 @@ public class FlickerMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(8,user);
+            MagicUtil.circleGround(8,user,user.getX(),user.getY(),user.getZ());
             if(user.getItemUseTime() >= singFinishTick()){
                 float yaw = user.getYaw();
                 float pitch = user.getPitch();
@@ -78,14 +78,10 @@ public class FlickerMagic extends Magic{
                 float gg = -MathHelper.sin(pitch * ((float)Math.PI / 180));
                 float hh = MathHelper.cos(yaw * ((float)Math.PI / 180)) * MathHelper.cos(pitch * ((float)Math.PI / 180));
 
-                PacketByteBuf buf2 = PacketByteBufs.create();
-                buf2.writeInt(9);
-                buf2.writeDouble(user.getX()+ff*15);
-                buf2.writeDouble(user.getY()+gg*15);
-                buf2.writeDouble(user.getZ()+hh*15);
-                for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-                    ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
-                }
+                double x = user.getX()+ff*15;
+                double z = user.getZ()+hh*15;
+                double y = user.getY()+gg*15;
+                MagicUtil.circleForward(9,user,x,y,z);
             }
         }
     }

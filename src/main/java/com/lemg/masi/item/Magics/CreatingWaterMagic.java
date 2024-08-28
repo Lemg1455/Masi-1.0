@@ -77,6 +77,7 @@ public class CreatingWaterMagic extends Magic{
             if(world.isClient()){
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeUuid(entity.getUuid());
+                buf.writeUuid(user.getUuid());
                 buf.writeItemStack(this.getDefaultStack());
                 ClientPlayNetworking.send(ModMessage.CROSSHAIR_ENTITY_ID, buf);
                 world.setBlockState(entity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());

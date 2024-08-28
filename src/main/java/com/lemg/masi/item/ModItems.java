@@ -37,6 +37,12 @@ public class ModItems {
     public static final Item TAUNT_MAGIC = registerItems("taunt_magic",new TauntMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item LOSE_CIRCLE_MAGIC = registerItems("lose_circle_magic",new LoseCircleMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item SHADOW_MANE_MAGIC = registerItems("shadow_mane_magic",new ShadowManeMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item STEAL_MAGIC = registerItems("steal_magic",new StealMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item STEALTH_MAGIC = registerItems("stealth_magic",new StealthMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item ARCANE_TORRENT_MAGIC = registerItems("arcane_torrent_magic",new ArcaneTorrentMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+
+
+
 
     //Bullets
     public static final Item LIGHTNING_BULLET = registerItems("lightning_bullet",new Item(new FabricItemSettings().maxDamage(64)));

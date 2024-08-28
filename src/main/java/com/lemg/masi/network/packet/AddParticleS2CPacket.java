@@ -117,7 +117,18 @@ public class AddParticleS2CPacket {
             if (mode==27) {
                 client.world.addParticle(Masi.LARGE_CIRCLE_FORWARD_YELLOW, x, y, z,0,0,0);
             }
-
+            if (mode==100) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x-1,y,z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x+1,y,z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x, y-1,z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), x, y+1,z,0,0,0);
+            }
+            if (mode==101) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 1.0f), x, y, z,0,0,0);
+            }
         }
     }
 }

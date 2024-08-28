@@ -100,20 +100,13 @@ public class ArcaneMissileMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(22,user);
+            MagicUtil.circleGround(22,user,user.getX(),user.getY(),user.getZ());
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
-                double forwardX = user.getX() + Math.cos(yawRadians) * 2;
-                double forwardZ = user.getZ() + Math.sin(yawRadians) * 2;
-                //world.addParticle(Masi.CIRCLE_FORWARD_BLUE, forwardX, player.getY()+1.5, forwardZ, 0, 0, 0);
-                PacketByteBuf buf2 = PacketByteBufs.create();
-                buf2.writeInt(23);
-                buf2.writeDouble(forwardX);
-                buf2.writeDouble(user.getY()+4);
-                buf2.writeDouble(forwardZ);
-                for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-                    ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
-                }
+                double x = user.getX() + Math.cos(yawRadians) * 2;
+                double z = user.getZ() + Math.sin(yawRadians) * 2;
+                double y = user.getY()+4;
+                MagicUtil.circleForward(23,user,x,y,z);
             }
         }
         List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));

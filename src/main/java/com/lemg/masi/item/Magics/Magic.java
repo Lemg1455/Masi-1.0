@@ -39,9 +39,13 @@ public abstract class Magic extends Item {
     //魔法咏唱中，释放前的效果
     public void onSinging(ItemStack staffStack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(0,user);
+            MagicUtil.circleGround(0,user,user.getX(),user.getY(),user.getZ());
             if(user.getItemUseTime() >= singFinishTick()){
-                MagicUtil.circleForward(1,user);
+                double yawRadians = Math.toRadians(user.getYaw()+90);
+                double x = user.getX() + Math.cos(yawRadians) * 1;
+                double z = user.getZ() + Math.sin(yawRadians) * 1;
+                double y = user.getY()+2;
+                MagicUtil.circleForward(1,user,x,y,z);
             }
         }
     }
@@ -73,9 +77,7 @@ public abstract class Magic extends Item {
     }
 
     //如果魔法在释放后会持续一段时间，此为持续的时间
-    public int releaseContinueTime(){
-        return 0;
-    }
+    public int releaseContinueTime(){return 0;}
 
         //魔法的描述
     @Override
