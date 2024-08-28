@@ -129,6 +129,9 @@ public class AddParticleS2CPacket {
             if (mode==101) {
                 client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 1.0f), x, y, z,0,0,0);
             }
+            if(mode==200){
+                client.player.setVelocity(x,y,z);
+            }
         }
     }
 }

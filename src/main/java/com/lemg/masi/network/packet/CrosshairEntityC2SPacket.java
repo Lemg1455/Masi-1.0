@@ -3,12 +3,17 @@ package com.lemg.masi.network.packet;
 
 import com.lemg.masi.item.MageCertificate;
 import com.lemg.masi.item.Magics.*;
+import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -68,6 +73,15 @@ public class CrosshairEntityC2SPacket {
                     double fraction = (double) i / 10;
                     Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
                     MagicUtil.circleForward(101,playerEntity,particlePos.x, particlePos.y, particlePos.z);
+                }
+
+                if(livingEntity instanceof PlayerEntity player1){
+                    PacketByteBuf buf2 = PacketByteBufs.create();
+                    buf2.writeItemStack(itemStack);
+                    buf2.writeDouble(0);
+                    buf2.writeDouble(0);
+                    buf2.writeDouble(0);
+                    ServerPlayNetworking.send((ServerPlayerEntity) player1, ModMessage.VELOCITY_UPDATE_ID, buf2);
                 }
 
             }else if(itemStack.getItem() instanceof StealMagic){
