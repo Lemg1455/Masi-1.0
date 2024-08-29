@@ -13,7 +13,7 @@ public class MagicGroups {
     }
 
     public static void registryMagicGroups(){
-        List<Item> items = Arrays.asList(ModItems.FIRE_BALL_MAGIC,ModItems.CREATING_WATER_MAGIC,ModItems.HEAL_MAGIC,ModItems.LIGHTNING_MAGIC,ModItems.GAIN_CIRCLE_MAGIC,ModItems.LOSE_CIRCLE_MAGIC,ModItems.COLD_DISASTER_MAGIC);
+        List<Item> items = Arrays.asList(ModItems.FIRE_BALL_MAGIC,ModItems.CREATING_WATER_MAGIC,ModItems.HEAL_MAGIC,ModItems.LIGHTNING_MAGIC,ModItems.GAIN_CIRCLE_MAGIC,ModItems.LOSE_CIRCLE_MAGIC,ModItems.COLD_DISASTER_MAGIC,ModItems.PURIFICATION_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.elemental"),0,0,ModItems.FIRE_BALL_MAGIC.getDefaultStack());
 
         items = Arrays.asList(ModItems.ARCANE_SHIELD_MAGIC, ModItems.ARCANE_MISSILE_MAGIC,ModItems.ARCANE_TORRENT_MAGIC);

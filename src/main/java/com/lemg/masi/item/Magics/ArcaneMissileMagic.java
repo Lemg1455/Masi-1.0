@@ -67,7 +67,7 @@ public class ArcaneMissileMagic extends Magic{
                 if(entity instanceof LivingEntity livingEntity){
                     if(!world.isClient()){
                         PacketByteBuf buf2 = PacketByteBufs.create();
-                        buf2.writeInt(1);
+                        buf2.writeInt(21);
                         buf2.writeDouble(livingEntity.getX());
                         buf2.writeDouble(livingEntity.getY()+2);
                         buf2.writeDouble(livingEntity.getZ());

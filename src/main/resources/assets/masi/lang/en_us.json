@@ -48,6 +48,8 @@
   "item.masi.steal_magic": "Steal Magic",
   "item.masi.stealth_magic": "Stealth Magic",
   "item.masi.arcane_torrent_magic": "Arcane Torrent Magic",
+  "item.masi.cold_disaster_magic": "Cold Disaster Magic",
+  "item.masi.purification_magic": "Purification Magic",
 
 
   "item.masi.fire_ball_magic.tooltip": "Sing for 1 second and release fireball",
@@ -69,6 +71,8 @@
   "item.masi.steal_magic.tooltip": "Steal an item from the target's body",
   "item.masi.stealth_magic.tooltip": "After release, it can remain invisible for 20 seconds, allowing nearby creatures to become invisible together",
   "item.masi.arcane_torrent_magic.tooltip": "Lasts for 10 seconds, dealing damage to the straight target in front of you",
+  "item.masi.cold_disaster_magic.tooltip": "Freeze surrounding targets to subject them to freezing effects, but also freeze oneself",
+  "item.masi.purification_magic.tooltip": "Purifying the target around the body, clearing negative potion effects, and removing magic effects not only applied by the user and target, but also causing damage to undead creatures",
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",

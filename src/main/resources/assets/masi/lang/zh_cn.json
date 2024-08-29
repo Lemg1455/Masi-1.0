@@ -50,6 +50,8 @@
   "item.masi.steal_magic": "偷窃",
   "item.masi.stealth_magic": "潜行",
   "item.masi.arcane_torrent_magic": "奥术洪流",
+  "item.masi.cold_disaster_magic": "寒灾",
+  "item.masi.purification_magic": "净化魔法",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -71,6 +73,8 @@
   "item.masi.steal_magic.tooltip": "偷走目标身上的一格物品",
   "item.masi.stealth_magic.tooltip": "释放后自己隐身20秒,自己身边的生物可以一同进入隐身",
   "item.masi.arcane_torrent_magic.tooltip": "喷发大量魔力,持续10秒对面前目标造成伤害,伤害受魔力总量影响",
+  "item.masi.cold_disaster_magic.tooltip": "冻结周围目标,使其受到冷冻效果,但也会冻住自己",
+  "item.masi.purification_magic.tooltip": "净化身周目标,清除负面药水效果,清除除了使用者对目标和目标对自身施加的魔法效果,对亡灵生物会造成伤害",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",
