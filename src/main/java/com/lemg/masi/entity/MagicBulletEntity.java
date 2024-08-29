@@ -1,6 +1,8 @@
 package com.lemg.masi.entity;
 
+import com.lemg.masi.item.Magics.DeathDeclarationMagic;
 import com.lemg.masi.item.Magics.Magic;
+import com.lemg.masi.util.MagicUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
@@ -55,6 +57,9 @@ public class MagicBulletEntity
         super.tick();
         if(this.age>=60){
             this.discard();
+        }
+        if(this.magic instanceof DeathDeclarationMagic){
+            MagicUtil.circleForward(102, (LivingEntity) this.getOwner(),this.getX(), this.getY(), this.getZ());
         }
     }
 }

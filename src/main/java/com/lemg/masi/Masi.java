@@ -2,6 +2,8 @@ package com.lemg.masi;
 
 import com.lemg.masi.enchantment.EnergyConservationEnchantment;
 import com.lemg.masi.enchantment.MultipleReleaseEnchantment;
+import com.lemg.masi.entity.ArcaneMinionEntity;
+import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.item.ModitemGroup;
@@ -11,6 +13,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.enchantment.Enchantment;
@@ -120,6 +123,7 @@ public class Masi implements ModInitializer {
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "multiple_release"),MULTIPLE_RELEASE);
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "energy_conservation"),ENERGY_CONSERVATION);
 
+		FabricDefaultAttributeRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntity.createArcaneMinionAttributes());
 
 	}
 }

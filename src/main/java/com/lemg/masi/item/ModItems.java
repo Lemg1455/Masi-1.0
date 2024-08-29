@@ -42,6 +42,8 @@ public class ModItems {
     public static final Item ARCANE_TORRENT_MAGIC = registerItems("arcane_torrent_magic",new ArcaneTorrentMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item COLD_DISASTER_MAGIC = registerItems("cold_disaster_magic",new ColdDisasterMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item PURIFICATION_MAGIC = registerItems("purification_magic",new PurificationMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item DEATH_DECLARATION_MAGIC = registerItems("death_declaration_magic",new DeathDeclarationMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item ARCANE_MINION_MAGIC = registerItems("arcane_minion_magic",new ArcaneMinionMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
 

@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.entity.MagicBulletEntity;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.network.ModMessage;
@@ -65,6 +66,9 @@ public class ArcaneMissileMagic extends Magic{
         if(!list.isEmpty()){
             for(Entity entity : list){
                 if(entity instanceof LivingEntity livingEntity){
+                    if(entity instanceof PlayerEntity player && user instanceof ArcaneMinionEntity arcaneMinionEntity && player==arcaneMinionEntity.getOwner()){
+                        continue;
+                    }
                     if(!world.isClient()){
                         PacketByteBuf buf2 = PacketByteBufs.create();
                         buf2.writeInt(21);
@@ -84,15 +88,23 @@ public class ArcaneMissileMagic extends Magic{
                     double o = entity.getX() - l;
                     double p = entity.getBodyY(0.5) - m;
                     double q = entity.getZ() - n;
+                    MagicBulletEntity magicBullet = null;
+                    if(user instanceof PlayerEntity player){
+                        magicBullet = new MagicBulletEntity(user.getWorld(), player);
+                    }else if(user instanceof ArcaneMinionEntity arcaneMinionEntity){
+                        if(arcaneMinionEntity.getOwner()!=null){
+                            magicBullet = new MagicBulletEntity(user.getWorld(), arcaneMinionEntity.getOwner());
+                        }
+                    }
+                    if(magicBullet!=null){
+                        magicBullet.setItem(new ItemStack(ModItems.ARCANE_BULLET));
+                        magicBullet.setVelocity(o/15,p/15,q/15);
+                        magicBullet.setPos(l, m, n);
 
-                    MagicBulletEntity magicBullet = new MagicBulletEntity(user.getWorld(), user);
-                    magicBullet.setItem(new ItemStack(ModItems.ARCANE_BULLET));
-                    magicBullet.setVelocity(o/15,p/15,q/15);
-                    magicBullet.setPos(l, m, n);
-
-                    magicBullet.setNoGravity(true);
-                    magicBullet.magic = this;
-                    user.getWorld().spawnEntity(magicBullet);
+                        magicBullet.setNoGravity(true);
+                        magicBullet.magic = this;
+                        user.getWorld().spawnEntity(magicBullet);
+                    }
                 }
             }
         }
@@ -127,7 +139,7 @@ public class ArcaneMissileMagic extends Magic{
         }
         for(Entity entity : hit_list){
             if(entity instanceof LivingEntity livingEntity){
-                livingEntity.damage(magicBullet.getWorld().getDamageSources().mobAttack(player), amount);
+                livingEntity.damage(magicBullet.getWorld().getDamageSources().playerAttack(player), amount);
             }
         }
     }

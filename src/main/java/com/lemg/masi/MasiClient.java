@@ -1,6 +1,10 @@
 package com.lemg.masi;
 
 
+import com.lemg.masi.entity.ModEntities;
+import com.lemg.masi.entity.client.ArcaneMinionEntityModel;
+import com.lemg.masi.entity.client.ArcaneMinionEntityRenderer;
+import com.lemg.masi.entity.client.ModModelLayers;
 import com.lemg.masi.event.KeyInputHandler;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.Staff;
@@ -11,6 +15,7 @@ import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -40,6 +45,9 @@ public class MasiClient implements ClientModInitializer  {
         KeyInputHandler.register();
         HudRenderCallback.EVENT.register(this::renderBar);
         ModMessage.registerS2CPackets();
+
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ARCANE_MINION, ArcaneMinionEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.LargeFactory::new);

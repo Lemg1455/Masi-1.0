@@ -50,6 +50,9 @@
   "item.masi.arcane_torrent_magic": "Arcane Torrent Magic",
   "item.masi.cold_disaster_magic": "Cold Disaster Magic",
   "item.masi.purification_magic": "Purification Magic",
+  "item.masi.death_declaration_magic": "Death Declaration Magic",
+  "item.masi.arcane_minion_magic": "Arcane Minion Magic",
+
 
 
   "item.masi.fire_ball_magic.tooltip": "Sing for 1 second and release fireball",
@@ -73,6 +76,8 @@
   "item.masi.arcane_torrent_magic.tooltip": "Lasts for 10 seconds, dealing damage to the straight target in front of you",
   "item.masi.cold_disaster_magic.tooltip": "Freeze surrounding targets to subject them to freezing effects, but also freeze oneself",
   "item.masi.purification_magic.tooltip": "Purifying the target around the body, clearing negative potion effects, and removing magic effects not only applied by the user and target, but also causing damage to undead creatures",
+  "item.masi.death_declaration_magic.tooltip": "Release the curse, the hit creature will die in one minute, and the undead will be full of blood. Can be purified by magic purification",
+  "item.masi.arcane_minion_magic.tooltip": "Summon an arcane servant who will release all arcane magic to help you, but each release will consume life",
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
