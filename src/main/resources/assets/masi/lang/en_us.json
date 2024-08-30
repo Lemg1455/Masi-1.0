@@ -52,6 +52,7 @@
   "item.masi.purification_magic": "Purification Magic",
   "item.masi.death_declaration_magic": "Death Declaration Magic",
   "item.masi.arcane_minion_magic": "Arcane Minion Magic",
+  "item.masi.element_aggregation_magic": "Element Aggregation Magic",
 
 
 
@@ -78,6 +79,8 @@
   "item.masi.purification_magic.tooltip": "Purifying the target around the body, clearing negative potion effects, and removing magic effects not only applied by the user and target, but also causing damage to undead creatures",
   "item.masi.death_declaration_magic.tooltip": "Release the curse, the hit creature will die in one minute, and the undead will be full of blood. Can be purified by magic purification",
   "item.masi.arcane_minion_magic.tooltip": "Summon an arcane servant who will release all arcane magic to help you, but each release will consume life",
+  "item.masi.element_aggregation_magic.tooltip": "Continuously chant to lock in surrounding targets and lower elemental impact",
+
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",

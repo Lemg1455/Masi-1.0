@@ -146,6 +146,54 @@ public class AddParticleS2CPacket {
                 client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x, y+1, z-0.5,0,0,0);
                 client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x, y+1, z+0.5,0,0,0);
             }
+
+            if (mode==105) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x-1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x+1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x-1, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x+1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x-1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFD6D).toVector3f(), 5.0f), x+1, y, z-1,0,0,0);
+
+            }
+            if (mode==106) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x-1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x+1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x-1, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x+1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x-1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), x+1, y, z-1,0,0,0);
+            }
+            if (mode==107) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x-1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x+1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x-1, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x+1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x-1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFF6D80).toVector3f(), 5.0f), x+1, y, z-1,0,0,0);
+
+            }
+            if (mode==108) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x-1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x+1, y, z,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x-1, y, z-1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x+1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x-1, y, z+1,0,0,0);
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 5.0f), x+1, y, z-1,0,0,0);
+
+            }
         }
     }
 }

@@ -54,6 +54,7 @@
   "item.masi.purification_magic": "净化魔法",
   "item.masi.death_declaration_magic": "死亡宣告",
   "item.masi.arcane_minion_magic": "奥术仆从",
+  "item.masi.element_aggregation_magic": "元素聚顶",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -79,6 +80,7 @@
   "item.masi.purification_magic.tooltip": "净化身周目标,清除负面药水效果,清除除了使用者对目标和目标对自身施加的魔法效果,对亡灵生物会造成伤害",
   "item.masi.death_declaration_magic.tooltip": "释放诅咒,命中的生灵一分钟后会死(100点伤害),亡灵会满血。可被净化魔法净化",
   "item.masi.arcane_minion_magic.tooltip": "召唤一个奥术仆从,它会释放所有的奥术魔法,但每次释放会消耗它的生命",
+  "item.masi.element_aggregation_magic.tooltip": "持续吟唱锁定周围目标,并降下元素冲击,触发对应的元素效果",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

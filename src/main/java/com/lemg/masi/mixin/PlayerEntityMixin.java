@@ -153,8 +153,8 @@ public abstract class PlayerEntityMixin {
 		}
 		if(MagicUtil.ENERGY.get(player)!=null){
 			if(MagicUtil.ENERGY.get(player)<10){
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 0,false,false,false));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20, 0,false,false,false));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 0,false,false,false));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60, 1,false,false,false));
 			}
 		}
 	}
