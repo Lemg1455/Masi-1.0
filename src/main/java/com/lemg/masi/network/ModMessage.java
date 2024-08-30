@@ -17,7 +17,7 @@ public class ModMessage {
     public static final Identifier CROSSHAIR_BLOCK_ID = new Identifier(Masi.MOD_ID,"crosshair_block");//获取指向方块
     public static final Identifier TIME_REQUIRED_ID = new Identifier(Masi.MOD_ID,"time_required");//获取指向方块
     public static final Identifier VELOCITY_UPDATE_ID = new Identifier(Masi.MOD_ID,"velocity_update");//更新速度向量
-
+    public static final Identifier MAGIC_EFFECT_ID = new Identifier(Masi.MOD_ID,"magic_effect");//更新速度向量
 
     public static void registerC2SPackets(){
         ServerPlayNetworking.registerGlobalReceiver(ADD_PARTICLE_ID, AddParticleC2SPacket::receive);
@@ -34,6 +34,7 @@ public class ModMessage {
         ClientPlayNetworking.registerGlobalReceiver(ENERGY_UPDATE_ID, EnergyUpdateS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(TIME_REQUIRED_ID, TimeRequiredS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(VELOCITY_UPDATE_ID, VelocityUpdateS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(MAGIC_EFFECT_ID, MagicEffectS2CPacket::receive);
 
     }
 }

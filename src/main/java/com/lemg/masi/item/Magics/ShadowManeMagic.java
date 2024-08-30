@@ -54,7 +54,7 @@ public class ShadowManeMagic extends Magic{
         return 0;
     }
 
-    public ConcurrentHashMap<PlayerEntity,List<LivingEntity>> Missile = new ConcurrentHashMap<>();
+    public ConcurrentHashMap<LivingEntity,List<LivingEntity>> Missile = new ConcurrentHashMap<>();
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
@@ -66,8 +66,8 @@ public class ShadowManeMagic extends Magic{
                     list2.add(livingEntity);
                 }
             }
-            Missile.put((PlayerEntity) user,list2);
-            MagicUtil.putEffect((PlayerEntity)user,user,this,list.size()*10);
+            Missile.put(user,list2);
+            MagicUtil.putEffect(user,user,this,list.size()*10);
         }
     }
     @Override
@@ -100,9 +100,6 @@ public class ShadowManeMagic extends Magic{
                 if(livingEntity.isAlive()){
                     user.teleport(livingEntity.getX(),livingEntity.getY(),livingEntity.getZ(),true);
                     float amount = 10;
-                    if(MagicUtil.MAX_ENERGY.get(player)!=null){
-                        amount = MagicUtil.MAX_ENERGY.get(player) / 10.0f;
-                    }
                     livingEntity.damage(player.getWorld().getDamageSources().mobAttack(player), amount);
                 }
                 list.remove(0);

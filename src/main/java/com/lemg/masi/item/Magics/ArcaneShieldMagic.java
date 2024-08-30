@@ -32,7 +32,7 @@ public class ArcaneShieldMagic extends Magic{
 
     @Override
     public int energyConsume(){
-        return 30;
+        return 20;
     }
     @Override
     public int studyNeed(){

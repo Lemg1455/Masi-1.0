@@ -58,7 +58,7 @@ public class TauntMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        MagicUtil.putEffect((PlayerEntity)user,user,this,400);
+        MagicUtil.putEffect(user,user,this,400);
     }
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){

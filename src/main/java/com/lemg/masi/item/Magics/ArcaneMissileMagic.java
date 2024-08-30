@@ -131,15 +131,17 @@ public class ArcaneMissileMagic extends Magic{
         }
     }
     @Override
-    public void BulletEffect(HitResult hitResult, PlayerEntity player,MagicBulletEntity magicBullet){
+    public void BulletEffect(HitResult hitResult, LivingEntity livingEntity,MagicBulletEntity magicBullet){
         List<Entity> hit_list = magicBullet.getWorld().getOtherEntities(magicBullet, magicBullet.getBoundingBox().expand(2,2,2));
         int amount = 10;
-        if(MagicUtil.MAX_ENERGY.get(player)!=null){
-            amount = MagicUtil.MAX_ENERGY.get(player) / 10;
+        if(livingEntity instanceof PlayerEntity){
+            if(MagicUtil.MAX_ENERGY.get(livingEntity)!=null){
+                amount = MagicUtil.MAX_ENERGY.get(livingEntity) / 10;
+            }
         }
         for(Entity entity : hit_list){
-            if(entity instanceof LivingEntity livingEntity){
-                livingEntity.damage(magicBullet.getWorld().getDamageSources().playerAttack(player), amount);
+            if(entity instanceof LivingEntity livingEntity1){
+                livingEntity1.damage(magicBullet.getWorld().getDamageSources().magic(), amount);
             }
         }
     }

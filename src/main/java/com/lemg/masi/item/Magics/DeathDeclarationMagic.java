@@ -80,7 +80,7 @@ public class DeathDeclarationMagic extends Magic{
         }
     }
     @Override
-    public void BulletEffect(HitResult hitResult, PlayerEntity player,MagicBulletEntity magicBullet){
+    public void BulletEffect(HitResult hitResult, LivingEntity livingEntity,MagicBulletEntity magicBullet){
         Entity entity = null;
         if(hitResult.getType()== HitResult.Type.ENTITY){
             entity = ((EntityHitResult)hitResult).getEntity();
@@ -89,9 +89,9 @@ public class DeathDeclarationMagic extends Magic{
         if(entity==null){
             return;
         }
-        if(entity instanceof LivingEntity livingEntity){
-            livingEntity.damage(livingEntity.getWorld().getDamageSources().magic(),1);
-            MagicUtil.putEffect(player,livingEntity,this,1200);
+        if(entity instanceof LivingEntity livingEntity1){
+            livingEntity1.damage(livingEntity1.getWorld().getDamageSources().magic(),1);
+            MagicUtil.putEffect(livingEntity,livingEntity1,this,1200);
         }
     }
     @Override

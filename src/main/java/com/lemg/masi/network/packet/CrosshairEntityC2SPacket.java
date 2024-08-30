@@ -104,7 +104,7 @@ public class CrosshairEntityC2SPacket {
                             playerEntity.dropStack(itemStack1);
                         }
                     }
-                } else if (livingEntity instanceof PiglinEntity piglin) {
+                /*} else if (livingEntity instanceof PiglinEntity piglin) {
                     if(!piglin.getInventory().isEmpty()){
                         Random random = new Random();
                         ItemStack itemStack1 = ItemStack.EMPTY;
@@ -119,7 +119,7 @@ public class CrosshairEntityC2SPacket {
                         }else {
                             playerEntity.dropStack(itemStack1);
                         }
-                    }
+                    }*/
                 }else {
                     ItemStack itemStack1;
                     for(EquipmentSlot equipmentSlot : EquipmentSlot.values()){

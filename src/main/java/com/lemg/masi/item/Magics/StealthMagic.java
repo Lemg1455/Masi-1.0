@@ -51,7 +51,7 @@ public class StealthMagic extends Magic{
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!world.isClient()){
             if(user.isAlive()){
-                MagicUtil.putEffect((PlayerEntity)user,user,this,400);
+                MagicUtil.putEffect(user,user,this,400);
             }
         }
         super.release(stack,world,user,singingTicks);

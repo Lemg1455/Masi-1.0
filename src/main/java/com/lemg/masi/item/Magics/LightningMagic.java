@@ -81,7 +81,7 @@ public class LightningMagic extends Magic{
         }
     }
     @Override
-    public void BulletEffect(HitResult hitResult, PlayerEntity player,MagicBulletEntity magicBullet){
+    public void BulletEffect(HitResult hitResult, LivingEntity livingEntity,MagicBulletEntity magicBullet){
         BlockPos blockPos = null;
         if(hitResult.getType()== HitResult.Type.ENTITY){
             blockPos = ((EntityHitResult)hitResult).getEntity().getBlockPos();
@@ -94,10 +94,10 @@ public class LightningMagic extends Magic{
         }
 
         LightningEntity lightningEntity;
-        if ((lightningEntity = EntityType.LIGHTNING_BOLT.create(player.getWorld())) != null) {
+        if ((lightningEntity = EntityType.LIGHTNING_BOLT.create(livingEntity.getWorld())) != null) {
             lightningEntity.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(blockPos));
-            lightningEntity.setChanneler(player instanceof ServerPlayerEntity ? (ServerPlayerEntity)player : null);
-            player.getWorld().spawnEntity(lightningEntity);
+            lightningEntity.setChanneler(livingEntity instanceof ServerPlayerEntity ? (ServerPlayerEntity)livingEntity : null);
+            livingEntity.getWorld().spawnEntity(lightningEntity);
         }
     }
 

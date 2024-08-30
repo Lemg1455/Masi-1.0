@@ -43,8 +43,8 @@ public class MagicBulletEntity
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        PlayerEntity player = (PlayerEntity) this.getOwner();
-        magic.BulletEffect(hitResult,player,this);
+        LivingEntity livingEntity = (LivingEntity) this.getOwner();
+        magic.BulletEffect(hitResult,livingEntity,this);
     }
 
     @Override

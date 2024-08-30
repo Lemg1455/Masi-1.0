@@ -53,7 +53,7 @@ public abstract class Magic extends Item {
     //如果魔法的效果不是立即生效的，或者应该生效一段时间的，应在咏唱或释放中赋予目标时长/倒计时
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){}
 
-    public void BulletEffect(HitResult hitResult, PlayerEntity player, MagicBulletEntity magicBullet){
+    public void BulletEffect(HitResult hitResult, LivingEntity livingEntity, MagicBulletEntity magicBullet){
 
     }
     //需要咏唱的时间
