@@ -63,19 +63,15 @@ public class PurificationMagic extends Magic{
                     livingEntity.setFrozenTicks(0);
                 }
                 if(!livingEntity.getWorld().isClient()) {
-                    //玩家赋予给目标的魔法效果
-                    if (!MagicUtil.EFFECT.keySet().isEmpty()) {
-                        for(LivingEntity livingEntity1 : MagicUtil.EFFECT.keySet()){
-                            ConcurrentHashMap<Object, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(livingEntity1);
-                            for(Object object : map2.keySet()){
-                                //有效果影响的生物是目标
-                                if(object.equals(livingEntity)){
-                                    //有效果的生物不是生物自己,施术者不是净化的施术者
-                                    if(!object.equals(livingEntity1) && !livingEntity1.equals(user)){
-                                        map2.remove(object);
-                                        MagicUtil.EFFECT.put(livingEntity1,map2);
-                                    }
-                                }
+                    if (MagicUtil.EFFECT.get(livingEntity)!=null) {
+                        //目标受到的所有魔法效果和它的施加者
+                        ConcurrentHashMap<LivingEntity,ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(livingEntity);
+                        //魔法效果的施加者
+                        for(LivingEntity livingEntity1 : map2.keySet()){
+                            //如果该效果不是被净化者自己施加的,且不是净化者施加的
+                            if(!livingEntity1.equals(livingEntity) && !livingEntity1.equals(user)){
+                                //移除该施加者的施加的全部效果
+                                MagicUtil.EFFECT.get(livingEntity).remove(livingEntity1);
                             }
                         }
                     }

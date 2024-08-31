@@ -83,39 +83,39 @@ public abstract class PlayerEntityMixin {
 				ServerPlayNetworking.send((ServerPlayerEntity) player, ModMessage.TIME_REQUIRED_ID, buf);
 			}
 		}
-		if(!player.getWorld().isClient()) {
-			//玩家赋予给目标的魔法效果
-			if (MagicUtil.EFFECT.get(this) != null) {
-				ConcurrentHashMap<Object, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(this);
-				//目标以及它身上的效果
-				for (Object object : map2.keySet()) {
-					ConcurrentHashMap<Magic, Integer> map1 = map2.get(object);
-					//每种效果以及它对应的时间
-					for (Magic magic : map1.keySet()) {
-						int time = map1.get(magic);
-						//触发对应魔法中的效果
-						magic.magicEffect(player.getStackInHand(Hand.MAIN_HAND), player.getWorld(), player, object, time);
-						//时长减少
-						if (time >= 0) {
-							map1.put(magic, time - 1);
-						}
-						//时长耗尽就移除该效果
-						if (map1.get(magic) < 0) {
-							map1.remove(magic);
-						}
-					}
-					//目标身上没有效果了，就移除该目标
-					if (map1.isEmpty()) {
-						map2.remove(object);
-					}
-				}
-				MagicUtil.EFFECT.put(player, map2);
-				//玩家没有目标了，移除该玩家
-				if (MagicUtil.EFFECT.get(this).isEmpty()) {
-					MagicUtil.EFFECT.remove(this);
-				}
-			}
-		}
+//		if(!player.getWorld().isClient()) {
+//			//玩家赋予给目标的魔法效果
+//			if (MagicUtil.EFFECT.get(this) != null) {
+//				ConcurrentHashMap<Object, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(this);
+//				//目标以及它身上的效果
+//				for (Object object : map2.keySet()) {
+//					ConcurrentHashMap<Magic, Integer> map1 = map2.get(object);
+//					//每种效果以及它对应的时间
+//					for (Magic magic : map1.keySet()) {
+//						int time = map1.get(magic);
+//						//触发对应魔法中的效果
+//						magic.magicEffect(player.getStackInHand(Hand.MAIN_HAND), player.getWorld(), player, object, time);
+//						//时长减少
+//						if (time >= 0) {
+//							map1.put(magic, time - 1);
+//						}
+//						//时长耗尽就移除该效果
+//						if (map1.get(magic) < 0) {
+//							map1.remove(magic);
+//						}
+//					}
+//					//目标身上没有效果了，就移除该目标
+//					if (map1.isEmpty()) {
+//						map2.remove(object);
+//					}
+//				}
+//				MagicUtil.EFFECT.put(player, map2);
+//				//玩家没有目标了，移除该玩家
+//				if (MagicUtil.EFFECT.get(this).isEmpty()) {
+//					MagicUtil.EFFECT.remove(this);
+//				}
+//			}
+//		}
 
 		ItemStack magic = MagicUtil.MagicNow(player);
 		if(magic!=null){

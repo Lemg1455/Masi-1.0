@@ -58,6 +58,9 @@ public class ShadowManeMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
+        if(world.isClient()){
+            return;
+        }
         List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));
         List<LivingEntity> list2 = new ArrayList<>();
         if(!list.isEmpty()){

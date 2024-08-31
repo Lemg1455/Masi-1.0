@@ -41,7 +41,9 @@ public class TrialCard extends Magic {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack handStack = user.getStackInHand(hand);
-        MagicUtil.putEffect(user,user,this,1200);
+        if(!user.getWorld().isClient()){
+            MagicUtil.putEffect(user,user,this,1200);
+        }
         if(!user.getAbilities().creativeMode){
             handStack.decrement(1);
         }

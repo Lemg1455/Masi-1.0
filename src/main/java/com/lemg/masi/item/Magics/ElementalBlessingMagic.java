@@ -67,6 +67,9 @@ public class ElementalBlessingMagic extends Magic{
 
     @Override
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
+        if(world.isClient()){
+            return;
+        }
         if(aim instanceof PlayerEntity player){
             if(player.isAlive()){
                 if (MagicUtil.ENERGY.get(player) >= 7) {
@@ -87,18 +90,18 @@ public class ElementalBlessingMagic extends Magic{
                         }
                     }
                 }else {
-                    MagicUtil.putEffect(user,aim,this,0);
+                    MagicUtil.putEffect(aim,user,this,0);
                     player.setHealth(0);
                 }
             }else {
-                MagicUtil.putEffect(user,aim,this,0);
+                MagicUtil.putEffect(aim,user,this,0);
             }
         }
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.masi.gain_circle_magic.tooltip"));
+        tooltip.add(Text.translatable("item.masi.elemental_blessing_magic.tooltip"));
         super.appendTooltip(stack,world,tooltip,context);
     }
 }

@@ -25,8 +25,11 @@ public class MagicEffectS2CPacket {
         if(client!=null && client.player!=null){
             Magic magic = (Magic) buf.readItemStack().getItem();
             if(magic instanceof ElementalBlessingMagic){
-                if (MagicUtil.ENERGY.get(client.player) >= 7) {
-                    int energy = MagicUtil.ENERGY.get(client.player) - 7;
+                if (MagicUtil.ENERGY.get(client.player) > 0) {
+                    int energy = 0;
+                    if(MagicUtil.ENERGY.get(client.player)>=7){
+                        energy = MagicUtil.ENERGY.get(client.player) - 7;
+                    }
                     MagicUtil.ENERGY.put(client.player,energy);
                     PacketByteBuf buf2 = PacketByteBufs.create();
                     buf2.writeInt(0);

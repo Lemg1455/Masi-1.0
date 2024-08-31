@@ -53,6 +53,7 @@
   "item.masi.death_declaration_magic": "Death Declaration Magic",
   "item.masi.arcane_minion_magic": "Arcane Minion Magic",
   "item.masi.element_aggregation_magic": "Element Aggregation Magic",
+  "item.masi.elemental_blessing_magic": "Element Blessing Magic",
 
 
 
@@ -80,6 +81,7 @@
   "item.masi.death_declaration_magic.tooltip": "Release the curse, the hit creature will die in one minute, and the undead will be full of blood. Can be purified by magic purification",
   "item.masi.arcane_minion_magic.tooltip": "Summon an arcane servant who will release all arcane magic to help you, but each release will consume life",
   "item.masi.element_aggregation_magic.tooltip": "Continuously chant to lock in surrounding targets and lower elemental impact",
+  "item.masi.elemental_blessing_magic.tooltip": "Receiving blessings from the four elements, the body becomes incredibly strong, but it will continue to lose its magic power. When the magic power is exhausted, it will die",
 
 
 
