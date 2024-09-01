@@ -22,12 +22,20 @@ public class EnergyUpdateC2SPacket {
         int mode = buf.readInt();
         UUID uuid = buf.readUuid();
         int energy = buf.readInt();
-        PlayerEntity playerEntity = server.getPlayerManager().getPlayer(uuid);
+        LivingEntity livingEntity = (LivingEntity) server.getOverworld().getEntity(uuid);
         if(mode==0){
-            MagicUtil.ENERGY.put(playerEntity,energy);
+            if(MagicUtil.MAX_ENERGY.get(livingEntity)!=null){
+                if(energy>=MagicUtil.MAX_ENERGY.get(livingEntity)){
+                    MagicUtil.ENERGY.put(livingEntity,MagicUtil.MAX_ENERGY.get(livingEntity));
+                }else {
+                    MagicUtil.ENERGY.put(livingEntity,energy);
+                }
+            }else{
+                MagicUtil.ENERGY.put(livingEntity,energy);
+            }
         }
         if (mode==1) {
-            MagicUtil.MAX_ENERGY.put(playerEntity,energy);
+            MagicUtil.MAX_ENERGY.put(livingEntity,energy);
         }
 
     }

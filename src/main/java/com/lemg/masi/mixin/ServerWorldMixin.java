@@ -8,6 +8,7 @@ import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -19,8 +20,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.level.ServerWorldProperties;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BooleanSupplier;
@@ -40,6 +45,9 @@ import java.util.function.BooleanSupplier;
 public abstract class ServerWorldMixin{
 	@Shadow @Final private ServerWorldProperties worldProperties;
 	@Shadow private int idleTimeout;
+
+	@Shadow public abstract List<ServerPlayerEntity> getPlayers();
+
 	@Unique
 	int count = 0;
 	@Inject(at = @At("TAIL"), method = "tick")
@@ -62,6 +70,36 @@ public abstract class ServerWorldMixin{
 							int time = map1.get(magic);
 							//触发对应魔法中的效果
 							magic.magicEffect(livingEntity.getStackInHand(Hand.MAIN_HAND), ((ServerWorld)(Object)this), livingEntity, object, time);
+
+							PacketByteBuf buf = PacketByteBufs.create();
+							if(object instanceof Entity entity){
+								buf.writeInt(1);
+								buf.writeInt(entity.getId());
+							} else if (object instanceof BlockPos blockPos) {
+								buf.writeInt(2);
+								buf.writeBlockPos(blockPos);
+							} else if (object instanceof BlockHitResult blockHitResult) {
+								buf.writeInt(3);
+								buf.writeBlockHitResult(blockHitResult);
+							} else if (object instanceof Vector3f vector3f) {
+								buf.writeInt(4);
+								buf.writeVector3f(vector3f);
+							} else if (object instanceof ItemStack itemStack) {
+								buf.writeInt(5);
+								buf.writeItemStack(itemStack);
+							}else {
+								buf.writeInt(0);
+							}
+							buf.writeItemStack(magic.getDefaultStack());
+							//buf.writeItemStack(livingEntity.getStackInHand(Hand.MAIN_HAND));
+
+
+							buf.writeInt(livingEntity.getId());
+							buf.writeInt(time);
+							for(ServerPlayerEntity serverPlayerEntity : this.getPlayers()){
+								ServerPlayNetworking.send(serverPlayerEntity, ModMessage.MAGIC_EFFECT_ID, buf);
+							}
+
 							//时长减少
 							if (time >= 0) {
 								map1.put(magic, time - 1);

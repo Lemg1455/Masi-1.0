@@ -30,9 +30,9 @@ public class MagicUtil {
     private MagicUtil(){
 
     }
-    public static final Map<PlayerEntity, Integer> MAX_ENERGY = new HashMap<>();//魔力上限
-    public static final Map<PlayerEntity, Integer> ENERGY = new HashMap<>();//当前魔力
-    public static final Map<PlayerEntity, Integer> ENERGY_RESTORED = new HashMap<>();//每1秒的魔力回复
+    public static final Map<LivingEntity, Integer> MAX_ENERGY = new HashMap<>();//魔力上限
+    public static final Map<LivingEntity, Integer> ENERGY = new HashMap<>();//当前魔力
+    public static final Map<LivingEntity, Integer> ENERGY_RESTORED = new HashMap<>();//每1秒的魔力回复
     public static final Map<PlayerEntity, Integer> MAGIC_CHOOSE = new HashMap<>();//当前选择的魔法
     public static final Map<PlayerEntity, List<Object>> TIME_REQUIRED = new HashMap<>();//魔法释放后持续的时间，如果它是持续攻击的话
 

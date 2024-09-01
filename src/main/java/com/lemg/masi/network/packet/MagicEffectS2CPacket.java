@@ -12,33 +12,46 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import org.joml.Vector3f;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MagicEffectS2CPacket {
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender sender){
-        if(client!=null && client.player!=null){
-            Magic magic = (Magic) buf.readItemStack().getItem();
-            if(magic instanceof ElementalBlessingMagic){
-                if (MagicUtil.ENERGY.get(client.player) > 0) {
-                    int energy = 0;
-                    if(MagicUtil.ENERGY.get(client.player)>=7){
-                        energy = MagicUtil.ENERGY.get(client.player) - 7;
-                    }
-                    MagicUtil.ENERGY.put(client.player,energy);
-                    PacketByteBuf buf2 = PacketByteBufs.create();
-                    buf2.writeInt(0);
-                    buf2.writeUuid(client.player.getUuid());
-                    buf2.writeInt(energy);
-                    ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf2);
-                }
+        if(client!=null && client.player!=null && client.world!=null){
+            Object object = null;
+            int type = buf.readInt();
+            if(type==1){
+                object = client.world.getEntityById(buf.readInt());
             }
-        }
+            if(type==2){
+                object = buf.readBlockPos();
+            }
+            if(type==3){
+                object = buf.readBlockHitResult();
+            }
+            if(type==4){
+                object = buf.readVector3f();
+            }
+            if(type==5){
+                object = buf.readItemStack();
+            }
 
+            Magic magic = (Magic)buf.readItemStack().getItem();
+
+            LivingEntity user = (LivingEntity) client.world.getEntityById(buf.readInt());
+            int time = buf.readInt();
+            magic.magicEffect(user.getMainHandStack(), client.world, user, object, time);
+        }
     }
 }

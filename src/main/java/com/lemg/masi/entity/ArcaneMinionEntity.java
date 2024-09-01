@@ -72,6 +72,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
     @Nullable
     private UUID ownerUuid;
     private PlayerEntity owner;
+    public int energy=0;
     private int releaseContinueTime = 0;
     Magic magic = null;
 
@@ -97,6 +98,9 @@ public class ArcaneMinionEntity extends AnimalEntity {
         this.owner=player;
         this.ownerUuid=player.getUuid();
     }
+    public void setEnergy(int energy1) {
+        this.energy=energy1;
+    }
     public List<? extends PlayerEntity> getPlayers() {
         return this.getWorld().getPlayers();
     }
@@ -119,6 +123,10 @@ public class ArcaneMinionEntity extends AnimalEntity {
         return this.getPlayerByUuid(uUID);
     }
 
+    public int getEnergy() {
+        return this.energy;
+    }
+
     public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
         return true;
     }
@@ -131,6 +139,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
         if (this.getOwnerUuid() != null) {
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
+        nbt.putInt("energy",this.energy);
     }
 
     @Override
@@ -145,6 +154,9 @@ public class ArcaneMinionEntity extends AnimalEntity {
         }
         if (uUID != null) {
             this.setOwnerUuid(uUID);
+        }
+        if (nbt.containsUuid("energy")) {
+            this.energy=nbt.getInt("energy");
         }
     }
 
@@ -172,6 +184,15 @@ public class ArcaneMinionEntity extends AnimalEntity {
     @Override
     public void tick() {
         super.tick();
+        if(!this.getWorld().isClient()){
+            if(MagicUtil.ENERGY.get(this)!=null){
+                if(MagicUtil.ENERGY.get(this)<=0){
+                    this.damage(this.getWorld().getDamageSources().magic(),999);
+                }
+            }else {
+                MagicUtil.ENERGY.put(this,this.energy);
+            }
+        }
         //动作的计时器
         if (this.getWorld().isClient()){
             setUpAnimationState();
@@ -184,7 +205,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
             }
             if (this.isAttacking() && this.attackAnimationTimeOut <= 0) {
                 attackAnimationTimeOut = 100;
-                this.damage(this.getWorld().getDamageSources().magic(),10);
+                MagicUtil.ENERGY.put(this,MagicUtil.ENERGY.get(this)-10);
                 if (releaseContinueTime <= 0) {
                     List<Item> list = getArcaneMagics();
                     if (list != null) {
@@ -217,6 +238,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
                 releaseContinueTime--;
             }
         }
+
     }
 
     public List<Item> getArcaneMagics(){
