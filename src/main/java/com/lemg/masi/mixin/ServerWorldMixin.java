@@ -60,65 +60,38 @@ public abstract class ServerWorldMixin{
 			//所有进行中的魔法效果
 			if (!MagicUtil.EFFECT.isEmpty()) {
 				//所有受魔法效果的目标
-				for(Object object : MagicUtil.EFFECT.keySet()){
-					ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(object);
-					//施加者和它施加的魔法效果
-					for (LivingEntity livingEntity : map2.keySet()) {
-						ConcurrentHashMap<Magic, Integer> map1 = map2.get(livingEntity);
-						//每种效果以及它对应的时间
-						for (Magic magic : map1.keySet()) {
-							int time = map1.get(magic);
-							//触发对应魔法中的效果
-							magic.magicEffect(livingEntity.getStackInHand(Hand.MAIN_HAND), ((ServerWorld)(Object)this), livingEntity, object, time);
+				if(MagicUtil.EFFECT.get(((ServerWorld)(Object)this))!=null){
+					for(Object object : MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).keySet()){
+						ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).get(object);
+						//施加者和它施加的魔法效果
+						for (LivingEntity livingEntity : map2.keySet()) {
+							ConcurrentHashMap<Magic, Integer> map1 = map2.get(livingEntity);
+							//每种效果以及它对应的时间
+							for (Magic magic : map1.keySet()) {
+								int time = map1.get(magic);
+								//触发对应魔法中的效果
+								magic.magicEffect(livingEntity.getStackInHand(Hand.MAIN_HAND), ((ServerWorld)(Object)this), livingEntity, object, time);
 
-							PacketByteBuf buf = PacketByteBufs.create();
-							if(object instanceof Entity entity){
-								buf.writeInt(1);
-								buf.writeInt(entity.getId());
-							} else if (object instanceof BlockPos blockPos) {
-								buf.writeInt(2);
-								buf.writeBlockPos(blockPos);
-							} else if (object instanceof BlockHitResult blockHitResult) {
-								buf.writeInt(3);
-								buf.writeBlockHitResult(blockHitResult);
-							} else if (object instanceof Vector3f vector3f) {
-								buf.writeInt(4);
-								buf.writeVector3f(vector3f);
-							} else if (object instanceof ItemStack itemStack) {
-								buf.writeInt(5);
-								buf.writeItemStack(itemStack);
-							}else {
-								buf.writeInt(0);
+								//时长减少
+								if (time >= 0) {
+									map1.put(magic, time - 1);
+								}
+								//时长耗尽就移除该效果
+								if (map1.get(magic) < 0) {
+									map1.remove(magic);
+								}
 							}
-							buf.writeItemStack(magic.getDefaultStack());
-							//buf.writeItemStack(livingEntity.getStackInHand(Hand.MAIN_HAND));
-
-
-							buf.writeInt(livingEntity.getId());
-							buf.writeInt(time);
-							for(ServerPlayerEntity serverPlayerEntity : this.getPlayers()){
-								ServerPlayNetworking.send(serverPlayerEntity, ModMessage.MAGIC_EFFECT_ID, buf);
-							}
-
-							//时长减少
-							if (time >= 0) {
-								map1.put(magic, time - 1);
-							}
-							//时长耗尽就移除该效果
-							if (map1.get(magic) < 0) {
-								map1.remove(magic);
+							//该施加者的效果都结束了
+							if (map1.isEmpty()) {
+								map2.remove(livingEntity);
 							}
 						}
-						//该施加者的效果都结束了
-						if (map1.isEmpty()) {
-							map2.remove(livingEntity);
+						MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).put(object, map2);
+						//目标没有效果了
+						if (MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).get(object).isEmpty()) {
+							MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).remove(object);
 						}
-					}
-					MagicUtil.EFFECT.put(object, map2);
-					//目标没有效果了
-					if (MagicUtil.EFFECT.get(object).isEmpty()) {
-						MagicUtil.EFFECT.remove(object);
-					}
+				    }
 				}
 			}
 			profiler.pop();

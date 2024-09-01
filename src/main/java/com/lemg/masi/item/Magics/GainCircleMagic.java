@@ -53,7 +53,7 @@ public class GainCircleMagic extends Magic{
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!world.isClient()){
-            MagicUtil.putEffect(user.getBlockPos(),user,this,200);
+            //MagicUtil.putEffect(user.getBlockPos(),user,this,200);
         }
         super.release(stack,world,user,singingTicks);
     }

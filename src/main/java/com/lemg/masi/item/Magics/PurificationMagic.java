@@ -62,7 +62,7 @@ public class PurificationMagic extends Magic{
                     }
                     livingEntity.setFrozenTicks(0);
                 }
-                if(!livingEntity.getWorld().isClient()) {
+                /*if(!livingEntity.getWorld().isClient()) {
                     if (MagicUtil.EFFECT.get(livingEntity)!=null) {
                         //目标受到的所有魔法效果和它的施加者
                         ConcurrentHashMap<LivingEntity,ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(livingEntity);
@@ -75,7 +75,7 @@ public class PurificationMagic extends Magic{
                             }
                         }
                     }
-                }
+                }*/
             }
         }
         super.release(stack,world,user,singingTicks);

@@ -5,7 +5,8 @@
 	"mixins": [
       "InGameHudMixin",
 		"PlayerEntityMixin",
-		"ServerWorldMixin"
+		"ServerWorldMixin",
+		"MinecraftClientMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

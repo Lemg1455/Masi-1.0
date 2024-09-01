@@ -46,9 +46,7 @@ public class ElementalBlessingMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        if(!world.isClient()){
-            MagicUtil.putEffect(user,user,this,1000);
-        }
+        MagicUtil.putEffect(world,user,user,this,1000);
         super.release(stack,world,user,singingTicks);
     }
     @Override
@@ -69,6 +67,9 @@ public class ElementalBlessingMagic extends Magic{
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
         if(world.isClient()){
             if(ticks%20==0){
+                if(user instanceof PlayerEntity player && (player.getAbilities().creativeMode || MagicUtil.isTrial(player))){
+                    return;
+                }
                 if (MagicUtil.ENERGY.get(user) > 0) {
                     int energy = 0;
                     if(MagicUtil.ENERGY.get(user)>=7){
@@ -83,28 +84,30 @@ public class ElementalBlessingMagic extends Magic{
                 }
             }
         }
-        if(!world.isClient()){
-            if(aim instanceof PlayerEntity player){
-                if(player.isAlive() && !player.getAbilities().creativeMode && MagicUtil.isTrial(player)){
-                    if (MagicUtil.ENERGY.get(player) >= 7) {
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 5,false,false,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 3,false,false,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, 1,false,false,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 60, 1,false,false,true));
-                        player.setAir(300);
-                        player.setFireTicks(0);
-                        player.setFrozenTicks(0);
-                        player.removeStatusEffect(StatusEffects.SLOWNESS);
-                        player.removeStatusEffect(StatusEffects.WEAKNESS);
-                    }else {
-                        MagicUtil.putEffect(aim,user,this,0);
+
+        if(aim instanceof PlayerEntity player){
+            if(player.isAlive()){
+                if (MagicUtil.ENERGY.get(player) >= 7) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 5,false,false,true));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 3,false,false,true));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, 1,false,false,true));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 60, 1,false,false,true));
+                    player.setAir(300);
+                    player.setFireTicks(0);
+                    player.setFrozenTicks(0);
+                    player.removeStatusEffect(StatusEffects.SLOWNESS);
+                    player.removeStatusEffect(StatusEffects.WEAKNESS);
+                }else {
+                    if(!player.getAbilities().creativeMode && !MagicUtil.isTrial(player)){
                         player.setHealth(0);
                     }
-                }else {
-                    MagicUtil.putEffect(aim,user,this,0);
+                    MagicUtil.putEffect(world,aim,user,this,0);
                 }
+            }else {
+                MagicUtil.putEffect(world,aim,user,this,0);
             }
         }
+
     }
 
     @Override

@@ -70,7 +70,7 @@ public class ShadowManeMagic extends Magic{
                 }
             }
             Missile.put(user,list2);
-            MagicUtil.putEffect(user,user,this,list.size()*10);
+            //MagicUtil.putEffect(user,user,this,list.size()*10);
         }
     }
     @Override
