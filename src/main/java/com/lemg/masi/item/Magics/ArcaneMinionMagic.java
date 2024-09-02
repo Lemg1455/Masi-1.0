@@ -63,7 +63,7 @@ public class ArcaneMinionMagic extends Magic{
         if (arcaneMinionEntity != null) {
             if(user instanceof PlayerEntity player){
                 arcaneMinionEntity.setOwner(player);
-                MagicUtil.ENERGY.put(arcaneMinionEntity,50);
+                MagicUtil.ENERGY.put(arcaneMinionEntity,80);
             }
             arcaneMinionEntity.refreshPositionAndAngles(user.getPos().getX(), user.getPos().getY(), user.getPos().getZ(), 0.0f, 0.0f);
             if(!user.getWorld().isClient()){

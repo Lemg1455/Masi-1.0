@@ -62,6 +62,8 @@ import java.util.UUID;
 public class ArcaneMinionEntity extends AnimalEntity {
     private static final TrackedData<Boolean> ATTACKING =
             DataTracker.registerData(ArcaneMinionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> MAGIC =
+            DataTracker.registerData(ArcaneMinionEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     //待机动作
     public final AnimationState idleAnimationState = new AnimationState();
@@ -85,6 +87,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING,false);
+        this.dataTracker.startTracking(MAGIC,-2);
     }
     @Nullable
     public UUID getOwnerUuid() {
@@ -170,7 +173,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
             --this.idleAnimationTimeOut;
         }
         //攻击动作计时器
-        if (this.isAttacking() && this.attackAnimationTimeOut <= 0){
+        if (this.isAttacking() && this.attackAnimationTimeOut <= 0 && releaseContinueTime <= 0){
             attackAnimationTimeOut = 100;
             attackAnimationState.start(this.age);
         }else {
@@ -196,6 +199,17 @@ public class ArcaneMinionEntity extends AnimalEntity {
         //动作的计时器
         if (this.getWorld().isClient()){
             setUpAnimationState();
+            List<Item> list = getArcaneMagics();
+            int i = this.getMagic();
+            if(i!=-2){
+                magic = (Magic) list.get(i);
+                if (magic.releaseContinueTime() > 0) {
+                    this.releaseContinueTime = magic.releaseContinueTime();
+                }
+            }
+            if(releaseContinueTime>0){
+                releaseContinueTime--;
+            }
         }
         if(!this.getWorld().isClient()) {
             if(this.getTarget()!=null){
@@ -203,7 +217,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
             }else {
                 MagicUtil.circleForward(104,this,this.getX(), this.getY(), this.getZ());
             }
-            if (this.isAttacking() && this.attackAnimationTimeOut <= 0) {
+            if (this.isAttacking() && this.attackAnimationTimeOut <= 0 && releaseContinueTime <= 0) {
                 attackAnimationTimeOut = 100;
                 MagicUtil.ENERGY.put(this,MagicUtil.ENERGY.get(this)-10);
                 if (releaseContinueTime <= 0) {
@@ -212,12 +226,13 @@ public class ArcaneMinionEntity extends AnimalEntity {
                         Random random1 = new Random();
                         int i = random1.nextInt(list.size());
                         magic = (Magic) list.get(i);
+                        this.setMagic(i);
                         if (magic.releaseContinueTime() > 0) {
                             this.releaseContinueTime = magic.releaseContinueTime();
                         }
                     }
                 }
-            } else if(this.attackAnimationTimeOut>0){
+            }else if(this.attackAnimationTimeOut>0){
                 double yawRadians = Math.toRadians(this.getYaw() + 90);
                 double x = this.getX() + Math.cos(yawRadians) * 2;
                 double z = this.getZ() + Math.sin(yawRadians) * 2;
@@ -227,18 +242,23 @@ public class ArcaneMinionEntity extends AnimalEntity {
                 }else {
                     MagicUtil.circleForward(23, this, x, y, z);
                 }
-                --this.attackAnimationTimeOut;
+
+                attackAnimationTimeOut--;
             }
-            if (releaseContinueTime <= 0) {
-                if (attackAnimationTimeOut == 50) {
-                    magic.release(ItemStack.EMPTY, this.getWorld(), this, magic.singFinishTick());
-                }
-            } else {
-                magic.release(ItemStack.EMPTY, this.getWorld(), this, magic.singFinishTick());
+            if(releaseContinueTime>0){
                 releaseContinueTime--;
             }
         }
-
+        if (releaseContinueTime <= 0) {
+            if (attackAnimationTimeOut == 50) {
+                magic.release(ItemStack.EMPTY, this.getWorld(), this, magic.singFinishTick());
+            }
+        } else {
+            magic.release(ItemStack.EMPTY, this.getWorld(), this, magic.singFinishTick());
+        }
+        if (attackAnimationTimeOut>50) {
+            magic.onSinging(ItemStack.EMPTY, this.getWorld(), this, 100-attackAnimationTimeOut);
+        }
     }
 
     public List<Item> getArcaneMagics(){
@@ -266,6 +286,16 @@ public class ArcaneMinionEntity extends AnimalEntity {
     @Override
     public boolean isAttacking() {
         return this.dataTracker.get(ATTACKING);
+    }
+
+
+    public void setMagic(int i) {
+        this.dataTracker.set(MAGIC,i);
+    }
+
+
+    public int getMagic() {
+        return this.dataTracker.get(MAGIC);
     }
 
     @Override
