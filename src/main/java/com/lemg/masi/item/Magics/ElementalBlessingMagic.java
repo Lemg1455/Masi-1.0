@@ -87,7 +87,7 @@ public class ElementalBlessingMagic extends Magic{
 
         if(aim instanceof PlayerEntity player){
             if(player.isAlive()){
-                if (MagicUtil.ENERGY.get(player) >= 7) {
+                if (MagicUtil.ENERGY.get(player) > 0) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 5,false,false,true));
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 3,false,false,true));
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, 1,false,false,true));
@@ -95,19 +95,19 @@ public class ElementalBlessingMagic extends Magic{
                     player.setAir(300);
                     player.setFireTicks(0);
                     player.setFrozenTicks(0);
+                    player.fallDistance = 0;
                     player.removeStatusEffect(StatusEffects.SLOWNESS);
                     player.removeStatusEffect(StatusEffects.WEAKNESS);
                 }else {
+                    MagicUtil.putEffect(world,aim,user,this,0);
                     if(!player.getAbilities().creativeMode && !MagicUtil.isTrial(player)){
                         player.setHealth(0);
                     }
-                    MagicUtil.putEffect(world,aim,user,this,0);
                 }
             }else {
                 MagicUtil.putEffect(world,aim,user,this,0);
             }
         }
-
     }
 
     @Override

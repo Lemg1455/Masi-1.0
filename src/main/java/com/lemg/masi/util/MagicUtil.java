@@ -60,6 +60,7 @@ public class MagicUtil {
             MagicUtil.EFFECT.get(world).get(object).put(livingEntity,map1);
         }else {
             MagicUtil.EFFECT.get(world).get(object).get(livingEntity).put(magic,tick);
+            System.out.println(MagicUtil.EFFECT.get(world));
         }
     }
     public static List<Item> studyNeed(int need){

@@ -38,6 +38,7 @@ public abstract class MinecraftClientMixin {
 			if (!MagicUtil.EFFECT.isEmpty()) {
 				//所有受魔法效果的目标
 				if(MagicUtil.EFFECT.get(this.world)!=null){
+					System.out.println(MagicUtil.EFFECT.get(this.world));
 					for(Object object : MagicUtil.EFFECT.get(this.world).keySet()){
 						ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(this.world).get(object);
 						//施加者和它施加的魔法效果
@@ -45,18 +46,21 @@ public abstract class MinecraftClientMixin {
 							ConcurrentHashMap<Magic, Integer> map1 = map2.get(livingEntity);
 							//每种效果以及它对应的时间
 							for (Magic magic : map1.keySet()) {
-								int time = map1.get(magic);
 								//触发对应魔法中的效果
+								int time = map1.get(magic);
 								magic.magicEffect(livingEntity.getStackInHand(Hand.MAIN_HAND), (this.world), livingEntity, object, time);
 
-								//时长减少
-								if (time >= 0) {
-									map1.put(magic, time - 1);
-								}
+								time = MagicUtil.EFFECT.get(this.world).get(object).get(livingEntity).get(magic);
 								//时长耗尽就移除该效果
-								if (map1.get(magic) < 0) {
+								if (time <= 0) {
 									map1.remove(magic);
 								}
+
+								//时长减少
+								if (time > 0) {
+									map1.put(magic, time - 1);
+								}
+
 							}
 							//该施加者的效果都结束了
 							if (map1.isEmpty()) {

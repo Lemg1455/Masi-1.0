@@ -65,12 +65,14 @@ public class PurificationMagic extends Magic{
                 if (MagicUtil.EFFECT.get(world)!=null) {
                     //目标受到的所有魔法效果和它的施加者
                     ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(world).get(livingEntity);
-                    //魔法效果的施加者
-                    for (LivingEntity livingEntity1 : map2.keySet()) {
-                        //如果该效果不是被净化者自己施加的,且不是净化者施加的
-                        if (!livingEntity1.equals(livingEntity) && !livingEntity1.equals(user)) {
-                            //移除该施加者的施加的全部效果
-                            MagicUtil.EFFECT.get(world).get(livingEntity).remove(livingEntity1);
+                    if(map2 !=null){
+                        //魔法效果的施加者
+                        for (LivingEntity livingEntity1 : map2.keySet()) {
+                            //如果该效果不是被净化者自己施加的,且不是净化者施加的
+                            if (!livingEntity1.equals(livingEntity) && !livingEntity1.equals(user)) {
+                                //移除该施加者的施加的全部效果
+                                MagicUtil.EFFECT.get(world).get(livingEntity).remove(livingEntity1);
+                            }
                         }
                     }
                 }
