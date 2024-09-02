@@ -52,9 +52,7 @@ public class GainCircleMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        if(!world.isClient()){
-            //MagicUtil.putEffect(user.getBlockPos(),user,this,200);
-        }
+        MagicUtil.putEffect(world,user.getBlockPos(),user,this,200);
         super.release(stack,world,user,singingTicks);
     }
     @Override
@@ -74,25 +72,27 @@ public class GainCircleMagic extends Magic{
     @Override
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
         if(aim instanceof BlockPos blockPos){
-            if(ticks%10==0){
-                List<Entity> list = world.getOtherEntities(null,new Box(blockPos.getX()-2,blockPos.getY(),blockPos.getZ()-2,blockPos.getX()+2,blockPos.getY()+3,blockPos.getZ()+2));
-                for(Entity entity : list){
-                    if(entity instanceof PlayerEntity player){
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 600, 1,false,true,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 600, 0,false,true,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 0,false,true,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 0,false,true,true));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 600, 0,false,true,true));
+            if(!world.isClient()){
+                if(ticks%10==0){
+                    List<Entity> list = world.getOtherEntities(null,new Box(blockPos.getX()-2,blockPos.getY(),blockPos.getZ()-2,blockPos.getX()+2,blockPos.getY()+3,blockPos.getZ()+2));
+                    for(Entity entity : list){
+                        if(entity instanceof PlayerEntity player){
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 600, 1,false,true,true));
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 600, 0,false,true,true));
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 0,false,true,true));
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 0,false,true,true));
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 600, 0,false,true,true));
+                        }
                     }
                 }
-            }
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(18);
-            buf.writeDouble(blockPos.getX());
-            buf.writeDouble(blockPos.getY()+0.2);
-            buf.writeDouble(blockPos.getZ());
-            for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-                ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(18);
+                buf.writeDouble(blockPos.getX());
+                buf.writeDouble(blockPos.getY()+0.2);
+                buf.writeDouble(blockPos.getZ());
+                for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
+                    ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
+                }
             }
         }
     }

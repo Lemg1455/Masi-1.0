@@ -49,11 +49,11 @@ public class StealthMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        if(!world.isClient()){
-            if(user.isAlive()){
-                //MagicUtil.putEffect(user,user,this,400);
-            }
+
+        if(user.isAlive()){
+            MagicUtil.putEffect(world,user,user,this,400);
         }
+
         super.release(stack,world,user,singingTicks);
     }
     @Override

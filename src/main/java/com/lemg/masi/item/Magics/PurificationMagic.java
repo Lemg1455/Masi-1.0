@@ -47,35 +47,33 @@ public class PurificationMagic extends Magic{
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         List<Entity> list = world.getOtherEntities(null,new Box(user.getX()-3,user.getY(),user.getZ()-3,user.getX()+3,user.getY()+3,user.getZ()+3));
         for(Entity entity : list){
-            if(entity instanceof LivingEntity livingEntity){
-                if(livingEntity.getGroup() == EntityGroup.UNDEAD){
+            if(entity instanceof LivingEntity livingEntity) {
+                if (livingEntity.getGroup() == EntityGroup.UNDEAD) {
                     livingEntity.damage(livingEntity.getWorld().getDamageSources().playerAttack((PlayerEntity) user), 10);
-                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10, 2,false,false,false));
-                    livingEntity.setVelocity(0,1,0);
-                }else {
-                    if(livingEntity.getStatusEffects()!=null && !livingEntity.getStatusEffects().isEmpty()){
-                        for(StatusEffectInstance effects : livingEntity.getStatusEffects().stream().toList()){
-                            if(MagicUtil.harmful.contains(effects.getEffectType())){
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 10, 2, false, false, false));
+                    livingEntity.setVelocity(0, 1, 0);
+                } else {
+                    if (livingEntity.getStatusEffects() != null && !livingEntity.getStatusEffects().isEmpty()) {
+                        for (StatusEffectInstance effects : livingEntity.getStatusEffects().stream().toList()) {
+                            if (MagicUtil.harmful.contains(effects.getEffectType())) {
                                 livingEntity.removeStatusEffect(effects.getEffectType());
                             }
                         }
                     }
                     livingEntity.setFrozenTicks(0);
                 }
-                /*if(!livingEntity.getWorld().isClient()) {
-                    if (MagicUtil.EFFECT.get(livingEntity)!=null) {
-                        //目标受到的所有魔法效果和它的施加者
-                        ConcurrentHashMap<LivingEntity,ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(livingEntity);
-                        //魔法效果的施加者
-                        for(LivingEntity livingEntity1 : map2.keySet()){
-                            //如果该效果不是被净化者自己施加的,且不是净化者施加的
-                            if(!livingEntity1.equals(livingEntity) && !livingEntity1.equals(user)){
-                                //移除该施加者的施加的全部效果
-                                MagicUtil.EFFECT.get(livingEntity).remove(livingEntity1);
-                            }
+                if (MagicUtil.EFFECT.get(world)!=null) {
+                    //目标受到的所有魔法效果和它的施加者
+                    ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(world).get(livingEntity);
+                    //魔法效果的施加者
+                    for (LivingEntity livingEntity1 : map2.keySet()) {
+                        //如果该效果不是被净化者自己施加的,且不是净化者施加的
+                        if (!livingEntity1.equals(livingEntity) && !livingEntity1.equals(user)) {
+                            //移除该施加者的施加的全部效果
+                            MagicUtil.EFFECT.get(world).get(livingEntity).remove(livingEntity1);
                         }
                     }
-                }*/
+                }
             }
         }
         super.release(stack,world,user,singingTicks);

@@ -91,7 +91,7 @@ public class DeathDeclarationMagic extends Magic{
         }
         if(entity instanceof LivingEntity livingEntity1){
             livingEntity1.damage(livingEntity1.getWorld().getDamageSources().magic(),1);
-            //MagicUtil.putEffect(livingEntity1,livingEntity,this,1200);
+            MagicUtil.putEffect(livingEntity1.getWorld(),livingEntity1,livingEntity,this,1200);
         }
     }
     @Override

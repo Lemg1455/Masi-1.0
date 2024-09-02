@@ -43,9 +43,7 @@ public class LoseCircleMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        if(!world.isClient()){
-            //MagicUtil.putEffect(user.getBlockPos(),user,this,200);
-        }
+        MagicUtil.putEffect(world,user.getBlockPos(),user,this,200);
         super.release(stack,world,user,singingTicks);
     }
     @Override
