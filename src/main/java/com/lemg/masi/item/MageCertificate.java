@@ -34,6 +34,7 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -147,13 +148,13 @@ public class MageCertificate extends Item {
                     stack.setNbt(nbt);
                 }
             }
-            List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(player);
+            List<Item> equip_magics = MagicUtil.EQUIP_MAGICS.get(player);
             if(equip_magics==null && nbt.contains("EquipMagics")){
                 equip_magics = new ArrayList<>();
                 NbtList list = nbt.getList("EquipMagics", NbtElement.COMPOUND_TYPE);
                 for (int i = 0; i < list.size(); ++i) {
                     NbtCompound nbtCompound = list.getCompound(i);
-                    equip_magics.add(ItemStack.fromNbt(nbtCompound));
+                    equip_magics.add(ItemStack.fromNbt(nbtCompound).getItem());
                 }
                 if(equip_magics.size()!=0){
                     MagicUtil.EQUIP_MAGICS.put(player,equip_magics);
@@ -161,8 +162,7 @@ public class MageCertificate extends Item {
             }
             if(equip_magics!=null){
                 DefaultedList<ItemStack> itemStacks = DefaultedList.of();
-                itemStacks.addAll(MagicUtil.EQUIP_MAGICS.get(player));
-
+                itemStacks.addAll(MagicUtil.getItemsStacks(MagicUtil.EQUIP_MAGICS.get(player)));
                 NbtList nbtList = new NbtList();
                 for (int i = 0; i < itemStacks.size(); ++i) {
                     ItemStack itemStack = itemStacks.get(i);

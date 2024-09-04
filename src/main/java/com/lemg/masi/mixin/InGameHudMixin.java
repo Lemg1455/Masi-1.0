@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Mixin(InGameHud.class)
@@ -40,7 +41,11 @@ public class InGameHudMixin {
 		context.getMatrices().pop();
 
 		PlayerEntity playerEntity = this.getCameraPlayer();
-		List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(playerEntity);
+		List<ItemStack> equip_magics = null;
+		if(MagicUtil.EQUIP_MAGICS.get(playerEntity)!=null){
+			equip_magics = MagicUtil.getItemsStacks(MagicUtil.EQUIP_MAGICS.get(playerEntity));
+		}
+
 		List<ItemStack> stacks = new ArrayList<>();
 		if(equip_magics!=null){
 			for(ItemStack itemStack : equip_magics){

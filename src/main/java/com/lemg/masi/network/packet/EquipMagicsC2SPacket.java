@@ -22,7 +22,6 @@ public class EquipMagicsC2SPacket {
         for(int i = 0;i<9;i++){
             itemStacks.add(buf.readItemStack());
         }
-        MagicUtil.EQUIP_MAGICS.put(player,itemStacks);
-
+        MagicUtil.EQUIP_MAGICS.put(player,MagicUtil.getStacksItems(itemStacks));
     }
 }

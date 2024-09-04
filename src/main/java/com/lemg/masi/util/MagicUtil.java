@@ -41,7 +41,7 @@ public class MagicUtil {
     public static final ConcurrentHashMap<World,ConcurrentHashMap<Object, ConcurrentHashMap<LivingEntity,ConcurrentHashMap<Magic,Integer>>>> EFFECT = new ConcurrentHashMap<>();
 
     public static final Map<PlayerEntity, List<ItemStack>> LEARNED_MAGICS = new HashMap<>();//已经学会的魔法
-    public static final Map<PlayerEntity, List<ItemStack>> EQUIP_MAGICS = new HashMap<>();//装备在快捷栏的魔法
+    public static final Map<PlayerEntity, List<Item>> EQUIP_MAGICS = new HashMap<>();//装备在快捷栏的魔法
 
     public static final List<Item> magicStudy999 = studyNeed(999);//解锁要999级的魔法
 
@@ -60,7 +60,6 @@ public class MagicUtil {
             MagicUtil.EFFECT.get(world).get(object).put(livingEntity,map1);
         }else {
             MagicUtil.EFFECT.get(world).get(object).get(livingEntity).put(magic,tick);
-            System.out.println(MagicUtil.EFFECT.get(world));
         }
     }
     public static List<Item> studyNeed(int need){
@@ -86,6 +85,18 @@ public class MagicUtil {
             stacks.add(item.getDefaultStack());
         }
         return stacks;
+    }
+
+    public static List<ItemStack> getItemsStacks(List<Item> items){
+
+        if(items!=null && !items.isEmpty()){
+            List<ItemStack> stacks = new ArrayList<>();
+            for(Item item : items){
+                stacks.add(item.getDefaultStack());
+            }
+            return stacks;
+        }
+        return null;
     }
 
     public static List<Item> getStacksItems(List<ItemStack> itemStacks){
@@ -141,7 +152,7 @@ public class MagicUtil {
 
     //获取当前选择的魔法
     public static ItemStack MagicNow(PlayerEntity player){
-        List<ItemStack> inventory = MagicUtil.EQUIP_MAGICS.get(player);
+        List<ItemStack> inventory = getItemsStacks(MagicUtil.EQUIP_MAGICS.get(player));
         if(inventory==null){
             return null;
         }
@@ -162,6 +173,25 @@ public class MagicUtil {
         return null;
     }
 
+    public static void energyUpdate(LivingEntity aim,int energy,Boolean maxEnergy){
+        if(!aim.getWorld().isClient()){
+            int mode = 0;
+            if(maxEnergy){
+                mode = 1;
+                MagicUtil.MAX_ENERGY.put(aim,energy);
+            }else {
+                MagicUtil.ENERGY.put(aim,energy);
+            }
+
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(mode);
+            buf.writeInt(aim.getId());
+            buf.writeInt(energy);
+            for(ServerPlayerEntity player : ((ServerWorld)(aim.getWorld())).getPlayers()){
+                ServerPlayNetworking.send((ServerPlayerEntity) player,ModMessage.ENERGY_UPDATE_ID,buf);
+            }
+        }
+    }
     public static List<StatusEffect> beneficial = Arrays.asList(StatusEffects.SPEED,StatusEffects.HASTE,StatusEffects.STRENGTH,StatusEffects.INSTANT_HEALTH,StatusEffects.JUMP_BOOST,StatusEffects.REGENERATION,StatusEffects.RESISTANCE,StatusEffects.FIRE_RESISTANCE,StatusEffects.WATER_BREATHING,StatusEffects.INVISIBILITY,StatusEffects.NIGHT_VISION,StatusEffects.HEALTH_BOOST,StatusEffects.ABSORPTION,StatusEffects.SATURATION,StatusEffects.LUCK,StatusEffects.SLOW_FALLING,StatusEffects.CONDUIT_POWER,StatusEffects.DOLPHINS_GRACE);
     public static List<StatusEffect> harmful = Arrays.asList(StatusEffects.SLOWNESS,StatusEffects.MINING_FATIGUE,StatusEffects.INSTANT_DAMAGE,StatusEffects.NAUSEA,StatusEffects.BLINDNESS,StatusEffects.HUNGER,StatusEffects.WEAKNESS,StatusEffects.POISON,StatusEffects.WITHER,StatusEffects.LEVITATION,StatusEffects.UNLUCK);
 

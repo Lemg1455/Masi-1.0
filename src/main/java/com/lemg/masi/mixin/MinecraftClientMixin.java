@@ -38,7 +38,6 @@ public abstract class MinecraftClientMixin {
 			if (!MagicUtil.EFFECT.isEmpty()) {
 				//所有受魔法效果的目标
 				if(MagicUtil.EFFECT.get(this.world)!=null){
-					System.out.println(MagicUtil.EFFECT.get(this.world));
 					for(Object object : MagicUtil.EFFECT.get(this.world).keySet()){
 						ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(this.world).get(object);
 						//施加者和它施加的魔法效果

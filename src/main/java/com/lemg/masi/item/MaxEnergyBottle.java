@@ -40,14 +40,11 @@ public class MaxEnergyBottle extends Item {
                 if(player.getItemUseTime()>0 && player.getItemUseTime() % 30==0){
                     if(MagicUtil.MAX_ENERGY.get(player)!=null){
                         //增加魔力上限
-                        if(world.isClient()){
+                        if(!world.isClient()){
                             int energy = MagicUtil.MAX_ENERGY.get(player)+10;
-                            MagicUtil.MAX_ENERGY.put(player,energy);
-                            PacketByteBuf buf = PacketByteBufs.create();
-                            buf.writeInt(1);
-                            buf.writeUuid(player.getUuid());
-                            buf.writeInt(energy);
-                            ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
+
+                            MagicUtil.energyUpdate(player,energy,true);
+
                             if(!player.getAbilities().creativeMode){
                                 stack.decrement(1);
                             }
@@ -69,7 +66,7 @@ public class MaxEnergyBottle extends Item {
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return 30;
+        return 35;
     }
 
     @Override

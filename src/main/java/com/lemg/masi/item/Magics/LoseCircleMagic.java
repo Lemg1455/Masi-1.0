@@ -75,13 +75,15 @@ public class LoseCircleMagic extends Magic{
                     }
                 }
             }
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(6);
-            buf.writeDouble(blockPos.getX());
-            buf.writeDouble(blockPos.getY()+0.2);
-            buf.writeDouble(blockPos.getZ());
-            for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-                ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
+            if(!world.isClient()){
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(6);
+                buf.writeDouble(blockPos.getX());
+                buf.writeDouble(blockPos.getY()+0.2);
+                buf.writeDouble(blockPos.getZ());
+                for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
+                    ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
+                }
             }
         }
     }

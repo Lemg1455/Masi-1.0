@@ -96,7 +96,7 @@ public class MasiClient implements ClientModInitializer  {
 
         int singFinishTick = 0;
         if(player.isUsingItem() && stack.getItem() instanceof Staff staff){
-            if(staff.magic.getItem() instanceof Magic magic){
+            if(staff.UsersMagic.get(player) instanceof Magic magic){
                 singFinishTick = magic.singFinishTick();
             }
 

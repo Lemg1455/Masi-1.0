@@ -65,7 +65,7 @@ public class ElementalBlessingMagic extends Magic{
 
     @Override
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
-        if(world.isClient()){
+        if(!world.isClient()){
             if(ticks%20==0){
                 if(user instanceof PlayerEntity player && (player.getAbilities().creativeMode || MagicUtil.isTrial(player))){
                     return;
@@ -75,12 +75,9 @@ public class ElementalBlessingMagic extends Magic{
                     if(MagicUtil.ENERGY.get(user)>=7){
                         energy = MagicUtil.ENERGY.get(user) - 7;
                     }
-                    MagicUtil.ENERGY.put(user,energy);
-                    PacketByteBuf buf2 = PacketByteBufs.create();
-                    buf2.writeInt(0);
-                    buf2.writeUuid(user.getUuid());
-                    buf2.writeInt(energy);
-                    ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf2);
+
+                    MagicUtil.energyUpdate(user,energy,false);
+
                 }
             }
         }

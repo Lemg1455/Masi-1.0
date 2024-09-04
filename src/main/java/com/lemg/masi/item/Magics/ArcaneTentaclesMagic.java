@@ -116,13 +116,8 @@ public class ArcaneTentaclesMagic extends Magic{
                         //如果目标魔力够5点
                         int energy = MagicUtil.ENERGY.get(livingEntity);
                         if(energy>=10){
-                            if(world.isClient()){
-                                MagicUtil.ENERGY.put(livingEntity,energy-10);
-                                PacketByteBuf buf = PacketByteBufs.create();
-                                buf.writeInt(0);
-                                buf.writeUuid(livingEntity.getUuid());
-                                buf.writeInt(energy-10);
-                                ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
+                            if(!world.isClient()){
+                                MagicUtil.energyUpdate(livingEntity,energy-10,false);
                             }
                             energy_change=10;
                             //不够5点就掉血
@@ -138,48 +133,33 @@ public class ArcaneTentaclesMagic extends Magic{
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 1,false,false,true));
                     //要么吸对方5点魔力，要么吸对方血补1点魔力
                     if(MagicUtil.ENERGY.get(user)!=null){
-                        if(world.isClient()){
+                        if(!world.isClient()){
                             int energy = MagicUtil.ENERGY.get(user);
-                            MagicUtil.ENERGY.put(user,energy+energy_change);
-                            PacketByteBuf buf2 = PacketByteBufs.create();
-                            buf2.writeInt(0);
-                            buf2.writeUuid(user.getUuid());
-                            buf2.writeInt(energy+energy_change);
-                            ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf2);
+                            MagicUtil.energyUpdate(user,energy+energy_change,false);
                         }
                     }
                } else {
                     //把自己的魔力给目标
                     int energy_change = 0;
                     if(MagicUtil.ENERGY.get(user)!=null) {
-                        //如果使用者不是创造模式
-                        if (user instanceof PlayerEntity playerEntity) {
-                            if (playerEntity.getAbilities().creativeMode || MagicUtil.isTrial(playerEntity)) {
-                                return;
-                            }
-                        }
+
                         //如果自己魔力够5点
                         int energy = MagicUtil.ENERGY.get(user);
                         if (energy >= 10) {
-                            if (world.isClient()) {
-                                MagicUtil.ENERGY.put(user, energy - 10);
-                                PacketByteBuf buf = PacketByteBufs.create();
-                                buf.writeInt(0);
-                                buf.writeUuid(user.getUuid());
-                                buf.writeInt(energy - 10);
-                                ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
+                            if (!world.isClient()) {
+                                //如果使用者不是创造模式
+                                if (user instanceof PlayerEntity playerEntity) {
+                                    if (!playerEntity.getAbilities().creativeMode && !MagicUtil.isTrial(playerEntity)) {
+                                        MagicUtil.energyUpdate(user,energy - 10,false);
+                                    }
+                                }
                             }
                             //自己扣5点给对方加5点
                             energy_change = 5;
                             if(MagicUtil.ENERGY.get(livingEntity)!=null){
                                 int aimEnergy = MagicUtil.ENERGY.get(livingEntity);
-                                if (world.isClient()) {
-                                    MagicUtil.ENERGY.put(livingEntity, aimEnergy + 10);
-                                    PacketByteBuf buf = PacketByteBufs.create();
-                                    buf.writeInt(0);
-                                    buf.writeUuid(livingEntity.getUuid());
-                                    buf.writeInt(aimEnergy + 10);
-                                    ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
+                                if (!world.isClient()) {
+                                    MagicUtil.energyUpdate(livingEntity,aimEnergy + 10,false);
                                 }
                             }
                         }

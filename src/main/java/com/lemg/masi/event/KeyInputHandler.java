@@ -9,7 +9,9 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import org.lwjgl.glfw.GLFW;
 
@@ -33,13 +35,13 @@ public final class KeyInputHandler {
                     if(MagicUtil.MAGIC_CHOOSE.get(client.player)!=null){
                         solt = MagicUtil.MAGIC_CHOOSE.get(client.player);
                         solt++;
-                        List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(client.player);
+                        List<Item> equip_magics = MagicUtil.EQUIP_MAGICS.get(client.player);
 
-                        List<ItemStack> stacks = new ArrayList<>();
+                        List<Item> stacks = new ArrayList<>();
                         if(equip_magics!=null){
-                            for(ItemStack itemStack : equip_magics){
-                                if(!itemStack.isEmpty()){
-                                    stacks.add(itemStack);
+                            for(Item item : equip_magics){
+                                if(!(item.getDefaultStack().isEmpty())){
+                                    stacks.add(item);
                                 }
                             }
                         }
@@ -55,13 +57,13 @@ public final class KeyInputHandler {
                     if(MagicUtil.MAGIC_CHOOSE.get(client.player)!=null){
                         solt = MagicUtil.MAGIC_CHOOSE.get(client.player);
                         solt--;
-                        List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(client.player);
+                        List<Item> equip_magics = MagicUtil.EQUIP_MAGICS.get(client.player);
 
-                        List<ItemStack> stacks = new ArrayList<>();
+                        List<Item> stacks = new ArrayList<>();
                         if(equip_magics!=null){
-                            for(ItemStack itemStack : equip_magics){
-                                if(!itemStack.isEmpty()){
-                                    stacks.add(itemStack);
+                            for(Item item : equip_magics){
+                                if(!item.getDefaultStack().isEmpty()){
+                                    stacks.add(item);
                                 }
                             }
                         }

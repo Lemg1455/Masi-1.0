@@ -61,7 +61,6 @@ public abstract class ServerWorldMixin{
 			if (!MagicUtil.EFFECT.isEmpty()) {
 				//所有受魔法效果的目标
 				if(MagicUtil.EFFECT.get(((ServerWorld)(Object)this))!=null){
-					System.out.println(MagicUtil.EFFECT.get(((ServerWorld)(Object)this)));
 					for(Object object : MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).keySet()){
 						ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(((ServerWorld)(Object)this)).get(object);
 						//施加者和它施加的魔法效果

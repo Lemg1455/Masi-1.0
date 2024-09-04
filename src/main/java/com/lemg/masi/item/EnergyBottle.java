@@ -45,23 +45,20 @@ public class EnergyBottle extends Item {
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
         if(entity instanceof PlayerEntity player){
-            if(player.getItemUseTime()>0 && player.getItemUseTime() % 30==0){
+            if(!world.isClient()){
+                if(player.getItemUseTime()>0 && player.getItemUseTime() % 30==0){
                 if(player.getStackInHand(player.getActiveHand()).getItem()==this){
                     if(MagicUtil.ENERGY.get(player)!=null){
                         //补充魔力
-                        if(world.isClient()){
+
                             int energy = MagicUtil.ENERGY.get(player)+20;
                             if(energy>MagicUtil.MAX_ENERGY.get(player)){
                                 energy=MagicUtil.MAX_ENERGY.get(player);
                             }
 
-                            MagicUtil.ENERGY.put(player,energy);
-                            PacketByteBuf buf = PacketByteBufs.create();
-                            buf.writeInt(0);
-                            buf.writeUuid(player.getUuid());
-                            buf.writeInt(energy);
-                            ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
-                        }
+                            MagicUtil.energyUpdate(player,energy,false);
+
+                    }
                         if(!player.getAbilities().creativeMode){
                             stack.decrement(1);
                         }
@@ -82,7 +79,7 @@ public class EnergyBottle extends Item {
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return 30;
+        return 35;
     }
 
     @Override

@@ -217,7 +217,8 @@ public class MagicPanelScreen
         if (this.client.player != null && this.client.player.getInventory() != null) {
             //this.client.player.playerScreenHandler.removeListener(this.listener);
         }
-        MagicUtil.EQUIP_MAGICS.put(player,this.handler.simpleInventory.stacks);
+        MagicUtil.EQUIP_MAGICS.put(player,MagicUtil.getStacksItems(this.handler.simpleInventory.stacks));
+
         PacketByteBuf buf = PacketByteBufs.create();
         for(ItemStack itemStack : this.handler.simpleInventory.stacks){
             buf.writeItemStack(itemStack);
@@ -493,11 +494,11 @@ public class MagicPanelScreen
             this.parent = player.playerScreenHandler;
             PlayerInventory playerInventory = player.getInventory();
 
-            List<ItemStack> equip_magics = MagicUtil.EQUIP_MAGICS.get(player);
+            List<Item> equip_magics = MagicUtil.EQUIP_MAGICS.get(player);
             DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9,ItemStack.EMPTY);
             if(equip_magics!=null){
                 for(i = 0; i < equip_magics.size(); ++i){
-                    inventory.set(i,equip_magics.get(i));
+                    inventory.set(i,equip_magics.get(i).getDefaultStack());
                 }
             }
 

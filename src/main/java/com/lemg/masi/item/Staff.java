@@ -41,10 +41,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Staff extends Item {
 
-    public ItemStack magic = null;//要咏唱的魔法
-    public float singingTick = 0;//咏唱时间
-    public int release_continue_time = 0;//魔法在释放后持续的时间，例如释放后持续一段时间造成伤害
-    private PlayerEntity playerEntity;
+    //public ItemStack magic = null;//要咏唱的魔法
+    public static ConcurrentHashMap<LivingEntity,Item> UsersMagic = new ConcurrentHashMap<>();
     public Staff(Settings settings) {
         super(settings);
     }
@@ -52,6 +50,7 @@ public class Staff extends Item {
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         boolean trial = MagicUtil.isTrial((PlayerEntity) user);
+        float singingTick = 0;//咏唱时间
         singingTick = this.getMaxUseTime(stack) - remainingUseTicks;//咏唱时间，tick
         if (!(user instanceof PlayerEntity player)) {
             return;//如果不是玩家实例，就返回
@@ -61,11 +60,11 @@ public class Staff extends Item {
             return;//如果咏唱时间不足0.1秒,就不算开始
         }
 
-        if(magic == null){
+        if(UsersMagic.get(user) == null){
             return;
         }
 
-        if(magic.getItem() instanceof Magic magic1){
+        if(UsersMagic.get(user) instanceof Magic magic1){
             if(((double) (singingTick) >= magic1.singFinishTick()) || trial){
 
                 //如果魔法可以响应多重释放的附魔
@@ -84,7 +83,7 @@ public class Staff extends Item {
 
                 //消耗魔力
                 if(!player.getAbilities().creativeMode && !trial){
-                    if(world.isClient()){
+                    if(!world.isClient()){
                         //节约魔力附魔，最高减少三分之一消耗
                         int e = EnchantmentHelper.getLevel(Masi.ENERGY_CONSERVATION, stack);
                         int energyConsume = magic1.energyConsume();
@@ -94,12 +93,8 @@ public class Staff extends Item {
 
                         int energy = MagicUtil.ENERGY.get(player) - energyConsume;
 
-                        MagicUtil.ENERGY.put(player,energy);
-                        PacketByteBuf buf = PacketByteBufs.create();
-                        buf.writeInt(0);
-                        buf.writeUuid(player.getUuid());
-                        buf.writeInt(energy);
-                        ClientPlayNetworking.send(ModMessage.ENERGY_UPDATE_ID, buf);
+                        MagicUtil.energyUpdate(player,energy,false);
+
                     }
                 }
             }
@@ -117,13 +112,16 @@ public class Staff extends Item {
             return TypedActionResult.fail(handStack);
         }
         //当前选择的魔法，如果不为空，且魔力足够
-        magic = MagicUtil.MagicNow(user);
-        if (magic!=null) {
-            if(magic.getItem() instanceof Magic magic1){
-                if((MagicUtil.ENERGY.get(user)>=magic1.energyConsume()) || MagicUtil.isTrial(user) || user.getAbilities().creativeMode){
-                    user.setCurrentHand(hand);
-                    playerEntity = user;
-                    return TypedActionResult.consume(handStack);
+        ItemStack itemStack = MagicUtil.MagicNow(user);
+        if(itemStack!=null){
+            Item magic = itemStack.getItem();
+            if (magic!=null) {
+                UsersMagic.put(user,magic);
+                if(magic instanceof Magic magic1){
+                    if((MagicUtil.ENERGY.get(user)>=magic1.energyConsume()) || MagicUtil.isTrial(user) || user.getAbilities().creativeMode){
+                        user.setCurrentHand(hand);
+                        return TypedActionResult.consume(handStack);
+                    }
                 }
             }
         }
