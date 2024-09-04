@@ -71,6 +71,7 @@ public class Masi implements ModInitializer {
 	public static final DefaultParticleType LARGE_CIRCLE_FORWARD_YELLOW = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType CIRCLE_GROUND_YELLOW = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType LARGE_CIRCLE_GROUND_YELLOW = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType MAGIC_SWORD_SWEEP = FabricParticleTypes.simple(true);
 
 	public static Enchantment MULTIPLE_RELEASE = new MultipleReleaseEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND);
 	public static Enchantment ENERGY_CONSERVATION = new EnergyConservationEnchantment(Enchantment.Rarity.UNCOMMON, EquipmentSlot.MAINHAND);
@@ -119,6 +120,8 @@ public class Masi implements ModInitializer {
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_forward_purple"), LARGE_CIRCLE_FORWARD_PURPLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "circle_ground_purple"), CIRCLE_GROUND_PURPLE);
 		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "large_circle_ground_purple"), LARGE_CIRCLE_GROUND_PURPLE);
+
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier("masi", "magic_sword_sweep"), MAGIC_SWORD_SWEEP);
 
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "multiple_release"),MULTIPLE_RELEASE);
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "energy_conservation"),ENERGY_CONSERVATION);

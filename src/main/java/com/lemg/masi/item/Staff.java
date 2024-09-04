@@ -118,9 +118,11 @@ public class Staff extends Item {
             if (magic!=null) {
                 UsersMagic.put(user,magic);
                 if(magic instanceof Magic magic1){
-                    if((MagicUtil.ENERGY.get(user)>=magic1.energyConsume()) || MagicUtil.isTrial(user) || user.getAbilities().creativeMode){
-                        user.setCurrentHand(hand);
-                        return TypedActionResult.consume(handStack);
+                    if(!magic1.passive()){
+                        if((MagicUtil.ENERGY.get(user)>=magic1.energyConsume()) || MagicUtil.isTrial(user) || user.getAbilities().creativeMode){
+                            user.setCurrentHand(hand);
+                            return TypedActionResult.consume(handStack);
+                        }
                     }
                 }
             }
@@ -132,9 +134,8 @@ public class Staff extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
         if(entity instanceof PlayerEntity player){
             if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff){
-
                 if(world.isClient()){
-                    //world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 3.0f), player.getX(), player.getY()+1, player.getZ(), 0.0, 2.0, 0.0);
+
                 }
             }
         }

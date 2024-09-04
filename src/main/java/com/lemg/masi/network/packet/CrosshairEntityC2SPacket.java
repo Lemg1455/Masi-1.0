@@ -48,6 +48,13 @@ public class CrosshairEntityC2SPacket {
                 }else {
                     livingEntity.setHealth(health);
                 }
+                Vec3d direction = livingEntity.getPos().add(0,1,0).subtract(playerEntity.getPos()).normalize();
+                double length = livingEntity.getPos().add(0,1,0).distanceTo(playerEntity.getPos());
+                for (int i = 0; i <= 10; i++) {
+                    double fraction = (double) i / 10;
+                    Vec3d particlePos = playerEntity.getPos().add(direction.multiply(fraction * length));
+                    MagicUtil.circleForward(111,playerEntity,particlePos.x, particlePos.y, particlePos.z);
+                }
             }else if(itemStack.getItem() instanceof CreatingWaterMagic){
                 livingEntity.setAir(0);
                 livingEntity.getWorld().setBlockState(livingEntity.getBlockPos().add(0,1,0), Blocks.WATER.getDefaultState());

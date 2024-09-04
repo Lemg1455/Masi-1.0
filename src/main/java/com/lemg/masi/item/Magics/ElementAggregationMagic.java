@@ -138,7 +138,7 @@ public class ElementAggregationMagic extends Magic{
                 }
                 if (!player.getAbilities().creativeMode && !MagicUtil.isTrial(player)) {
 
-                    if(player.getWorld().isClient()){
+                    if(!player.getWorld().isClient()){
                         if(singingTicks%30==0){
                             //节约魔力附魔，最高减少三分之一消耗
                             int e = EnchantmentHelper.getLevel(Masi.ENERGY_CONSERVATION, stack);

@@ -1,5 +1,6 @@
 package com.lemg.masi.util;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.TrialCard;
@@ -116,6 +117,8 @@ public class MagicUtil {
         for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
             ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
         }
+        //((ServerWorld)attacker.getWorld()).spawnParticles(Masi.MAGIC_SWORD_SWEEP, attacker.getX() + d, attacker.getBodyY(0.6), attacker.getZ() + e, 0, d, 0.0, e, 0.0);
+
     }
 
     //添加面前法阵的特效

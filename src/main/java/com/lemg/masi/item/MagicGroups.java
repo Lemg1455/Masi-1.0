@@ -22,7 +22,7 @@ public class MagicGroups {
         items = Arrays.asList(ModItems.FLICKER_MAGIC,ModItems.FLY_MAGIC,ModItems.DIMENSION_EXILE_MAGIC,ModItems.IMPRISON_MAGIC,ModItems.INGESTION_MAGIC,ModItems.SHADOW_MANE_MAGIC,ModItems.STEALTH_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.space"),0,2,ModItems.FLICKER_MAGIC.getDefaultStack());
 
-        items = Arrays.asList(ModItems.RANDOM_MAGIC,ModItems.TAUNT_MAGIC,ModItems.STEAL_MAGIC,ModItems.DEATH_DECLARATION_MAGIC);
+        items = Arrays.asList(ModItems.RANDOM_MAGIC,ModItems.TAUNT_MAGIC,ModItems.STEAL_MAGIC,ModItems.DEATH_DECLARATION_MAGIC,ModItems.REVENGE_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.misc"),0,3,ModItems.RANDOM_MAGIC.getDefaultStack());
     }
 

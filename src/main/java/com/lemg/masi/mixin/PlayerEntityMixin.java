@@ -2,6 +2,7 @@ package com.lemg.masi.mixin;
 
 import com.lemg.masi.Masi;
 import com.lemg.masi.item.EnergyBottle;
+import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.item.Staff;
@@ -115,11 +116,24 @@ public abstract class PlayerEntityMixin {
 				}
 			}
 		}
-		if(MagicUtil.ENERGY.get(player)!=null){
+
+		if(MagicUtil.EQUIP_MAGICS.get(player)!=null){
+			List<Item> items = MagicUtil.EQUIP_MAGICS.get(player);
+			if(!items.isEmpty()){
+				for(Item item : items){
+					if(item instanceof Magic magic1){
+						if(magic1.passive()){
+							magic1.release(player.getStackInHand(player.getActiveHand()),player.getWorld(),player, player.age);
+						}
+					}
+				}
+			}
+		}
+		/*if(MagicUtil.ENERGY.get(player)!=null){
 			if(MagicUtil.ENERGY.get(player)<10){
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 0,false,false,false));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60, 1,false,false,false));
 			}
-		}
+		}*/
 	}
 }

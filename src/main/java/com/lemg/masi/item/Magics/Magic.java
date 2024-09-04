@@ -76,6 +76,11 @@ public abstract class Magic extends Item {
         return false;
     }
 
+    //是否是被动的
+    public boolean passive(){
+        return false;
+    }
+
     //如果魔法在释放后会持续一段时间，此为持续的时间
     public int releaseContinueTime(){return 0;}
 

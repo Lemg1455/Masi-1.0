@@ -200,6 +200,9 @@ public class AddParticleS2CPacket {
             if (mode==110) {
                 client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 1.0f), x, y, z,0,0,0);
             }
+            if (mode==111) {
+                client.world.addParticle(new DustParticleEffect(Vec3d.unpackRgb(0x00FF90).toVector3f(), 1.0f), x, y, z,0,0,0);
+            }
         }
     }
 }

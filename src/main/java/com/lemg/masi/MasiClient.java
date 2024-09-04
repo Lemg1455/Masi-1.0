@@ -11,6 +11,7 @@ import com.lemg.masi.item.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.particles.Circle_Forward_Particle;
 import com.lemg.masi.particles.Circle_Ground_Particle;
+import com.lemg.masi.particles.Magic_Sword_Sweep_Particle;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -83,6 +84,8 @@ public class MasiClient implements ClientModInitializer  {
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_WHITE, Circle_Forward_Particle.LargeFactory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_GROUND_WHITE, Circle_Ground_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_GROUND_WHITE, Circle_Ground_Particle.LargeFactory::new);
+
+        ParticleFactoryRegistry.getInstance().register(Masi.MAGIC_SWORD_SWEEP, Magic_Sword_Sweep_Particle.Factory::new);
 
     }
     private void renderBar(DrawContext context, float tickDelta) {

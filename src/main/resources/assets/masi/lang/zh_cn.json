@@ -57,6 +57,7 @@
   "item.masi.element_aggregation_magic": "元素聚顶",
   "item.masi.elemental_blessing_magic": "元素祝福",
   "item.masi.arcane_tentacles_magic": "魔力之触",
+  "item.masi.revenge_magic": "复仇",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -86,6 +87,7 @@
   "item.masi.elemental_blessing_magic.tooltip": "受到四元素的祝福,身躯变得无比强悍,但会持续流失魔力,魔力流失殆尽会死亡",
   "item.masi.arcane_tentacles_magic.tooltip": "如果目标有魔力，持续吸取目标魔力，如果没有，则吸取目标一点生命转化成一点魔力",
   "item.masi.arcane_tentacles_magic2.tooltip": "在蹲伏状态下使用，可以把自己的魔力输送给对方",
+  "item.masi.revenge_magic.tooltip": "被动,如果装配,死亡时对周围生物造成10点伤害，并将自己身上的的负面药水效果给对方，剩余魔力越多，范围越大",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

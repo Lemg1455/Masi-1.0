@@ -87,12 +87,6 @@ public class InGameHudMixin {
 		if (g > 0.0f) {
 			context.getMatrices().pop();
 		}
-
-//		context.getMatrices().push();
-//		context.getMatrices().scale(2.0f,2.0f,2.0f);
-//
-//		context.drawItemInSlot(this.client.textRenderer, stack, x, y);
-//		context.getMatrices().pop();
 	}
 
 	@Unique
