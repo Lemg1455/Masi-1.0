@@ -160,7 +160,7 @@ public class ArcaneMinionEntity extends AnimalEntity {
         if (uUID != null) {
             this.setOwnerUuid(uUID);
         }
-        if (nbt.containsUuid("energy")) {
+        if (nbt.contains("energy")) {
             this.energy=nbt.getInt("energy");
         }
     }

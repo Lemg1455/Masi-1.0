@@ -4,6 +4,7 @@ import com.lemg.masi.enchantment.EnergyConservationEnchantment;
 import com.lemg.masi.enchantment.MultipleReleaseEnchantment;
 import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.entity.ModEntities;
+import com.lemg.masi.entity.SwordEnergyEntity;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.item.ModitemGroup;
@@ -127,6 +128,7 @@ public class Masi implements ModInitializer {
 		Registry.register(Registries.ENCHANTMENT, new Identifier("masi", "energy_conservation"),ENERGY_CONSERVATION);
 
 		FabricDefaultAttributeRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntity.createArcaneMinionAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntity.createSwordEnergyAttributes());
 
 	}
 }

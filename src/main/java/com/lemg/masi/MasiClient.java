@@ -2,10 +2,9 @@ package com.lemg.masi;
 
 
 import com.lemg.masi.entity.ModEntities;
-import com.lemg.masi.entity.client.ArcaneMinionEntityModel;
-import com.lemg.masi.entity.client.ArcaneMinionEntityRenderer;
-import com.lemg.masi.entity.client.ModModelLayers;
+import com.lemg.masi.entity.client.*;
 import com.lemg.masi.event.KeyInputHandler;
+import com.lemg.masi.item.MagicSword;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.Staff;
 import com.lemg.masi.network.ModMessage;
@@ -49,6 +48,9 @@ public class MasiClient implements ClientModInitializer  {
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ARCANE_MINION, ArcaneMinionEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntityRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SWORD_ENERGY, SwordEnergyEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.LargeFactory::new);
@@ -98,10 +100,15 @@ public class MasiClient implements ClientModInitializer  {
         int scaledHeight = context.getScaledWindowHeight();
 
         int singFinishTick = 0;
-        if(player.isUsingItem() && stack.getItem() instanceof Staff staff){
-            if(staff.UsersMagic.get(player) instanceof Magic magic){
-                singFinishTick = magic.singFinishTick();
+        if(player.isUsingItem()){
+            if(stack.getItem() instanceof Staff staff){
+                if(Staff.UsersMagic.get(player) instanceof Magic magic){
+                    singFinishTick = magic.singFinishTick();
+                }
+            } else if (stack.getItem() instanceof MagicSword) {
+                singFinishTick = 100;
             }
+
 
             int width;
             if(player.getItemUseTime()>=singFinishTick){

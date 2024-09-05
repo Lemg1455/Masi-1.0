@@ -107,30 +107,7 @@ public class MagicUtil {
         }
         return items;
     }
-    //添加地面法阵的特效
-    public static void circleGround(int mode, LivingEntity user,Double x,Double y ,Double z){
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(mode);
-        buf.writeDouble(x);
-        buf.writeDouble(y);
-        buf.writeDouble(z);
-        for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-            ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
-        }
 
-    }
-
-    //添加面前法阵的特效
-    public static void circleForward(int mode, LivingEntity user,Double x,Double y ,Double z){
-        PacketByteBuf buf2 = PacketByteBufs.create();
-        buf2.writeInt(mode);
-        buf2.writeDouble(x);
-        buf2.writeDouble(y);
-        buf2.writeDouble(z);
-        for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-            ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
-        }
-    }
     public static boolean isTrial(PlayerEntity player){
         if(MagicUtil.EFFECT.get(player.getWorld())!=null) {
             ConcurrentHashMap<LivingEntity, ConcurrentHashMap<Magic, Integer>> map2 = MagicUtil.EFFECT.get(player.getWorld()).get(player);

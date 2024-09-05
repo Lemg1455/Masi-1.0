@@ -18,7 +18,7 @@ public class ModItems {
     public static final Item ENERGY_BOTTLE = registerItems("energy_bottle",new EnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
     public static final Item MAX_ENERGY_BOTTLE = registerItems("max_energy_bottle",new MaxEnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
     public static final Item TRIAL_CARD = registerItems("trial_card",new TrialCard(new FabricItemSettings().maxCount(64).rarity(Rarity.UNCOMMON)));
-    public static final Item MAGIC_SWORD = registerItems("magic_sword",new MagicSword(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item MAGIC_SWORD = registerItems("magic_sword",new MagicSword(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
 
 
     //Magics

@@ -35,7 +35,7 @@ public class FireBallMagic extends Magic{
 
     @Override
     public int energyConsume(){
-        return 20;
+        return 10;
     }
     @Override
     public int studyNeed(){

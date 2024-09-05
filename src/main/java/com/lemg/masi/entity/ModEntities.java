@@ -16,4 +16,9 @@ public class ModEntities {
                     .trackRangeChunks(15)
                     .dimensions(EntityDimensions.fixed(2.0f,4.0f)).build());
 
+    public static final EntityType<SwordEnergyEntity> SWORD_ENERGY = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Masi.MOD_ID,"sword_energy"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC,SwordEnergyEntity::new)
+                    .trackRangeChunks(15)
+                    .dimensions(EntityDimensions.fixed(5.0f,0.5f)).build());
 }
