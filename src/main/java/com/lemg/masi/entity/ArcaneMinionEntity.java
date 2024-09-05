@@ -1,6 +1,7 @@
 package com.lemg.masi.entity;
 
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.entity.ai.ArcaneMinionAttackGoal;
 import com.lemg.masi.entity.ai.AttackWithMinionOwnerGoal;
 import com.lemg.masi.entity.ai.FollowMinionOwnerGoal;
@@ -36,6 +37,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.ServerConfigHandler;
@@ -213,9 +215,19 @@ public class ArcaneMinionEntity extends AnimalEntity {
         }
         if(!this.getWorld().isClient()) {
             if(this.getTarget()!=null){
-                MagicUtil.circleForward(103,this,this.getX(), this.getY(), this.getZ());
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), this.getX(), this.getY()+0.5, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), this.getX()-0.5, this.getY()+1, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), this.getX()+0.5, this.getY()+1, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), this.getX(), this.getY()+1, this.getZ()-0.5, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), this.getX(), this.getY()+1, this.getZ()+0.5, 0, 0, 0.0, 0, 0.0);
+
             }else {
-                MagicUtil.circleForward(104,this,this.getX(), this.getY(), this.getZ());
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), this.getX(), this.getY()+0.5, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), this.getX()-0.5, this.getY()+1, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), this.getX()+0.5, this.getY()+1, this.getZ(), 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), this.getX(), this.getY()+1, this.getZ()-0.5, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 5.0f), this.getX(), this.getY()+1, this.getZ()+0.5, 0, 0, 0.0, 0, 0.0);
+
             }
             if (this.isAttacking() && this.attackAnimationTimeOut <= 0 && releaseContinueTime <= 0) {
                 attackAnimationTimeOut = 100;
@@ -238,9 +250,11 @@ public class ArcaneMinionEntity extends AnimalEntity {
                 double z = this.getZ() + Math.sin(yawRadians) * 2;
                 double y = this.getBodyY(1.0) + 2;
                 if(this.attackAnimationTimeOut>50){
-                    MagicUtil.circleForward(21, this, x, y, z);
+                    ((ServerWorld)this.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_PURPLE, x, y, z, 0, 0, 0.0, 0, 0.0);
+
                 }else {
-                    MagicUtil.circleForward(23, this, x, y, z);
+                    ((ServerWorld)this.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_PURPLE, x, y, z, 0, 0, 0.0, 0, 0.0);
+
                 }
 
                 attackAnimationTimeOut--;

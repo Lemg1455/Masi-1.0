@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -59,13 +60,15 @@ public class StealthMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(8,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_WHITE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 1;
                 double z = user.getZ() + Math.sin(yawRadians) * 1;
                 double y = user.getY()+2;
-                MagicUtil.circleForward(9,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_WHITE, x,y,z, 0, 0, 0.0, 0, 0.0);
+
             }
         }
     }

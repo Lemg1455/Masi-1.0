@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.entity.MagicBulletEntity;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.network.ModMessage;
@@ -65,14 +66,7 @@ public class ColdDisasterMagic extends Magic{
             for(Entity entity : list){
                 if(entity instanceof LivingEntity livingEntity){
                     if(!world.isClient()){
-                        PacketByteBuf buf2 = PacketByteBufs.create();
-                        buf2.writeInt(1);
-                        buf2.writeDouble(livingEntity.getX());
-                        buf2.writeDouble(livingEntity.getY()+2);
-                        buf2.writeDouble(livingEntity.getZ());
-                        for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) world, livingEntity.getBlockPos())) {
-                            ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf2);
-                        }
+                        ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_BLUE, livingEntity.getX(),livingEntity.getY()+2,livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
                     }
 
                     livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 400, 10,false,false,false));
@@ -91,13 +85,15 @@ public class ColdDisasterMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(2,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_GROUND_BLUE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 2;
                 double z = user.getZ() + Math.sin(yawRadians) * 2;
                 double y = user.getY()+4;
-                MagicUtil.circleForward(3,user,x,y,z);
+
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_BLUE, x,y,z, 0, 0, 0.0, 0, 0.0);
             }
         }
         List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(30,20,30));

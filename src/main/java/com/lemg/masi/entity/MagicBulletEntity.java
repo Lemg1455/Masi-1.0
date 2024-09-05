@@ -8,9 +8,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 
@@ -59,7 +62,8 @@ public class MagicBulletEntity
             this.discard();
         }
         if(this.magic instanceof DeathDeclarationMagic){
-            MagicUtil.circleForward(102, (LivingEntity) this.getOwner(),this.getX(), this.getY(), this.getZ());
+            ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), this.getX(), this.getY(), this.getZ(), 0, 0, 0.0, 0, 0.0);
+
         }
     }
 }

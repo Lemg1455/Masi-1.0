@@ -117,7 +117,6 @@ public class MagicUtil {
         for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
             ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
         }
-        //((ServerWorld)attacker.getWorld()).spawnParticles(Masi.MAGIC_SWORD_SWEEP, attacker.getX() + d, attacker.getBodyY(0.6), attacker.getZ() + e, 0, d, 0.0, e, 0.0);
 
     }
 

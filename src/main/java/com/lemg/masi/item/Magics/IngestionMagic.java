@@ -63,7 +63,7 @@ public class IngestionMagic extends Magic{
         if(user instanceof PlayerEntity player) {
             if (MagicUtil.ENERGY.get(player) >= this.energyConsume()) {
                 if (!player.getWorld().isClient()) {
-                    MagicUtil.circleGround(8, user,user.getX(),user.getY(),user.getZ());
+                    ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_WHITE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
                 }
                 float yaw = user.getYaw();
                 float pitch = user.getPitch();
@@ -97,7 +97,7 @@ public class IngestionMagic extends Magic{
                     for (int i = 0; i <= 10; i++) {
                         double fraction = (double) i / 10;
                         Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
-                        MagicUtil.circleForward(101,player,particlePos.x, particlePos.y, particlePos.z);
+                        ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 1.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
                     }
                 }
                 if (!player.getAbilities().creativeMode && !MagicUtil.isTrial(player)) {

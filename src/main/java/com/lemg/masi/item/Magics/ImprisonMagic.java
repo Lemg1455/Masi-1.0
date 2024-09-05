@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -55,7 +56,7 @@ public class ImprisonMagic extends Magic{
         if(user instanceof PlayerEntity player) {
             if (MagicUtil.ENERGY.get(player) >= this.energyConsume()) {
                 if (!player.getWorld().isClient()) {
-                    MagicUtil.circleGround(8, user,user.getX(),user.getY(),user.getZ());
+                    ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_WHITE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
                 }
                 if(player.getWorld().isClient()){
                     MinecraftClient client = MinecraftClient.getInstance();

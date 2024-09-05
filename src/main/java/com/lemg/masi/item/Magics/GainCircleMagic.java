@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -58,13 +59,15 @@ public class GainCircleMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(16,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_GREEN, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 1;
                 double z = user.getZ() + Math.sin(yawRadians) * 1;
                 double y = user.getY()+2;
-                MagicUtil.circleForward(17,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_GREEN, x,y,z, 0, 0, 0.0, 0, 0.0);
+
             }
         }
     }
@@ -85,14 +88,8 @@ public class GainCircleMagic extends Magic{
                         }
                     }
                 }
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeInt(18);
-                buf.writeDouble(blockPos.getX());
-                buf.writeDouble(blockPos.getY()+0.2);
-                buf.writeDouble(blockPos.getZ());
-                for (ServerPlayerEntity players : PlayerLookup.tracking((ServerWorld) user.getWorld(), user.getBlockPos())) {
-                    ServerPlayNetworking.send((ServerPlayerEntity) players, ModMessage.ADD_PARTICLE_ID, buf);
-                }
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_GROUND_GREEN, blockPos.getX(),blockPos.getY()+0.2,blockPos.getZ(), 0, 0, 0.0, 0, 0.0);
+
             }
         }
     }

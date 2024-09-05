@@ -52,13 +52,15 @@ public class ElementalBlessingMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(16,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_GREEN, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 1;
                 double z = user.getZ() + Math.sin(yawRadians) * 1;
                 double y = user.getY()+2;
-                MagicUtil.circleForward(17,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_GREEN, x,y,z, 0, 0, 0.0, 0, 0.0);
+
             }
         }
     }

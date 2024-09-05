@@ -14,6 +14,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -73,20 +75,21 @@ public class ElementAggregationMagic extends Magic{
                         LivingEntity livingEntity = map.keys().nextElement();
                         int i = map.get(livingEntity);
                         if(i==0){
-                            MagicUtil.circleGround(24, user,user.getX(),user.getY(),user.getZ());
-                            MagicUtil.circleGround(27, livingEntity,livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ());
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_YELLOW, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_YELLOW, livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
 
                         } else if (i==1) {
-                            MagicUtil.circleGround(0, user,user.getX(),user.getY(),user.getZ());
-                            MagicUtil.circleGround(3, livingEntity,livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ());
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_BLUE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_BLUE, livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
 
                         } else if (i==2) {
-                            MagicUtil.circleGround(12, user,user.getX(),user.getY(),user.getZ());
-                            MagicUtil.circleGround(15, livingEntity,livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ());
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_RED, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_RED, livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
 
                         } else {
-                            MagicUtil.circleGround(8, user,user.getX(),user.getY(),user.getZ());
-                            MagicUtil.circleGround(11, livingEntity,livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ());
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_WHITE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+                            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_WHITE, livingEntity.getX(),livingEntity.getY()+10,livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
+
                         }
                         if(singingTicks%30==0){
                             Vec3d Pos1 = livingEntity.getPos().add(0,10,0);
@@ -95,20 +98,30 @@ public class ElementAggregationMagic extends Magic{
                             double length = Pos1.distanceTo(Pos2);
 
                             int mode = 105;
+                            int rbg = 0xFFFD6D;
                             if(i==0){
-                                mode = 105;
+                                rbg = 0xFFFD6D;
                             }else if(i==1){
-                                mode = 106;
+                                rbg = 0x00D1FF;
                             }else if(i==2){
-                                mode = 107;
+                                rbg = 0xFF6D80;
                             }else if(i==3){
-                                mode = 108;
+                                rbg = 0xFFFFFF;
                             }
 
                             for (int j = 0; j <= 10; j++) {
                                 double fraction = (double) j / 10;
                                 Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
-                                MagicUtil.circleForward(mode,player,particlePos.x, particlePos.y, particlePos.z);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x-1, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x+1, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z-1, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z+1, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x-1, particlePos.y, particlePos.z-1, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x+1, particlePos.y, particlePos.z+1, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x-1, particlePos.y, particlePos.z+1, 0, 0, 0.0, 0, 0.0);
+                                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(rbg).toVector3f(), 5.0f), particlePos.x+1, particlePos.y, particlePos.z-1, 0, 0, 0.0, 0, 0.0);
+
                             }
 
                             Box box = new Box(Pos1,Pos2).expand(1,0,1);

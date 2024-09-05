@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.util.MagicUtil;
@@ -73,7 +74,8 @@ public class RevengeMagic extends Magic{
                         }
                     }
                 }
-                MagicUtil.circleForward(7,user,user.getX(),user.getY()+2,user.getZ());
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_BLACK, user.getX(),user.getY()+2,user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             }
         }
     }

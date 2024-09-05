@@ -18,6 +18,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.EntityHitResult;
@@ -66,7 +67,7 @@ public class ArcaneTentaclesMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if (!user.getWorld().isClient()) {
-            MagicUtil.circleGround(20, user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_PURPLE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
         }
         float yaw = user.getYaw();
         float pitch = user.getPitch();
@@ -168,12 +169,15 @@ public class ArcaneTentaclesMagic extends Magic{
                 }
             }
 
-
             if(!world.isClient()){
                 for (int i = 0; i <= 10; i++) {
                     double fraction = (double) i / 10;
                     Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
-                    MagicUtil.circleForward(mode,user,particlePos.x, particlePos.y, particlePos.z);
+                    if(mode==109){
+                        ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 1.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                    }else {
+                        ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00D1FF).toVector3f(), 1.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                    }
                 }
             }
         }

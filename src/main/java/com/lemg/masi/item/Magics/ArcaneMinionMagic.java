@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.entity.MagicBulletEntity;
 import com.lemg.masi.entity.ModEntities;
@@ -74,13 +75,14 @@ public class ArcaneMinionMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(22,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_GROUND_PURPLE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 2;
                 double z = user.getZ() + Math.sin(yawRadians) * 2;
                 double y = user.getY()+4;
-                MagicUtil.circleForward(23,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_PURPLE, x,y,z, 0, 0, 0.0, 0, 0.0);
             }
         }
     }

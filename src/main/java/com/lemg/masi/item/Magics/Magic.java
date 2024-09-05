@@ -1,5 +1,6 @@
 package com.lemg.masi.item.Magics;
 
+import com.lemg.masi.Masi;
 import com.lemg.masi.entity.MagicBulletEntity;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -39,13 +41,14 @@ public abstract class Magic extends Item {
     //魔法咏唱中，释放前的效果
     public void onSinging(ItemStack staffStack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(0,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_BLUE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
+
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 1;
                 double z = user.getZ() + Math.sin(yawRadians) * 1;
                 double y = user.getY()+2;
-                MagicUtil.circleForward(1,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_BLUE, x,y,z, 0, 0, 0.0, 0, 0.0);
             }
         }
     }

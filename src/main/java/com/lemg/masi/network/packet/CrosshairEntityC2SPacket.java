@@ -18,6 +18,7 @@ import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -53,7 +54,8 @@ public class CrosshairEntityC2SPacket {
                 for (int i = 0; i <= 10; i++) {
                     double fraction = (double) i / 10;
                     Vec3d particlePos = playerEntity.getPos().add(direction.multiply(fraction * length));
-                    MagicUtil.circleForward(111,playerEntity,particlePos.x, particlePos.y, particlePos.z);
+                    ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00FF90).toVector3f(), 1.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+
                 }
             }else if(itemStack.getItem() instanceof CreatingWaterMagic){
                 livingEntity.setAir(0);
@@ -79,7 +81,8 @@ public class CrosshairEntityC2SPacket {
                 for (int i = 0; i <= 10; i++) {
                     double fraction = (double) i / 10;
                     Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
-                    MagicUtil.circleForward(101,playerEntity,particlePos.x, particlePos.y, particlePos.z);
+                    ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xFFFFFF).toVector3f(), 1.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+
                 }
 
                 if(livingEntity instanceof PlayerEntity player1){

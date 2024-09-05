@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -82,7 +83,13 @@ public class ArcaneTorrentMagic extends Magic{
             for (int i = 0; i <= 10; i++) {
                 double fraction = (double) i / 10;
                 Vec3d particlePos = Pos2.add(direction.multiply(fraction * length));
-                MagicUtil.circleForward(100,user,particlePos.x, particlePos.y, particlePos.z);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x-1, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x+1, particlePos.y, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z-1, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x, particlePos.y, particlePos.z+1, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x, particlePos.y-1, particlePos.z, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0xDC71E8).toVector3f(), 5.0f), particlePos.x, particlePos.y+1, particlePos.z, 0, 0, 0.0, 0, 0.0);
             }
         }
         super.release(stack,world,user,singingTicks);
@@ -90,13 +97,13 @@ public class ArcaneTorrentMagic extends Magic{
     @Override
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
-            MagicUtil.circleGround(22,user,user.getX(),user.getY(),user.getZ());
+            ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_GROUND_PURPLE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 2;
                 double z = user.getZ() + Math.sin(yawRadians) * 2;
                 double y = user.getY()+4;
-                MagicUtil.circleForward(23,user,x,y,z);
+                ((ServerWorld)user.getWorld()).spawnParticles(Masi.LARGE_CIRCLE_FORWARD_PURPLE, x,y,z, 0, 0, 0.0, 0, 0.0);
             }
         }
     }
