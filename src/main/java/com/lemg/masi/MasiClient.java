@@ -4,8 +4,10 @@ package com.lemg.masi;
 import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.entity.client.*;
 import com.lemg.masi.event.KeyInputHandler;
+import com.lemg.masi.item.ArcaneBow;
 import com.lemg.masi.item.MagicSword;
 import com.lemg.masi.item.Magics.Magic;
+import com.lemg.masi.item.ModItems;
 import com.lemg.masi.item.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.particles.Circle_Forward_Particle;
@@ -20,8 +22,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleType;
@@ -51,6 +55,10 @@ public class MasiClient implements ClientModInitializer  {
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SWORD_ENERGY, SwordEnergyEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntityRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.ARCANE_ARROW, ArcaneArrowEntityRenderer::new);
+
+        registerPullPredicate(ModItems.ARCANE_BOW);
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.LargeFactory::new);
@@ -99,7 +107,7 @@ public class MasiClient implements ClientModInitializer  {
         int scaledWidth = context.getScaledWindowWidth();
         int scaledHeight = context.getScaledWindowHeight();
 
-        int singFinishTick = 0;
+        int singFinishTick = -1;
         if(player.isUsingItem()){
             if(stack.getItem() instanceof Staff staff){
                 if(Staff.UsersMagic.get(player) instanceof Magic magic){
@@ -107,25 +115,27 @@ public class MasiClient implements ClientModInitializer  {
                 }
             } else if (stack.getItem() instanceof MagicSword) {
                 singFinishTick = 100;
+            }else if(stack.getItem() instanceof ArcaneBow){
+                singFinishTick = 100;
             }
 
+            if(singFinishTick!=-1){
+                int width;
+                if(player.getItemUseTime()>=singFinishTick){
+                    width = 92;
+                }else {
+                    width = (int)((float)(player.getItemUseTime()) / singFinishTick * 92);
+                }
 
-            int width;
-            if(player.getItemUseTime()>=singFinishTick){
-                width = 92;
-            }else {
-                width = (int)((float)(player.getItemUseTime()) / singFinishTick * 92);
+                int m = scaledWidth / 2 -45;
+                int o = scaledHeight - 90;
+
+                context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 0, 92, 5);
+                context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 5, width, 5);
+                if(width==92){
+                    context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 10, width, 5);
+                }
             }
-
-            int m = scaledWidth / 2 -45;
-            int o = scaledHeight - 90;
-
-            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 0, 92, 5);
-            context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 5, width, 5);
-            if(width==92){
-                context.drawTexture(MASI_BAR_TEXTURE, m, o, 0, 10, width, 5);
-            }
-
         }
 
         if(MagicUtil.MAX_ENERGY.get(player)!=null){
@@ -144,4 +154,20 @@ public class MasiClient implements ClientModInitializer  {
             context.drawText(MC.textRenderer, Text.of(MagicUtil.ENERGY.get(player) + " / " +MagicUtil.MAX_ENERGY.get(player)),m+20,o,0xFFFFFF,false);
         }
     }
+
+    private void registerPullPredicate(Item item) {
+        ModelPredicateProviderRegistry.register(item, new Identifier("pull"), (stack, world, entity, seed) -> {
+            if (entity == null) {
+                return 0.0f;
+            }
+            if (entity.getActiveItem() != stack) {
+                return 0.0f;
+            }
+            return (float) (stack.getMaxUseTime() - entity.getItemUseTimeLeft()) / 20.0f;
+        });
+
+        ModelPredicateProviderRegistry.register(item, new Identifier("pulling"), (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
+
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.lemg.masi.item;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ArcaneMinionEntity;
-import com.lemg.masi.entity.MagicBulletEntity;
-import com.lemg.masi.entity.ModEntities;
-import com.lemg.masi.entity.SwordEnergyEntity;
+import com.lemg.masi.entity.*;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.client.item.TooltipContext;
@@ -40,7 +37,7 @@ public class MagicSword extends Item {
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         float time = getProgress(this.getMaxUseTime(stack) - remainingUseTicks);
-        if(time<1){
+        if(time<0.5){
             return;
         }
         SwordEnergyEntity.size1 = time;
@@ -73,6 +70,8 @@ public class MagicSword extends Item {
         float f = (float) useTicks / 20.0f;
         if (f > 5.0f) {
             f = 5.0f;
+        }else if(f>0.5f && f<1.0f){
+            f = 1.0f;
         }
         return f;
     }
@@ -134,6 +133,6 @@ public class MagicSword extends Item {
     //对法杖的描述
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.masi.staff.tooltip"));
+        tooltip.add(Text.translatable("item.masi.magic_sword.tooltip"));
     }
 }

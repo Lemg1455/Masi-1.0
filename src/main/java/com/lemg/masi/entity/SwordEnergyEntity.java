@@ -121,7 +121,6 @@ public class SwordEnergyEntity extends AnimalEntity {
         if(this.age>=40){
             this.remove(RemovalReason.DISCARDED);
         }
-
         double width = size - 1;
         double height = size - 1;
         float amount = (float) (5 + Math.pow(2,size));

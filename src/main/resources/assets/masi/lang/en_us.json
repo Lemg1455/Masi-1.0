@@ -56,6 +56,7 @@
   "item.masi.elemental_blessing_magic": "Element Blessing Magic",
   "item.masi.arcane_tentacles_magic": "Arcane Tentacles Magic",
   "item.masi.revenge_magic": "Revenge Magic",
+  "item.masi.arcane_sword_magic": "Arcane Sword Magic",
 
 
 
@@ -87,6 +88,7 @@
   "item.masi.arcane_tentacles_magic.tooltip": "If the target has magic, continue to absorb the opponent's magic. If not, absorb a drop of their blood to replenish oneself",
   "item.masi.arcane_tentacles_magic2.tooltip": "Using it while squatting can deliver magic to the target",
   "item.masi.revenge_magic.tooltip": "Passive, deals 10 points of damage to surrounding creatures when dying, and transmits its negative potion effect. The more remaining magic, the larger the range",
+  "item.masi.arcane_sword_magic.tooltip": "Consume magic, condense a long sword, long press to store sword energy, the longer the sword energy, the stronger the sword energy",
 
 
 

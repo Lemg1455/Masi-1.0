@@ -25,6 +25,7 @@ public class ModitemGroup {
                         entries.add(ModItems.MAX_ENERGY_BOTTLE);
                         entries.add(ModItems.TRIAL_CARD);
                         entries.add(ModItems.MAGIC_SWORD);
+                        entries.add(ModItems.ARCANE_BOW);
 
                     }).build());
 

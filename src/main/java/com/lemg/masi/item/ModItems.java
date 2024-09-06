@@ -19,6 +19,7 @@ public class ModItems {
     public static final Item MAX_ENERGY_BOTTLE = registerItems("max_energy_bottle",new MaxEnergyBottle(new FabricItemSettings().maxCount(64).rarity(Rarity.EPIC)));
     public static final Item TRIAL_CARD = registerItems("trial_card",new TrialCard(new FabricItemSettings().maxCount(64).rarity(Rarity.UNCOMMON)));
     public static final Item MAGIC_SWORD = registerItems("magic_sword",new MagicSword(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
+    public static final Item ARCANE_BOW = registerItems("arcane_bow",new ArcaneBow(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
 
 
     //Magics
@@ -49,6 +50,7 @@ public class ModItems {
     public static final Item ELEMENTAL_BLESSING_MAGIC = registerItems("elemental_blessing_magic",new ElementalBlessingMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item ARCANE_TENTACLES_MAGIC = registerItems("arcane_tentacles_magic",new ArcaneTentaclesMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item REVENGE_MAGIC = registerItems("revenge_magic",new RevengeMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item ARCANE_SWORD_MAGIC = registerItems("arcane_sword_magic",new ArcaneSwordMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
 
