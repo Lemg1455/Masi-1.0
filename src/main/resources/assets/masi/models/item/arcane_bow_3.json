@@ -1,0 +1,6 @@
+{
+  "parent": "masi:item/arcane_bow",
+  "textures": {
+    "layer0": "masi:item/arcane_bow_3"
+  }
+}
