@@ -52,6 +52,8 @@ public class ModItems {
     public static final Item REVENGE_MAGIC = registerItems("revenge_magic",new RevengeMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item ARCANE_SWORD_MAGIC = registerItems("arcane_sword_magic",new ArcaneSwordMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item ARCANE_BOW_MAGIC = registerItems("arcane_bow_magic",new ArcaneBowMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item BLOCK_PUT_MAGIC = registerItems("block_put_magic",new BlockPutMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item BLOCK_HIDDEN_MAGIC = registerItems("block_hidden_magic",new BlockHiddenMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
 

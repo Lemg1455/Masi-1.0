@@ -116,7 +116,7 @@ public class ShadowManeMagic extends Magic{
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.shadow_mane_magic.tooltip"));
+        tooltip.add(Text.translatable("item.masi.shadow_mane_magic.tooltip"));
         super.appendTooltip(stack,world,tooltip,context);
     }
 }

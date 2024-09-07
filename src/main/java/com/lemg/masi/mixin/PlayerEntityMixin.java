@@ -1,17 +1,15 @@
 package com.lemg.masi.mixin;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.item.EnergyBottle;
-import com.lemg.masi.item.MagicGroups;
+import com.lemg.masi.item.*;
 import com.lemg.masi.item.Magics.Magic;
-import com.lemg.masi.item.ModItems;
-import com.lemg.masi.item.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;

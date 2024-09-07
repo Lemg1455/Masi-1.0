@@ -63,6 +63,8 @@
   "item.masi.revenge_magic": "Revenge Magic",
   "item.masi.arcane_sword_magic": "Arcane Sword Magic",
   "item.masi.arcane_bow_magic": "Arcane Bow Magic",
+  "item.masi.block_put_magic": "Block Put Magic",
+  "item.masi.block_hidden_magic": "Block Hidden Magic",
 
 
 
@@ -81,7 +83,7 @@
   "item.masi.ingestion_magic.tooltip": "Suck the entities within the range to the end of the magic",
   "item.masi.taunt_magic.tooltip": "Mock surrounding targets and attract them to attack oneself",
   "item.masi.lose_circle_magic.tooltip": "Set up a magic array that lasts for 10 seconds, and creatures touched will experience five negative effects",
-  "item.shadow_mane_magic.tooltip": "Lock in surrounding creatures, then teleport to each target and inflict damage",
+  "item.masi.shadow_mane_magic.tooltip": "Lock in surrounding creatures, then teleport to each target and inflict damage",
   "item.masi.steal_magic.tooltip": "Steal an item from the target's body",
   "item.masi.stealth_magic.tooltip": "After release, it can remain invisible for 20 seconds, allowing nearby creatures to become invisible together",
   "item.masi.arcane_torrent_magic.tooltip": "Lasts for 10 seconds, dealing damage to the straight target in front of you",
@@ -96,6 +98,9 @@
   "item.masi.revenge_magic.tooltip": "Passive, deals 10 points of damage to surrounding creatures when dying, and transmits its negative potion effect. The more remaining magic, the larger the range",
   "item.masi.arcane_sword_magic.tooltip": "Consume magic, condense a sword, long press to store sword energy, the longer the sword energy, the stronger the sword energy",
   "item.masi.arcane_bow_magic.tooltip": "Concentrate a bow that can launch magical arrows",
+  "item.masi.block_put_magic.tooltip": "Put block in off_hand quickly,in 10s",
+  "item.masi.block_hidden_magic.tooltip": "Replace the blocks within the 5*5*5 area with air.If any creatures",
+  "item.masi.block_hidden_magic.tooltip2": "other than the caster enter the area or after 1 minute,the replaced blocks will recover",
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",

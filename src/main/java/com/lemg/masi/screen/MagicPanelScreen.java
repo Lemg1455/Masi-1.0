@@ -224,6 +224,12 @@ public class MagicPanelScreen
             buf.writeItemStack(itemStack);
         }
         ClientPlayNetworking.send(ModMessage.EQUIP_MAGICS_ID, buf);
+
+        MagicUtil.MAGIC_CHOOSE.put(client.player,0);
+
+        PacketByteBuf buf2 = PacketByteBufs.create();
+        buf2.writeInt(0);
+        ClientPlayNetworking.send(ModMessage.MAGIC_CHOOSE_ID, buf2);
     }
 
     //输入方式，搜索或者聊天
