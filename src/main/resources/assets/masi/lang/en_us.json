@@ -27,6 +27,11 @@
   "item.masi.energy_bottle.tooltip": "Restore some magic after use",
   "item.masi.max_energy_bottle.tooltip": "Improve max magic after use",
   "item.masi.trial_card.tooltip": "Legendary Mage Peak Experience Card, instantly unleashes magic within one minute of use, unlimited magic power",
+  "item.masi.magic_sword.tooltip": "Each attack triggers a sweep, long press the right button for 0.5 seconds",
+  "item.masi.magic_sword2.tooltip": "to release sword energy, and can accumulate up to 5 seconds",
+  "item.masi.arcane_bow.tooltip": "After pulling the bow for 0.1 seconds, the arrow can be released, accumulating up to 5 seconds. After the arrow collides,",
+  "item.masi.arcane_bow2.tooltip": "it can split and shoot towards nearby targets. The longer the accumulation time, the more splits there will be",
+
 
 
   "item.masi.fire_ball_magic": "Fire Ball Magic",
@@ -57,6 +62,7 @@
   "item.masi.arcane_tentacles_magic": "Arcane Tentacles Magic",
   "item.masi.revenge_magic": "Revenge Magic",
   "item.masi.arcane_sword_magic": "Arcane Sword Magic",
+  "item.masi.arcane_bow_magic": "Arcane Bow Magic",
 
 
 
@@ -88,8 +94,8 @@
   "item.masi.arcane_tentacles_magic.tooltip": "If the target has magic, continue to absorb the opponent's magic. If not, absorb a drop of their blood to replenish oneself",
   "item.masi.arcane_tentacles_magic2.tooltip": "Using it while squatting can deliver magic to the target",
   "item.masi.revenge_magic.tooltip": "Passive, deals 10 points of damage to surrounding creatures when dying, and transmits its negative potion effect. The more remaining magic, the larger the range",
-  "item.masi.arcane_sword_magic.tooltip": "Consume magic, condense a long sword, long press to store sword energy, the longer the sword energy, the stronger the sword energy",
-
+  "item.masi.arcane_sword_magic.tooltip": "Consume magic, condense a sword, long press to store sword energy, the longer the sword energy, the stronger the sword energy",
+  "item.masi.arcane_bow_magic.tooltip": "Concentrate a bow that can launch magical arrows",
 
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",

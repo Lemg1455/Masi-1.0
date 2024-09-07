@@ -9,14 +9,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ArcaneSwordMagic extends Magic{
-    public ArcaneSwordMagic(Settings settings) {
+public class ArcaneBowMagic extends Magic{
+    public ArcaneBowMagic(Settings settings) {
         super(settings);
     }
     @Override
@@ -35,14 +34,14 @@ public class ArcaneSwordMagic extends Magic{
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
-        ItemStack itemStack = new ItemStack(ModItems.MAGIC_SWORD);
+        ItemStack itemStack = new ItemStack(ModItems.ARCANE_BOW);
         if(user instanceof PlayerEntity playerEntity){
             if(playerEntity.getInventory().getEmptySlot()!=-1){
                 playerEntity.getInventory().insertStack(itemStack);
             }else {
                 playerEntity.dropStack(itemStack);
             }
-        }else if (user instanceof ArcaneMinionEntity arcaneMinion) {
+        } else if (user instanceof ArcaneMinionEntity arcaneMinion) {
             arcaneMinion.dropStack(itemStack);
         }
         super.release(stack,world,user,singingTicks);
@@ -63,7 +62,7 @@ public class ArcaneSwordMagic extends Magic{
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.masi.arcane_sword_magic.tooltip"));
+        tooltip.add(Text.translatable("item.masi.arcane_bow_magic.tooltip"));
         super.appendTooltip(stack,world,tooltip,context);
     }
 }

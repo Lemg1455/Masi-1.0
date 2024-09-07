@@ -108,7 +108,7 @@ public class ArcaneBow extends RangedWeaponItem implements Vanishable {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("item.masi.arcane_bow.tooltip"));
-        super.appendTooltip(stack, world, tooltip, context);
+        tooltip.add(Text.translatable("item.masi.arcane_bow2.tooltip"));
     }
 }
 

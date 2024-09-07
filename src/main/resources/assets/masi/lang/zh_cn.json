@@ -28,6 +28,11 @@
   "item.masi.energy_bottle.tooltip": "使用后,补充一点魔力",
   "item.masi.max_energy_bottle.tooltip": "使用后,永久增加魔力总量",
   "item.masi.trial_card.tooltip": "传奇法师巅峰体验卡，使用后一分钟内魔法瞬发，无限魔力(别点太快,会崩)",
+  "item.masi.magic_sword.tooltip": "每次攻击都触发横扫，长按右键0.5秒后可以释放剑气,最大可积蓄5秒",
+  "item.masi.magic_sword2.tooltip": "魔力上限越高，横扫伤害越高，积蓄时间越久，剑气伤害越高",
+  "item.masi.arcane_bow.tooltip": "拉弓0.1秒后可以释放箭矢，最多积蓄5秒，箭矢碰撞后可",
+  "item.masi.arcane_bow2.tooltip": "分裂射向附近目标，积蓄时间越久，分裂数量越多",
+
 
 
 
@@ -59,6 +64,7 @@
   "item.masi.arcane_tentacles_magic": "魔力之触",
   "item.masi.revenge_magic": "复仇",
   "item.masi.arcane_sword_magic": "魔力长剑",
+  "item.masi.arcane_bow_magic": "魔力长弓",
 
 
 
@@ -91,6 +97,7 @@
   "item.masi.arcane_tentacles_magic2.tooltip": "在蹲伏状态下使用，可以把自己的魔力输送给对方",
   "item.masi.revenge_magic.tooltip": "被动,如果装配,死亡时对周围生物造成10点伤害，并将自己身上的的负面药水效果给对方，剩余魔力越多，范围越大",
   "item.masi.arcane_sword_magic.tooltip": "消耗魔力，凝聚一把长剑，长按可蓄力剑气，越久剑气越强",
+  "item.masi.arcane_bow_magic.tooltip": "凝聚一把弓，可以发射魔力箭矢，伤害与魔力总量有关",
 
 
   "masi.panel.exp.message": "经验不足，无法学习",

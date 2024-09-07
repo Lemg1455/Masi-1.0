@@ -25,6 +25,7 @@ import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -50,13 +51,16 @@ public class ArcaneArrowEntity extends PersistentProjectileEntity {
         super(ModEntities.ARCANE_ARROW, owner, world);
         this.count = count;
     }
-
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
+    protected void onCollision(HitResult hitResult) {
+        if(hitResult.getType()== HitResult.Type.MISS){
+            return;
+        }
+        super.onCollision(hitResult);
         if(!(this.getOwner() instanceof LivingEntity)){
             return;
         }
-        if(entityHitResult.getEntity() instanceof LivingEntity livingEntity){
+        if(hitResult.getType()==HitResult.Type.ENTITY && ((EntityHitResult)hitResult).getEntity() instanceof LivingEntity livingEntity){
             int amount = 5;
             if(this.getOwner()!=null){
                 if(MagicUtil.MAX_ENERGY.get((LivingEntity)this.getOwner())!=null){
@@ -66,12 +70,12 @@ public class ArcaneArrowEntity extends PersistentProjectileEntity {
             livingEntity.damage(this.getWorld().getDamageSources().magic(),amount);
         }
         if(!this.getWorld().isClient() && count>0){
-            List<Entity> list = this.getWorld().getOtherEntities(entityHitResult.getEntity(), this.getBoundingBox().expand(15,15,15));
+            List<Entity> list = this.getWorld().getOtherEntities(this.getOwner(), this.getBoundingBox().expand(15,15,15));
             List<LivingEntity> livingEntities = new ArrayList<>();
             if(!list.isEmpty()){
                 for(Entity entity : list) {
                     if (entity instanceof LivingEntity livingEntity) {
-                        if(livingEntity!=this.getOwner() && livingEntity.isAlive()){
+                        if(livingEntity.isAlive()){
                             livingEntities.add(livingEntity);
                         }
                     }
@@ -82,11 +86,12 @@ public class ArcaneArrowEntity extends PersistentProjectileEntity {
                 for(LivingEntity livingEntity : livingEntities){
                     if(count>0){
                         ArcaneArrowEntity arcaneArrowEntity = new ArcaneArrowEntity(this.getWorld(), (LivingEntity) this.getOwner(), Math.max((count - livingEntities.size()), 0));
-                        arcaneArrowEntity.setPosition(entityHitResult.getEntity().getPos().add(0,this.getHeight()+3,0));
+                        arcaneArrowEntity.setPosition(hitResult.getPos().add(0,5,0));
                         double x = livingEntity.getX() - arcaneArrowEntity.getX();
                         double y = livingEntity.getBodyY(0.5f) - arcaneArrowEntity.getY();
                         double z = livingEntity.getZ() - arcaneArrowEntity.getZ();
-                        arcaneArrowEntity.setVelocity(x/5,y/5,z/5);
+                        arcaneArrowEntity.setVelocity(x/10,y/10,z/10);
+                        arcaneArrowEntity.setNoGravity(true);
                         this.getWorld().spawnEntity(arcaneArrowEntity);
                         count--;
                     }
@@ -97,11 +102,12 @@ public class ArcaneArrowEntity extends PersistentProjectileEntity {
                 for(int i=0;i<count;i++){
                     Random random = new Random();
                     ArcaneArrowEntity arcaneArrowEntity = new ArcaneArrowEntity(this.getWorld(), (LivingEntity) this.getOwner(), 0);
-                    arcaneArrowEntity.setPosition(entityHitResult.getEntity().getPos().add(random.nextDouble(-1.5,1.5),this.getHeight()+4,random.nextDouble(-1.5,1.5)));
-                    double x = entityHitResult.getEntity().getPos().getX() - arcaneArrowEntity.getX();
-                    double y = entityHitResult.getEntity().getBodyY(0.5f) - arcaneArrowEntity.getY();
-                    double z = entityHitResult.getEntity().getPos().getZ() - arcaneArrowEntity.getZ();
+                    arcaneArrowEntity.setPosition(hitResult.getPos().add(random.nextDouble(-1.5,1.5),6,random.nextDouble(-1.5,1.5)));
+                    double x = hitResult.getPos().getX() - arcaneArrowEntity.getX();
+                    double y = hitResult.getPos().getY()+1 - arcaneArrowEntity.getY();
+                    double z = hitResult.getPos().getZ() - arcaneArrowEntity.getZ();
                     arcaneArrowEntity.setVelocity(x/10,y/10,z/10);
+                    arcaneArrowEntity.setNoGravity(true);
                     this.getWorld().spawnEntity(arcaneArrowEntity);
                 }
                 count=0;
@@ -109,26 +115,6 @@ public class ArcaneArrowEntity extends PersistentProjectileEntity {
         }
     }
 
-    @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
-        BlockPos blockPos = blockHitResult.getBlockPos();
-        Vec3d pos = blockPos.toCenterPos();
-        if(count>0){
-            for(int i=0;i<count;i++){
-                Random random = new Random();
-                ArcaneArrowEntity arcaneArrowEntity = new ArcaneArrowEntity(this.getWorld(), (LivingEntity) this.getOwner(), 0);
-                arcaneArrowEntity.setPosition(pos.add(random.nextDouble(-1.5,1.5),this.getHeight()+5,random.nextDouble(-1.5,1.5)));
-                double x = pos.getX() - arcaneArrowEntity.getX();
-                double y = pos.getY() - arcaneArrowEntity.getY();
-                double z = pos.getZ() - arcaneArrowEntity.getZ();
-                arcaneArrowEntity.setVelocity(0,y/10,0);
-                this.getWorld().spawnEntity(arcaneArrowEntity);
-            }
-            count=0;
-        }
-
-    }
     @Override
     public boolean canHit() {
         return false;

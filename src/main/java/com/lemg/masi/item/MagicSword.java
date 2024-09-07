@@ -134,5 +134,6 @@ public class MagicSword extends Item {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("item.masi.magic_sword.tooltip"));
+        tooltip.add(Text.translatable("item.masi.magic_sword2.tooltip"));
     }
 }
