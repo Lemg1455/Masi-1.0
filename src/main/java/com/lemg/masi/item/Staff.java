@@ -6,6 +6,7 @@ import com.lemg.masi.event.KeyInputHandler;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
+import com.lemg.masi.util.MapPersistence;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -33,6 +34,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -134,13 +136,12 @@ public class Staff extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
         if(entity instanceof PlayerEntity player){
             if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff){
-                if(world.isClient()){
+                if(!world.isClient()){
 
                 }
             }
         }
     }
-
 
     @Override
     public int getMaxUseTime(ItemStack stack) {

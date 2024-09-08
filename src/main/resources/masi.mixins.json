@@ -6,7 +6,8 @@
       "InGameHudMixin",
 		"PlayerEntityMixin",
 		"ServerWorldMixin",
-		"MinecraftClientMixin"
+		"MinecraftClientMixin",
+		"WorldCloseEventMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

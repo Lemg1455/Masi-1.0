@@ -19,7 +19,7 @@ public class MagicGroups {
         items = Arrays.asList(ModItems.ARCANE_SHIELD_MAGIC, ModItems.ARCANE_MISSILE_MAGIC,ModItems.ARCANE_TORRENT_MAGIC,ModItems.ARCANE_MINION_MAGIC,ModItems.ARCANE_TENTACLES_MAGIC,ModItems.ARCANE_SWORD_MAGIC,ModItems.ARCANE_BOW_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.arcane"),0,1,ModItems.ARCANE_MISSILE_MAGIC.getDefaultStack());
 
-        items = Arrays.asList(ModItems.FLICKER_MAGIC,ModItems.FLY_MAGIC,ModItems.DIMENSION_EXILE_MAGIC,ModItems.IMPRISON_MAGIC,ModItems.INGESTION_MAGIC,ModItems.SHADOW_MANE_MAGIC,ModItems.STEALTH_MAGIC);
+        items = Arrays.asList(ModItems.FLICKER_MAGIC,ModItems.FLY_MAGIC,ModItems.DIMENSION_EXILE_MAGIC,ModItems.IMPRISON_MAGIC,ModItems.INGESTION_MAGIC,ModItems.SHADOW_MANE_MAGIC,ModItems.STEALTH_MAGIC,ModItems.SPACE_PACK_MAGIC);
         addMagicGroup(items,Text.translatable("magicGroup.space"),0,2,ModItems.FLICKER_MAGIC.getDefaultStack());
 
         items = Arrays.asList(ModItems.RANDOM_MAGIC,ModItems.TAUNT_MAGIC,ModItems.STEAL_MAGIC,ModItems.DEATH_DECLARATION_MAGIC,ModItems.REVENGE_MAGIC);

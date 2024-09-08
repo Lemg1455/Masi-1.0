@@ -2,9 +2,11 @@ package com.lemg.masi.mixin;
 
 import com.lemg.masi.item.EnergyBottle;
 import com.lemg.masi.item.Magics.Magic;
+import com.lemg.masi.item.Magics.SpacePackMagic;
 import com.lemg.masi.item.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
+import com.lemg.masi.util.MapPersistence;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,14 +18,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.profiler.Profiler;
+import net.minecraft.world.World;
 import net.minecraft.world.level.ServerWorldProperties;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,8 +42,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BooleanSupplier;
 
@@ -48,13 +59,28 @@ public abstract class ServerWorldMixin{
 
 	@Shadow public abstract List<ServerPlayerEntity> getPlayers();
 
+	@Shadow
+	public abstract @NotNull MinecraftServer getServer();
+
 	@Unique
 	int count = 0;
 	@Inject(at = @At("TAIL"), method = "tick")
-	public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+	public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) throws IOException, ClassNotFoundException {
 
 		Profiler profiler = ((ServerWorld)(Object)this).getProfiler();
 		profiler.push("magicEffectTicks");
+		File file = this.getServer().getSavePath(WorldSavePath.PLAYERS).getParent().resolve("masi_packs.dat").toFile();
+		Identifier l = ((ServerWorld)(Object)this).getRegistryKey().getValue();
+		Identifier k = new Identifier("overworld");
+		System.out.println(l);
+		/*if(l == World.OVERWORLD.getValue()){
+			System.out.println(l);
+			System.out.println(Objects.equals(l, k));
+		}*/
+		if (file.exists()) {
+			ConcurrentHashMap<String,List<Integer>> uuidPos = MapPersistence.loadPacksFromFile(this.getServer().getSavePath(WorldSavePath.PLAYERS).getParent().resolve("masi_packs.dat"));
+			file.delete();
+		}
 		boolean bl = !((ServerWorld)(Object)this).getPlayers().isEmpty() || !((ServerWorld)(Object)this).getForcedChunks().isEmpty();
 		if (bl || this.idleTimeout++ < 300) {
 			//所有进行中的魔法效果

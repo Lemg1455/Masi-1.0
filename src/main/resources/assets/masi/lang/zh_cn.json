@@ -100,7 +100,7 @@
   "item.masi.arcane_sword_magic.tooltip": "消耗魔力，凝聚一把长剑，长按可蓄力剑气，越久剑气越强",
   "item.masi.arcane_bow_magic.tooltip": "凝聚一把弓，可以发射魔力箭矢，伤害与魔力总量有关",
   "item.masi.block_put_magic.tooltip": "在十秒内，每2tick一次，快速放置副手的方块",
-  "item.masi.block_hidden_magic.tooltip": "将5*5*5区域内的方块替换成空气，有除施法者外的生物进入该区域",
+  "item.masi.block_hidden_magic.tooltip": "将10*10*10区域内的方块替换成空气，有除施法者外的生物进入该区域",
   "item.masi.block_hidden_magic.tooltip2": "或者倒计时1分钟后，被替换的方块会恢复(方块内的物品不会)",
 
 

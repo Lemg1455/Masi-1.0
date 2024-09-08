@@ -100,7 +100,9 @@ public class DeathDeclarationMagic extends Magic{
     @Override
     public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks) {
         if (aim instanceof LivingEntity livingEntity) {
-            ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), livingEntity.getX(), livingEntity.getBodyY(1.0)+1, livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
+            if(!world.isClient()){
+                ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), livingEntity.getX(), livingEntity.getBodyY(1.0)+1, livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
+            }
 
             if(ticks==0){
                 if(livingEntity.isAlive()){
