@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
@@ -112,8 +113,13 @@ public class UndeadSummonMagic extends Magic{
                 for(int j=0;j<2;j++){
                     WitherSkeletonEntity witherSkeletonEntity = EntityType.WITHER_SKELETON.spawn((ServerWorld) world,user.getBlockPos().add(i+j,2,i+j), SpawnReason.SPAWNER);
                     if (witherSkeletonEntity != null) {
-                        witherSkeletonEntity.tryEquip(new ItemStack(Items.DIAMOND_CHESTPLATE));
-                        witherSkeletonEntity.tryEquip(new ItemStack(Items.DIAMOND_HELMET));
+                        ItemStack itemStack;
+                        itemStack = new ItemStack(Items.DIAMOND_CHESTPLATE);
+                        itemStack.setDamage(10);
+                        witherSkeletonEntity.tryEquip(itemStack);
+                        itemStack = new ItemStack(Items.DIAMOND_HELMET);
+                        itemStack.setDamage(10);
+                        witherSkeletonEntity.tryEquip(itemStack);
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherSkeletonEntity);
                         list.add(witherSkeletonEntity);
                         teams.put(user,list);
