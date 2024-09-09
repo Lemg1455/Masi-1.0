@@ -107,6 +107,7 @@ public abstract class WorldCloseEventMixin {
                         }
                         SpacePackMagic.packs.remove(uuid);
                         BlockPos savePos = new BlockPos(sx,sy,sz);
+                        System.out.println(world.getPlayerByUuid(UUID.fromString(uuid)));
                         System.out.println(savePos);
                         uuidPos.put(uuid,List.of(savePos.getX(),savePos.getY(),savePos.getZ()));
                     }

@@ -68,6 +68,8 @@
   "item.masi.block_put_magic": "快速堆砌",
   "item.masi.block_hidden_magic": "元素复现",
   "item.masi.space_pack_magic": "空间打包",
+  "item.masi.undead_summon_magic": "亡灵召唤",
+
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -105,6 +107,7 @@
   "item.masi.block_hidden_magic.tooltip2": "或者倒计时1分钟后，被替换的方块会恢复(方块内的物品不会)",
   "item.masi.space_pack_magic.tooltip": "这个魔法允许你将周围10*10*10内的方块打包带走，再次释放会将它们放出。大部分方块的状态,位置,",
   "item.masi.space_pack_magic.tooltip2": "包括其中的物品会正确保留，数据存放在存档目录下的masi_pack.dat中，不建议太多人同时使用",
+  "item.masi.undead_summon_magic.tooltip":"召唤不同的亡灵，他们会主动攻击你的目标，但在你死后,或者时间(60s~?)达到上限时，它们会失控",
 
 
 

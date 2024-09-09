@@ -55,6 +55,7 @@ public class ModItems {
     public static final Item BLOCK_PUT_MAGIC = registerItems("block_put_magic",new BlockPutMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item BLOCK_HIDDEN_MAGIC = registerItems("block_hidden_magic",new BlockHiddenMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item SPACE_PACK_MAGIC = registerItems("space_pack_magic",new SpacePackMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item UNDEAD_SUMMON_MAGIC = registerItems("undead_summon_magic",new UndeadSummonMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
 

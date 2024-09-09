@@ -66,6 +66,7 @@
   "item.masi.block_put_magic": "Block Put Magic",
   "item.masi.block_hidden_magic": "Block Hidden Magic",
   "item.masi.space_pack_magic": "Space pack Magic",
+  "item.masi.undead_summon_magic": "Undead Summon Magic",
 
 
 
@@ -104,6 +105,7 @@
   "item.masi.block_hidden_magic.tooltip2": "other than the caster enter the area or after 1 minute,the replaced blocks will recover",
   "item.masi.space_pack_magic.tooltip": "This magic allow you pack blocks in 10*10*10,you can put them with original sample, when you release it again",
   "item.masi.space_pack_magic.tooltip2": "Mainly BlockStates and items in blocks will be saved true,the data are saved at level dir named masi_packs.dat",
+  "item.masi.undead_summon_magic.tooltip": "Summon undead entities at you around,they will attack your target in 60s,but they will lose control when you dead",
 
 
 
