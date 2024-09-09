@@ -67,6 +67,7 @@
   "item.masi.arcane_bow_magic": "魔力长弓",
   "item.masi.block_put_magic": "快速堆砌",
   "item.masi.block_hidden_magic": "元素复现",
+  "item.masi.space_pack_magic": "空间打包",
 
 
   "item.masi.fire_ball_magic.tooltip": "吟唱1秒后释放火球",
@@ -102,6 +103,8 @@
   "item.masi.block_put_magic.tooltip": "在十秒内，每2tick一次，快速放置副手的方块",
   "item.masi.block_hidden_magic.tooltip": "将10*10*10区域内的方块替换成空气，有除施法者外的生物进入该区域",
   "item.masi.block_hidden_magic.tooltip2": "或者倒计时1分钟后，被替换的方块会恢复(方块内的物品不会)",
+  "item.masi.space_pack_magic.tooltip": "这个魔法允许你将周围10*10*10内的方块打包带走，再次释放会将它们放出。大部分方块的状态,位置,",
+  "item.masi.space_pack_magic.tooltip2": "包括其中的物品会正确保留，数据存放在存档目录下的masi_pack.dat中，不建议太多人同时使用",
 
 
 

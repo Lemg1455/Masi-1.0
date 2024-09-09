@@ -10,6 +10,9 @@ import com.lemg.masi.util.MapPersistence;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -28,6 +31,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.World;
 import net.minecraft.world.level.ServerWorldProperties;
@@ -70,16 +74,50 @@ public abstract class ServerWorldMixin{
 		Profiler profiler = ((ServerWorld)(Object)this).getProfiler();
 		profiler.push("magicEffectTicks");
 		File file = this.getServer().getSavePath(WorldSavePath.PLAYERS).getParent().resolve("masi_packs.dat").toFile();
-		Identifier l = ((ServerWorld)(Object)this).getRegistryKey().getValue();
-		Identifier k = new Identifier("overworld");
-		System.out.println(l);
-		/*if(l == World.OVERWORLD.getValue()){
-			System.out.println(l);
-			System.out.println(Objects.equals(l, k));
-		}*/
-		if (file.exists()) {
-			ConcurrentHashMap<String,List<Integer>> uuidPos = MapPersistence.loadPacksFromFile(this.getServer().getSavePath(WorldSavePath.PLAYERS).getParent().resolve("masi_packs.dat"));
-			file.delete();
+		if(((ServerWorld)(Object)this).getRegistryKey().getValue() == World.OVERWORLD.getValue()){
+			if (file.exists()) {
+				ConcurrentHashMap<String,List<Integer>> uuidPos = MapPersistence.loadPacksFromFile(this.getServer().getSavePath(WorldSavePath.PLAYERS).getParent().resolve("masi_packs.dat"));
+				if (uuidPos!=null && !uuidPos.isEmpty()) {
+					for(String uuid : uuidPos.keySet()){
+						ConcurrentHashMap<BlockPos, List<Object>> blocksAndpos = new ConcurrentHashMap<>();
+						List<Integer> pos = uuidPos.get(uuid);
+						Box box = new Box(pos.get(0)-5,pos.get(1)-1,pos.get(2)-5,pos.get(0)+5,pos.get(1)+10,pos.get(2)+5);
+						int x = (int) box.minX;
+						int y = (int) box.minY;
+						int z = (int) box.minZ;
+						int rx = 0;
+						int ry = 0;
+						int rz = 0;
+						for(;x<box.maxX;x++){
+							for(;z<box.maxZ;z++){
+								for (;y<box.maxY;y++){
+									BlockPos blockPos = new BlockPos(x,y,z);
+									BlockState blockState = ((ServerWorld)(Object)this).getBlockState(blockPos);
+									List<Object> list = new ArrayList<>();
+									list.add(blockState);
+									if(blockState.hasBlockEntity()){
+										BlockEntity blockEntity = ((ServerWorld)(Object)this).getBlockEntity(blockPos);
+										list.add(blockEntity);
+										((ServerWorld)(Object)this).removeBlockEntity(blockPos);
+									}
+									BlockPos blockPos2 = new BlockPos(rx,ry,rz);
+									blocksAndpos.put(blockPos2, list);
+									((ServerWorld)(Object)this).setBlockState(blockPos, Blocks.AIR.getDefaultState());
+									ry++;
+								}
+								y = (int) box.minY;
+								ry = 0;
+								rz++;
+							}
+							z = (int) box.minZ;
+							rz=0;
+							rx++;
+						}
+						SpacePackMagic.packs.put(uuid,blocksAndpos);
+					}
+				}
+				file.delete();
+			}
 		}
 		boolean bl = !((ServerWorld)(Object)this).getPlayers().isEmpty() || !((ServerWorld)(Object)this).getForcedChunks().isEmpty();
 		if (bl || this.idleTimeout++ < 300) {

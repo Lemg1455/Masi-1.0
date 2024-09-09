@@ -2,16 +2,25 @@ package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
 import com.lemg.masi.util.MagicUtil;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PistonExtensionBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +38,7 @@ public class SpacePackMagic extends Magic{
     }
     @Override
     public int singFinishTick(){
-        return 15;
+        return 20;
     }
 
     @Override
@@ -39,7 +48,7 @@ public class SpacePackMagic extends Magic{
 
     @Override
     public int studyNeed(){
-        return 5;
+        return 999;
     }
 
     public static ConcurrentHashMap<String,ConcurrentHashMap<BlockPos, List<Object>>> packs = new ConcurrentHashMap<>();
@@ -83,7 +92,7 @@ public class SpacePackMagic extends Magic{
                 }
                 packs.put(player.getUuidAsString(),blocksAndpos);
             }else {
-                ConcurrentHashMap<BlockPos, List<Object>> blocksAndpos = packs.get(player);
+                ConcurrentHashMap<BlockPos, List<Object>> blocksAndpos = packs.get(player.getUuidAsString());
                 if(blocksAndpos!=null && !blocksAndpos.isEmpty()){
                      for(BlockPos blockPos : blocksAndpos.keySet()){
                          BlockPos blockPos1 = new BlockPos(player.getBlockPos().getX()-5+blockPos.getX(),player.getBlockPos().getY()-1+blockPos.getY(),player.getBlockPos().getZ()-5+blockPos.getZ());
@@ -91,9 +100,6 @@ public class SpacePackMagic extends Magic{
                          if(blocksAndpos.get(blockPos).size()==2){
                              BlockEntity blockEntity = (BlockEntity) blocksAndpos.get(blockPos).get(1);
                              NbtCompound nbt = blockEntity.createNbt();
-                             /*nbt.putInt("x",blockPos1.getX());
-                             nbt.putInt("y",blockPos1.getY());
-                             nbt.putInt("z",blockPos1.getZ());*/
                              BlockEntity blockEntity1 = blockEntity.getType().instantiate(blockPos1,(BlockState) blocksAndpos.get(blockPos).get(0));
                              if(blockEntity1!=null){
                                  blockEntity1.readNbt(nbt);
@@ -101,7 +107,7 @@ public class SpacePackMagic extends Magic{
                              world.addBlockEntity(blockEntity1);
                          }
                      }
-                     packs.remove(player);
+                     packs.remove(player.getUuidAsString());
                 }
             }
         }
@@ -111,7 +117,22 @@ public class SpacePackMagic extends Magic{
     public void onSinging(ItemStack stack, World world, LivingEntity user, float singingTicks){
         if(!user.getWorld().isClient()){
             ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_GROUND_WHITE, user.getX(),user.getY(),user.getZ(), 0, 0, 0.0, 0, 0.0);
-
+            Box box = new Box(user.getBlockPos().getX()-5,user.getBlockPos().getY()-1,user.getBlockPos().getZ()-5,user.getBlockPos().getX()+5,user.getBlockPos().getY()+10,user.getBlockPos().getZ()+5);
+            int mx = (int) box.minX;
+            int my = (int) box.minY;
+            int mz = (int) box.minZ;
+            ParticleEffect particleEffect = ParticleTypes.EFFECT;
+            if(user instanceof PlayerEntity player && packs.get(player.getUuidAsString())!=null){
+                particleEffect = ParticleTypes.ENCHANT;
+            }
+            for(;mx<=(int) box.maxX;mx++){
+                ((ServerWorld)user.getWorld()).spawnParticles(particleEffect, mx,user.getY(),(int) box.minZ, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(particleEffect, mx,user.getY(),(int) box.maxZ, 0, 0, 0.0, 0, 0.0);
+            }
+            for(;mz<=(int) box.maxZ;mz++){
+                ((ServerWorld)user.getWorld()).spawnParticles(particleEffect, (int) box.minX,user.getY()+0.2,mz, 0, 0, 0.0, 0, 0.0);
+                ((ServerWorld)user.getWorld()).spawnParticles(particleEffect, (int) box.maxX,user.getY()+0.2,mz, 0, 0, 0.0, 0, 0.0);
+            }
             if(user.getItemUseTime() >= singFinishTick()){
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 1;

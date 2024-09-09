@@ -49,25 +49,26 @@ public abstract class WorldCloseEventMixin {
 
     @Inject(method = "stop", at = @At("RETURN"))
     private void onStop(boolean waitForShutdown, CallbackInfo ci) throws IOException {
-        //this.stop();
+        this.stop();
     }
 
-    /*private void stop() throws IOException {
+    private void stop() throws IOException {
         if(!SpacePackMagic.packs.isEmpty()){
             Path path = this.getSavePath(WorldSavePath.PLAYERS);
             path = path.getParent().resolve("masi_packs.dat");
             ConcurrentHashMap<String,List<Integer>> uuidPos = new ConcurrentHashMap<>();
-            for(String uuid : SpacePackMagic.packs.keySet()){
-                if(!this.getWorld(World.OVERWORLD).getPlayerByUuid().getPlayer(UUID.fromString(uuid)).getWorld().isClient()){
+            ServerWorld world = this.getWorld(World.OVERWORLD);
+            if(world!=null){
+                for(String uuid : SpacePackMagic.packs.keySet()){
                     Random random = new Random();
                     int sx;
                     int sy;
                     int sz;
                     while (true){
                         boolean allAir = true;
-                        sx = random.nextInt(player.getBlockPos().getX()-200,player.getBlockPos().getX()+200);
+                        sx = random.nextInt(-2000,2000);
                         sy = random.nextInt(50,200);
-                        sz = random.nextInt(player.getBlockPos().getZ()-200,player.getBlockPos().getZ()+200);
+                        sz = random.nextInt(-2000,2000);
                         Box box = new Box(sx-5,sy-1,sz-5,sx+5,sy+10,sz+5);
                         int x = (int) box.minX;
                         int y = (int) box.minY;
@@ -76,7 +77,7 @@ public abstract class WorldCloseEventMixin {
                             for(;z<box.maxZ;z++){
                                 for (;y<box.maxY;y++){
                                     BlockPos blockPos = new BlockPos(x,y,z);
-                                    BlockState blockState = player.getWorld().getBlockState(blockPos);
+                                    BlockState blockState = world.getBlockState(blockPos);
                                     if(blockState.getBlock()!=Blocks.AIR){
                                         allAir=false;
                                     }
@@ -89,11 +90,11 @@ public abstract class WorldCloseEventMixin {
                             break;
                         }
                     }
-                    ConcurrentHashMap<BlockPos, List<Object>> blocksAndpos = SpacePackMagic.packs.get(player);
+                    ConcurrentHashMap<BlockPos, List<Object>> blocksAndpos = SpacePackMagic.packs.get(uuid);
                     if(blocksAndpos!=null && !blocksAndpos.isEmpty()){
                         for(BlockPos blockPos : blocksAndpos.keySet()){
                             BlockPos blockPos1 = new BlockPos(sx-5+blockPos.getX(),sy-1+blockPos.getY(),sz-5+blockPos.getZ());
-                            player.getWorld().setBlockState(blockPos1, (BlockState) blocksAndpos.get(blockPos).get(0));
+                            world.setBlockState(blockPos1, (BlockState) blocksAndpos.get(blockPos).get(0));
                             if(blocksAndpos.get(blockPos).size()==2){
                                 BlockEntity blockEntity = (BlockEntity) blocksAndpos.get(blockPos).get(1);
                                 NbtCompound nbt = blockEntity.createNbt();
@@ -101,17 +102,17 @@ public abstract class WorldCloseEventMixin {
                                 if(blockEntity1!=null){
                                     blockEntity1.readNbt(nbt);
                                 }
-                                player.getWorld().addBlockEntity(blockEntity1);
+                                world.addBlockEntity(blockEntity1);
                             }
                         }
-                        SpacePackMagic.packs.remove(player);
+                        SpacePackMagic.packs.remove(uuid);
                         BlockPos savePos = new BlockPos(sx,sy,sz);
                         System.out.println(savePos);
-                        uuidPos.put(player.getUuidAsString(),List.of(savePos.getX(),savePos.getY(),savePos.getZ()));
+                        uuidPos.put(uuid,List.of(savePos.getX(),savePos.getY(),savePos.getZ()));
                     }
                 }
             }
             MapPersistence.savePacksToFile(uuidPos,path);
         }
-    }*/
+    }
 }
