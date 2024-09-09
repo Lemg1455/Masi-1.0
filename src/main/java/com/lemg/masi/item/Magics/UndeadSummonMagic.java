@@ -120,6 +120,7 @@ public class UndeadSummonMagic extends Magic{
                         itemStack = new ItemStack(Items.DIAMOND_HELMET);
                         itemStack.setDamage(10);
                         witherSkeletonEntity.tryEquip(itemStack);
+                        witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherSkeletonEntity);
                         list.add(witherSkeletonEntity);
                         teams.put(user,list);
