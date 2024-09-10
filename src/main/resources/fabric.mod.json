@@ -3,9 +3,9 @@
 	"id": "masi",
 	"version": "${version}",
 	"name": "Masi",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Magic Singing",
 	"authors": [
-		"Me!"
+		"Lemg"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
