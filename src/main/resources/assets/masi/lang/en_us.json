@@ -20,6 +20,8 @@
   "item.masi.energy_bottle": "Energy Bottle",
   "item.masi.max_energy_bottle": "Max Energy Bottle",
   "item.masi.trial_card": "Trial Card",
+  "item.masi.teleport_beacon": "Teleport Beacon",
+
 
   "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
   "item.masi.staff.tooltip": "Staff, right-click to chant magic",
@@ -67,6 +69,7 @@
   "item.masi.block_hidden_magic": "Block Hidden Magic",
   "item.masi.space_pack_magic": "Space pack Magic",
   "item.masi.undead_summon_magic": "Undead Summon Magic",
+  "item.masi.teleport_magic": "Teleport Magic",
 
 
 
@@ -106,6 +109,7 @@
   "item.masi.space_pack_magic.tooltip": "This magic allow you pack blocks in 10*10*10,you can put them with original sample, when you release it again",
   "item.masi.space_pack_magic.tooltip2": "Mainly BlockStates and items in blocks will be saved true,the data are saved at level dir named masi_packs.dat",
   "item.masi.undead_summon_magic.tooltip": "Summon undead entities at you around,they will attack your target in 60s,but they will lose control when you dead",
+  "item.masi.teleport_magic.tooltip": "Release this,you will get a beacon,which report your BlockPos.Put it on offhand,after release you will teleport there",
 
 
 

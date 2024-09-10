@@ -26,7 +26,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- *用于记录一些信息
+ *用于维持、处理数据
  */
 public class MagicUtil {
     private MagicUtil(){
@@ -38,7 +38,7 @@ public class MagicUtil {
     public static final Map<PlayerEntity, Integer> MAGIC_CHOOSE = new HashMap<>();//当前选择的魔法
     public static final Map<PlayerEntity, List<Object>> TIME_REQUIRED = new HashMap<>();//魔法释放后持续的时间，如果它是持续攻击的话
 
-    //如果你希望魔法的效果不是立即生效的，或者应该生效一段时间的，Map<目标，Map<施加者，Map<魔法，持续的时间>>>
+    //如果你希望魔法的效果不是立即生效的，或者应该生效一段时间的，Map<世界,Map<目标，Map<施加者，Map<魔法，持续的时间>>>>
     public static final ConcurrentHashMap<World,ConcurrentHashMap<Object, ConcurrentHashMap<LivingEntity,ConcurrentHashMap<Magic,Integer>>>> EFFECT = new ConcurrentHashMap<>();
 
     public static final Map<PlayerEntity, List<ItemStack>> LEARNED_MAGICS = new HashMap<>();//已经学会的魔法

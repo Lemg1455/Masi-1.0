@@ -115,10 +115,10 @@ public class UndeadSummonMagic extends Magic{
                     if (witherSkeletonEntity != null) {
                         ItemStack itemStack;
                         itemStack = new ItemStack(Items.DIAMOND_CHESTPLATE);
-                        itemStack.setDamage(10);
+                        itemStack.setDamage(450);
                         witherSkeletonEntity.tryEquip(itemStack);
                         itemStack = new ItemStack(Items.DIAMOND_HELMET);
-                        itemStack.setDamage(10);
+                        itemStack.setDamage(450);
                         witherSkeletonEntity.tryEquip(itemStack);
                         witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherSkeletonEntity);
@@ -131,6 +131,7 @@ public class UndeadSummonMagic extends Magic{
                 if(k==0){
                     WitherEntity witherEntity = EntityType.WITHER.spawn((ServerWorld) world,user.getBlockPos().add(i,2,i), SpawnReason.SPAWNER);
                     if (witherEntity != null) {
+                        witherEntity.setHealth(30);
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherEntity);
                         list.add(witherEntity);
                         teams.put(user,list);
