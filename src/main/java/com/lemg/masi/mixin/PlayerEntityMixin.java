@@ -45,7 +45,6 @@ public abstract class PlayerEntityMixin {
 
 	@Shadow public abstract void sendMessage(Text message, boolean overlay);
 
-
 	@Inject(at = @At("TAIL"), method = "tick")
 	public void tick(CallbackInfo ci) {
 		PlayerEntity player = ((PlayerEntity)(Object)this);
@@ -54,7 +53,6 @@ public abstract class PlayerEntityMixin {
 			List<Object> list = MagicUtil.TIME_REQUIRED.get(this);
 			Magic magic = (Magic)list.get(0);
 			int time_required = (int)list.get(1);
-
 			if(time_required>=0){
 				//持续攻击
 				if(magic.releaseContinueTime()>0 && player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff){
