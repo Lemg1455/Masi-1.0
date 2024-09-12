@@ -1,44 +1,29 @@
 package com.lemg.masi.mixin;
 
-import com.lemg.masi.Masi;
 import com.lemg.masi.item.*;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
@@ -131,5 +116,27 @@ public abstract class PlayerEntityMixin {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60, 1,false,false,false));
 			}
 		}*/
+	}
+
+	@Inject(at = @At("HEAD"), method = "canHarvest", cancellable = true)
+	public void canHarvest(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+		ItemStack stack = ((PlayerEntity)(Object)this).getInventory().getMainHandStack();
+		if(state.isToolRequired() && stack.getItem() instanceof InheritToolItem){
+			if (stack.getNbt()!=null) {
+				boolean drop = true;
+				int i = (int) stack.getNbt().getFloat("attackDamage");
+				if (i < MiningLevels.DIAMOND && state.isIn(BlockTags.NEEDS_DIAMOND_TOOL)) {
+					drop = false;
+				}
+				if (i < MiningLevels.IRON && state.isIn(BlockTags.NEEDS_IRON_TOOL)) {
+					drop = false;
+				}
+				if (i < MiningLevels.STONE && state.isIn(BlockTags.NEEDS_STONE_TOOL)) {
+					drop = false;
+				}
+				boolean bl = state.isIn(BlockTags.AXE_MINEABLE) || state.isIn(BlockTags.PICKAXE_MINEABLE) || state.isIn(BlockTags.HOE_MINEABLE) || state.isIn(BlockTags.SHOVEL_MINEABLE);
+				cir.setReturnValue(drop&&bl);
+			}
+		}
 	}
 }

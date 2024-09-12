@@ -1,5 +1,6 @@
 package com.lemg.masi.item;
 
+import com.google.common.collect.ImmutableMap;
 import com.lemg.masi.Masi;
 import com.lemg.masi.MasiClient;
 import com.lemg.masi.event.KeyInputHandler;
@@ -11,21 +12,21 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Oxidizable;
+import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.HoneycombItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.PacketByteBuf;
@@ -41,6 +42,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
@@ -146,12 +148,11 @@ public class Staff extends Item {
         return TypedActionResult.fail(handStack);
     }
 
+
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
         if(entity instanceof PlayerEntity player){
             if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof Staff){
-                if(!world.isClient()){
 
-                }
             }
         }
     }
@@ -165,9 +166,6 @@ public class Staff extends Item {
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
-
-
-
 
 
     //对法杖的描述

@@ -21,6 +21,7 @@ public class ModItems {
     public static final Item MAGIC_SWORD = registerItems("magic_sword",new MagicSword(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
     public static final Item ARCANE_BOW = registerItems("arcane_bow",new ArcaneBow(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
     public static final Item TELEPORT_BEACON = registerItems("teleport_beacon",new Item(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item INHERIT_TOOL_ITEM = registerItems("inherit_tool_item",new InheritToolItem(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
 
 
     //Magics
@@ -58,6 +59,7 @@ public class ModItems {
     public static final Item SPACE_PACK_MAGIC = registerItems("space_pack_magic",new SpacePackMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item UNDEAD_SUMMON_MAGIC = registerItems("undead_summon_magic",new UndeadSummonMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
     public static final Item TELEPORT_MAGIC = registerItems("teleport_magic",new TeleportMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
+    public static final Item INHERIT_TOOL_MAGIC = registerItems("inherit_tool_magic",new InheritToolMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC)));
 
 
 
