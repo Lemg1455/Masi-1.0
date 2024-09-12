@@ -173,6 +173,6 @@ public class SwordEnergyEntity extends AnimalEntity {
                 .add(EntityAttributes.GENERIC_ARMOR,0.5F)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,10)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE,40)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,3.0);
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,1.5);
     }
 }

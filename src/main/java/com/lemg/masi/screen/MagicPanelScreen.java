@@ -40,6 +40,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
@@ -73,6 +74,7 @@ public class MagicPanelScreen
     private boolean lastClickOutsideBounds;
     private final Set<TagKey<Item>> searchResultTags = new HashSet<TagKey<Item>>();
     public final PlayerEntity player;
+    private List<ItemStack> errorStack = new ArrayList<>();
 
     public MagicPanelScreen(PlayerEntity player, FeatureSet enabledFeatures) {
         super(new MagicPanelScreen.CreativeScreenHandler(player), player.getInventory(), ScreenTexts.EMPTY);
@@ -89,6 +91,11 @@ public class MagicPanelScreen
         super.handledScreenTick();
         if (this.client == null) {
             return;
+        }
+        for(ItemStack itemStack : INVENTORY.stacks){
+            if(!(itemStack.getItem() instanceof Magic) && !errorStack.contains(itemStack)){
+                errorStack.add(itemStack);
+            }
         }
     }
 
@@ -214,8 +221,16 @@ public class MagicPanelScreen
     @Override
     public void removed() {
         super.removed();
-        if (this.client.player != null && this.client.player.getInventory() != null) {
+        this.handler.setCursorStack(ItemStack.EMPTY);
+        if (this.client.player != null && this.client.player.getInventory() != null && this.client.interactionManager!=null) {
             //this.client.player.playerScreenHandler.removeListener(this.listener);
+            /*for(ItemStack itemStack : errorStack){
+                if(!(itemStack.getItem() instanceof Magic)){
+                    this.client.player.dropItem(itemStack.copy(), true);
+                    this.client.interactionManager.dropCreativeStack(itemStack.copy());
+                    itemStack = ItemStack.EMPTY;
+                }
+            }*/
         }
         MagicUtil.EQUIP_MAGICS.put(player,MagicUtil.getStacksItems(this.handler.simpleInventory.stacks));
 
@@ -495,7 +510,7 @@ public class MagicPanelScreen
         public SimpleInventory simpleInventory = new SimpleInventory(9);
 
         public CreativeScreenHandler(PlayerEntity player) {
-            super(null, 0);
+            super(null, 15);
             int i;
             this.parent = player.playerScreenHandler;
             PlayerInventory playerInventory = player.getInventory();
@@ -514,7 +529,7 @@ public class MagicPanelScreen
                 }
             }
             for (i = 0; i < 9; ++i) {
-                this.addSlot(new Slot(simpleInventory, i, 9 + i * 18, 112));
+                this.addSlot(new MagicSlot(simpleInventory, i, 9 + i * 18, 112));
                 simpleInventory.setStack(i,inventory.get(i));
             }
             this.scrollItems(0.0f);
@@ -570,7 +585,7 @@ public class MagicPanelScreen
 
         @Override
         public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
-            return slot.inventory != INVENTORY;
+            return stack.getItem() instanceof Magic && slot.inventory != INVENTORY;
         }
 
         @Override
@@ -603,6 +618,20 @@ public class MagicPanelScreen
             }
             return itemStack.isEmpty();
         }
+    }
+
+    @Environment(value=EnvType.CLIENT)
+    static class MagicSlot
+            extends Slot {
+        public MagicSlot(Inventory inventory, int i, int j, int k) {
+            super(inventory, i, j, k);
+        }
+
+        @Override
+        public boolean canInsert(ItemStack stack) {
+            return stack.getItem() instanceof Magic;
+        }
+
     }
 }
 

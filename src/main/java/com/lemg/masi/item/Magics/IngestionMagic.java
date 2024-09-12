@@ -14,7 +14,10 @@ import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -81,9 +84,6 @@ public class IngestionMagic extends Magic{
                 for(Entity entity : list){
                     moveToPos(entity,Pos1);
                     entity.fallDistance = 0;
-                    if(entity instanceof LivingEntity livingEntity){
-                        livingEntity.damage(player.getWorld().getDamageSources().playerAttack(player),1f);
-                    }
                 }
 
                 BlockPos blockPos = new BlockPos((int) (player.getX()+ff*15), (int) (player.getY()+gg*15), (int) (player.getZ()+hh*15));
@@ -123,6 +123,15 @@ public class IngestionMagic extends Magic{
     }
 
     public void moveToPos(Entity entity,Vec3d pos){
+        if(entity instanceof LivingEntity livingEntity){
+            if(livingEntity.getAttributes().hasAttribute(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)){
+                if(livingEntity.getAttributes().getValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)>=1.0f){
+                    if(!(livingEntity instanceof IronGolemEntity)){
+                        return;
+                    }
+                }
+            }
+        }
         Vec3d vec3d3 = entity.getRotationVec(1.0f);
         double l = entity.getX() - vec3d3.x;
         double m = entity.getY()+1;
