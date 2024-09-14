@@ -113,7 +113,7 @@
   "item.masi.space_pack_magic.tooltip2": "包括其中的物品会正确保留，数据存放在存档目录下的masi_pack.dat中，不建议太多人同时使用",
   "item.masi.undead_summon_magic.tooltip":"召唤不同的亡灵，他们会主动攻击你的目标，但在你死后,或者时间(180s)达到上限时，它们会失控",
   "item.masi.teleport_magic.tooltip": "释放后获得一个记录了当前位置的信标，将它放在副手，再次释放，会将自己及周围3*3*3的实体传送至记录的坐标",
-  "item.masi.inherit_tool_magic.tooltip": "副手持空/原石/铁锭/金锭/钻石/合金锭，在释放后会消耗一个，获得对应品质的集成工具",
+  "item.masi.inherit_tool_magic.tooltip": "副手持木头(或任意)/原石/铁锭/金锭/钻石/合金锭，在释放后会消耗一个，获得对应品质的集成工具",
   "item.masi.inherit_tool_magic.tooltip2": "集成工具拥有工具五件套和钓竿的集成功能，但耐久只有对应品质的1/3",
 
 
