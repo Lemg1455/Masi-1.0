@@ -46,6 +46,10 @@ public class InheritToolItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack handStack = user.getStackInHand(hand);
+        ItemStack offhandStack = user.getStackInHand(Hand.OFF_HAND);
+        if(offhandStack.isOf(Items.SHIELD)){
+            return TypedActionResult.pass(handStack);
+        }
 
         if(handStack.getNbt()!=null){
             handStack.getNbt().putFloat("tool",0.60f);

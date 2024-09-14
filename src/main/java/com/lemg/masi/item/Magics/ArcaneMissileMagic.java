@@ -46,11 +46,11 @@ public class ArcaneMissileMagic extends Magic{
 
     @Override
     public int energyConsume(){
-        return 40;
+        return 30;
     }
     @Override
     public int studyNeed(){
-        return 10;
+        return 5;
     }
     @Override
     public boolean Multiple(){
