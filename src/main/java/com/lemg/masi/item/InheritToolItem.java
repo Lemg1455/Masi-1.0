@@ -3,10 +3,7 @@ package com.lemg.masi.item;
 import com.google.common.collect.ImmutableMap;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.yarn.constants.MiningLevels;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PillarBlock;
+import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,9 +15,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -31,6 +30,7 @@ import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -43,39 +43,51 @@ public class InheritToolItem extends Item {
         super(settings);
     }
 
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        boolean trial = MagicUtil.isTrial((PlayerEntity) user);
-        float singingTick = 0;//咏唱时间
-        singingTick = this.getMaxUseTime(stack) - remainingUseTicks;//咏唱时间，tick
-        if (!(user instanceof PlayerEntity player)) {
-            return;//如果不是玩家实例，就返回
-        }
-
-        if (((double) (singingTick/20) < 0.1) && !trial) {
-            return;//如果咏唱时间不足0.1秒,就不算开始
-        }
-
-        stack.damage(1, player, p -> p.sendToolBreakStatus(player.getActiveHand()));
-        player.incrementStat(Stats.USED.getOrCreateStat(this));
-    }
-
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack handStack = user.getStackInHand(hand);
-        user.setCurrentHand(hand);
-        return TypedActionResult.consume(handStack);
 
+        if(handStack.getNbt()!=null){
+            handStack.getNbt().putFloat("tool",0.60f);
 
+            if (user.fishHook != null) {
+                if (!world.isClient) {
+                    int i = user.fishHook.use(handStack);
+                    handStack.damage(i*3, user, p -> p.sendToolBreakStatus(hand));
+                }
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
+                user.emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
+            } else {
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_FISHING_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
+                if (!world.isClient) {
+                    int i = EnchantmentHelper.getLure(handStack);
+                    int j = EnchantmentHelper.getLuckOfTheSea(handStack);
+                    world.spawnEntity(new FishingBobberEntity(user, world, j, i));
+                }
+                user.incrementStat(Stats.USED.getOrCreateStat(this));
+                user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
+            }
+            return TypedActionResult.success(handStack, world.isClient());
 
-        //return TypedActionResult.fail(handStack);
+        }
+        return TypedActionResult.success(handStack, world.isClient());
     }
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.damage(1, attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        stack.damage(getDamage(stack), attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 
         stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED,new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", (double)-2.4f, EntityAttributeModifier.Operation.ADDITION),EquipmentSlot.MAINHAND);
         if(attacker instanceof PlayerEntity player){
+            if(stack.getNbt()!=null){
+                float material = getMaterial(stack);
+                if(player.fallDistance > 0.0f && !player.isOnGround() && !player.isClimbing() && !player.isTouchingWater()){
+                    stack.getNbt().putFloat("tool",material + 0.02f);
+                }else {
+                    stack.getNbt().putFloat("tool",material + 0.01f);
+                }
+            }
+
             float f = (float)player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             float g = target instanceof LivingEntity ? EnchantmentHelper.getAttackDamage(player.getMainHandStack(), ((LivingEntity)target).getGroup()) : EnchantmentHelper.getAttackDamage(player.getMainHandStack(), EntityGroup.DEFAULT);
             float h = player.getAttackCooldownProgress(0.5f);
@@ -116,69 +128,64 @@ public class InheritToolItem extends Item {
             if (state.isOf(Blocks.COBWEB)) {
                 return 15.0f;
             }
-            boolean bl = state.isIn(BlockTags.AXE_MINEABLE) || state.isIn(BlockTags.PICKAXE_MINEABLE) || state.isIn(BlockTags.HOE_MINEABLE) || state.isIn(BlockTags.SHOVEL_MINEABLE);
-            return bl ? stack.getNbt().getFloat("miningSpeed") : 1.0f;
+            boolean bl = state.isIn(BlockTags.AXE_MINEABLE);
+            boolean bl2 = state.isIn(BlockTags.PICKAXE_MINEABLE);
+            boolean bl3 = state.isIn(BlockTags.HOE_MINEABLE);
+            boolean bl4 = state.isIn(BlockTags.SHOVEL_MINEABLE);
+
+            float material = getMaterial(stack);
+            if(bl){
+                stack.getNbt().putFloat("tool",material + 0.02f);
+            }else if ((bl2)){
+                stack.getNbt().putFloat("tool",material + 0.03f);
+            }else if ((bl3)){
+                stack.getNbt().putFloat("tool",material + 0.04f);
+            }else if ((bl4)){
+                stack.getNbt().putFloat("tool",material + 0.05f);
+            }
+
+            return bl||bl2||bl3||bl4 ? stack.getNbt().getFloat("miningSpeed") : 1.0f;
         }
         return 1.0f;
     }
 
-    /*@Override
-    public boolean isSuitableFor(BlockState state) {
-
-        int i = this.getMaterial().getMiningLevel();
-        if (i < MiningLevels.DIAMOND && state.isIn(BlockTags.NEEDS_DIAMOND_TOOL)) {
-            return false;
-        }
-        if (i < MiningLevels.IRON && state.isIn(BlockTags.NEEDS_IRON_TOOL)) {
-            return false;
-        }
-        if (i < MiningLevels.STONE && state.isIn(BlockTags.NEEDS_STONE_TOOL)) {
-            return false;
-        }
-        return state.isIn(this.effectiveBlocks);
-    }*/
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         if (state.getHardness(world, pos) != 0.0f) {
-            stack.damage(2, miner, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+            stack.damage(getDamage(stack)*2, miner, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
         }
-        /*if(!world.isClient()){
-            if(miner instanceof PlayerEntity player){
-                boolean bl = world.getBlockState(pos).isAir();
-                boolean bl2 = player.canHarvest(state);
-                if (bl && !bl2 && stack.getNbt()!=null) {
-                    boolean drop = true;
-                    int i = (int) stack.getNbt().getFloat("attackDamage");
-                    if (i < MiningLevels.DIAMOND && state.isIn(BlockTags.NEEDS_DIAMOND_TOOL)) {
-                        drop = false;
-                    }
-                    if (i < MiningLevels.IRON && state.isIn(BlockTags.NEEDS_IRON_TOOL)) {
-                        drop = false;
-                    }
-                    if (i < MiningLevels.STONE && state.isIn(BlockTags.NEEDS_STONE_TOOL)) {
-                        drop = false;
-                    }
-                    if(drop){
-                        state.getBlock().afterBreak(world, player, pos, state, world.getBlockEntity(pos), stack);
-                    }
-                }
-            }
-        }*/
         return true;
     }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
-        if(new ItemStack(Items.IRON_AXE).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
-            return ActionResult.success(world.isClient);
-        }
-        if(new ItemStack(Items.IRON_HOE).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
-            return ActionResult.success(world.isClient);
-        }
-        if(new ItemStack(Items.IRON_SHOVEL).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
-            return ActionResult.success(world.isClient);
+        ItemStack stack = context.getStack();
+        PlayerEntity player = context.getPlayer();
+        if(stack.getNbt()!=null){
+            float material = getMaterial(stack);
+            if(new ItemStack(Items.IRON_AXE).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
+                stack.getNbt().putFloat("tool",material+0.02f);
+                if (player != null) {
+                    stack.damage(getDamage(stack)-1, player, p -> p.sendToolBreakStatus(context.getHand()));
+                }
+                return ActionResult.success(world.isClient);
+            }
+            if(new ItemStack(Items.IRON_HOE).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
+                stack.getNbt().putFloat("tool",material+0.04f);
+                if (player != null) {
+                    stack.damage(getDamage(stack)-1, player, p -> p.sendToolBreakStatus(context.getHand()));
+                }
+                return ActionResult.success(world.isClient);
+            }
+            if(new ItemStack(Items.IRON_SHOVEL).getItem().useOnBlock(context)==ActionResult.success(world.isClient)){
+                stack.getNbt().putFloat("tool",material+0.05f);
+                if (player != null) {
+                    stack.damage(getDamage(stack)-1, player, p -> p.sendToolBreakStatus(context.getHand()));
+                }
+                return ActionResult.success(world.isClient);
+            }
         }
         return ActionResult.PASS;
     }
@@ -207,6 +214,12 @@ public class InheritToolItem extends Item {
                         stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", (double)3.0f + nbt.getFloat("attackDamage"), EntityAttributeModifier.Operation.ADDITION),EquipmentSlot.MAINHAND);
                     }
                 }
+            }else {
+                if(!(player.getStackInHand(Hand.OFF_HAND).getItem() instanceof InheritToolItem)){
+                    if(stack.getNbt()!=null){
+                        stack.getNbt().putFloat("tool",0.0f);
+                    }
+                }
             }
         }
     }
@@ -218,19 +231,61 @@ public class InheritToolItem extends Item {
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+        return UseAction.NONE;
     }
 
-    protected static final Map<Block, Block> EFFECT_BLOCKS = new ImmutableMap.Builder<Block, Block>().put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD).put(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG).put(Blocks.DARK_OAK_WOOD, Blocks.STRIPPED_DARK_OAK_WOOD).put(Blocks.DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_LOG).put(Blocks.ACACIA_WOOD, Blocks.STRIPPED_ACACIA_WOOD).put(Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG).put(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD).put(Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG).put(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD).put(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG).put(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD).put(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG).put(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD).put(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG).put(Blocks.WARPED_STEM, Blocks.STRIPPED_WARPED_STEM).put(Blocks.WARPED_HYPHAE, Blocks.STRIPPED_WARPED_HYPHAE).put(Blocks.CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM).put(Blocks.CRIMSON_HYPHAE, Blocks.STRIPPED_CRIMSON_HYPHAE).put(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD).put(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG).put(Blocks.BAMBOO_BLOCK, Blocks.STRIPPED_BAMBOO_BLOCK).build();
+    public float getMaterial(ItemStack stack){
+        if(stack.getNbt()!=null){
+            float material = stack.getNbt().getFloat("miningSpeed");
+            if(material==2.0f){
+                material = 0.0f;
+            }else if(material==4.0f){
+                material = 0.1f;
+            }else if(material==6.0f){
+                material = 0.2f;
+            }else if(material==12.0f){
+                material = 0.3f;
+            }else if(material==8.0f){
+                material = 0.4f;
+            }else if(material==9.0f){
+                material = 0.5f;
+            }
+            return material;
+        }
+        return 0.0f;
+    }
 
-    private Optional<BlockState> getEffectState(BlockState state) {
-        return Optional.ofNullable(EFFECT_BLOCKS.get(state.getBlock())).map(block -> (BlockState)block.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)));
+    public int getDamage(ItemStack stack){
+        if(stack.getNbt()!=null){
+            float material = stack.getNbt().getFloat("miningSpeed");
+            int damage = 0;
+            if(material==2.0f){
+                damage = 100;
+            }else if(material==4.0f){
+                damage = 50;
+            }else if(material==6.0f){
+                damage = 25;
+            }else if(material==12.0f){
+                damage = 150;
+            }else if(material==8.0f){
+                damage = 4;
+            }else if(material==9.0f){
+                damage = 3;
+            }
+            return damage;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+        return false;
     }
 
 
     //对法杖的描述
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.masi.magic_tool_item.tooltip"));
+        tooltip.add(Text.translatable("item.masi.inherit_tool_item.tooltip"));
     }
 }

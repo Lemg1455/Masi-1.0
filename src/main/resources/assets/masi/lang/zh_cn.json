@@ -21,6 +21,7 @@
   "item.masi.max_energy_bottle": "魔源秘药",
   "item.masi.trial_card": "传奇法师巅峰体验卡",
   "item.masi.teleport_beacon": "传送信标",
+  "item.masi.inherit_tool_item": "集成工具",
 
 
   "item.masi.staff.tooltip": "法杖,长按右键吟唱魔法",
@@ -33,7 +34,7 @@
   "item.masi.magic_sword2.tooltip": "魔力上限越高，横扫伤害越高，积蓄时间越久，剑气伤害越高",
   "item.masi.arcane_bow.tooltip": "拉弓0.1秒后可以释放箭矢，最多积蓄5秒，箭矢碰撞后可",
   "item.masi.arcane_bow2.tooltip": "分裂射向附近目标，积蓄时间越久，分裂数量越多",
-
+  "item.masi.inherit_tool_item.tooltip": "剑的横扫,斧的跳劈，镐、锄、斧、铲的挖掘和使用、钓杆的钓鱼",
 
 
 
@@ -71,6 +72,7 @@
   "item.masi.space_pack_magic": "空间打包",
   "item.masi.undead_summon_magic": "亡灵召唤",
   "item.masi.teleport_magic": "传送魔法",
+  "item.masi.inherit_tool_magic": "应急工具包",
 
 
 
@@ -109,8 +111,10 @@
   "item.masi.block_hidden_magic.tooltip2": "或者倒计时1分钟后，被替换的方块会恢复(方块内的物品不会)",
   "item.masi.space_pack_magic.tooltip": "这个魔法允许你将周围10*10*10内的方块打包带走，再次释放会将它们放出。大部分方块的状态,位置,",
   "item.masi.space_pack_magic.tooltip2": "包括其中的物品会正确保留，数据存放在存档目录下的masi_pack.dat中，不建议太多人同时使用",
-  "item.masi.undead_summon_magic.tooltip":"召唤不同的亡灵，他们会主动攻击你的目标，但在你死后,或者时间(60s~?)达到上限时，它们会失控",
+  "item.masi.undead_summon_magic.tooltip":"召唤不同的亡灵，他们会主动攻击你的目标，但在你死后,或者时间(180s)达到上限时，它们会失控",
   "item.masi.teleport_magic.tooltip": "释放后获得一个记录了当前位置的信标，将它放在副手，再次释放，会将自己及周围3*3*3的实体传送至记录的坐标",
+  "item.masi.inherit_tool_magic.tooltip": "副手持空/原石/铁锭/金锭/钻石/合金锭，在释放后会消耗一个，获得对应品质的集成工具",
+  "item.masi.inherit_tool_magic.tooltip2": "集成工具拥有工具五件套和钓竿的集成功能，但耐久只有对应品质的1/3",
 
 
 

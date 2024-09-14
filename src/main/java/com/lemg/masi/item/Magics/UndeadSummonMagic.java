@@ -5,6 +5,7 @@ import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -75,6 +76,7 @@ public class UndeadSummonMagic extends Magic{
                         skeletonEntity.startRiding(skeletonHorseEntity);
                         skeletonEntity.tryEquip(new ItemStack(Items.IRON_CHESTPLATE));
                         skeletonEntity.tryEquip(new ItemStack(Items.IRON_HELMET));
+                        skeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(skeletonHorseEntity);
                         list.add(skeletonEntity);
                         list.add(skeletonHorseEntity);
@@ -91,6 +93,7 @@ public class UndeadSummonMagic extends Magic{
                         zombieEntity.tryEquip(new ItemStack(Items.CHAINMAIL_HELMET));
                         zombieEntity.setStackInHand(Hand.MAIN_HAND,new ItemStack(Items.IRON_SWORD));
                         zombieHorseEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 1,false,true,true));
+                        zombieEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(zombieHorseEntity);
                         list.add(zombieEntity);
                         list.add(zombieHorseEntity);
@@ -104,6 +107,7 @@ public class UndeadSummonMagic extends Magic{
                         zombifiedPiglinEntity.tryEquip(new ItemStack(Items.GOLDEN_CHESTPLATE));
                         zombifiedPiglinEntity.tryEquip(new ItemStack(Items.GOLDEN_HELMET));
                         zombifiedPiglinEntity.setStackInHand(Hand.MAIN_HAND,new ItemStack(Items.GOLDEN_SWORD));
+                        zombifiedPiglinEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(zombifiedPiglinEntity);
                         list.add(zombifiedPiglinEntity);
                         teams.put(user,list);
@@ -118,9 +122,9 @@ public class UndeadSummonMagic extends Magic{
                         itemStack.setDamage(450);
                         witherSkeletonEntity.tryEquip(itemStack);
                         itemStack = new ItemStack(Items.DIAMOND_HELMET);
-                        itemStack.setDamage(450);
+                        itemStack.setDamage(400);
                         witherSkeletonEntity.tryEquip(itemStack);
-                        witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 1,false,true,true));
+                        witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1,false,true,true));
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherSkeletonEntity);
                         list.add(witherSkeletonEntity);
                         teams.put(user,list);
@@ -131,7 +135,7 @@ public class UndeadSummonMagic extends Magic{
                 if(k==0){
                     WitherEntity witherEntity = EntityType.WITHER.spawn((ServerWorld) world,user.getBlockPos().add(i,2,i), SpawnReason.SPAWNER);
                     if (witherEntity != null) {
-                        witherEntity.setHealth(30);
+                        witherEntity.setHealth(50);
                         ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherEntity);
                         list.add(witherEntity);
                         teams.put(user,list);
@@ -156,12 +160,15 @@ public class UndeadSummonMagic extends Magic{
                                 itemStack = new ItemStack(Items.IRON_SHOVEL);
                             }
                             zombieVillagerEntity.setStackInHand(Hand.MAIN_HAND,itemStack);
+                            list.add(zombieVillagerEntity);
+                            list.add(drownedEntity);
+                            teams.put(user,list);
                         }
                     }
                 }
             }
             if(teams.get(user)!=null){
-                MagicUtil.putEffect(world,teams.get(user),user,this,1200);
+                MagicUtil.putEffect(world,teams.get(user),user,this,3600);
             }
         }
     }
@@ -174,7 +181,7 @@ public class UndeadSummonMagic extends Magic{
                 double yawRadians = Math.toRadians(user.getYaw()+90);
                 double x = user.getX() + Math.cos(yawRadians) * 2;
                 double z = user.getZ() + Math.sin(yawRadians) * 2;
-                double y = user.getY()+4;
+                double y = user.getY()+2;
                 ((ServerWorld)user.getWorld()).spawnParticles(Masi.CIRCLE_FORWARD_BLACK, x,y,z, 0, 0, 0.0, 0, 0.0);
             }
         }
@@ -189,17 +196,57 @@ public class UndeadSummonMagic extends Magic{
                 List<LivingEntity> list = (List<LivingEntity>)aim;
                 for(LivingEntity livingEntity : list){
                     if(livingEntity instanceof MobEntity mob && mob.isAlive()){
+                        if(user.getAttacking()!=null && user.getAttacking().isAlive()){
+                            mob.setTarget(user.getAttacking());
+                        }else if(user.getLastAttackedTime()==user.age && user.getLastAttacker()!=null && user.getLastAttacker().isAlive()){
+                            mob.setTarget(user.getAttacker());
+                        }else if(mob.getLastAttackedTime()==mob.age && mob.getLastAttacker()!=null && mob.getLastAttacker().isAlive() && !list.contains(mob.getTarget())){
+                            mob.setTarget(mob.getTarget());
+                        }else {
+                            mob.setTarget(null);
+                        }
                         if(mob.getTarget()==user){
                             mob.setTarget(null);
                         }
-                        if(user.getAttacking()!=null && user.getAttacking().isAlive()){
-                            mob.setTarget(user.getAttacking());
+                        if(mob.age%10==0){
+                            if(!mob.getNavigation().isIdle() && !mob.hasVehicle()){
+                                if (mob.squaredDistanceTo(user) >= 144.0) {
+                                    tryTeleport(mob,user);
+                                }else if(mob.getTarget()==null){
+                                    mob.getLookControl().lookAt(user, 10.0f, mob.getMaxLookPitchChange());
+                                    mob.getNavigation().startMovingTo(user, 1.5);
+                                }
+                            }
                         }
                         ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), livingEntity.getX(), livingEntity.getBodyY(1.0)+1, livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
                     }
                 }
             }
+            if(ticks<=2){
+                teams.remove(user);
+            }
         }
+    }
+    private void tryTeleport(MobEntity entity ,Entity aimEntity) {
+        Random random = new Random();
+        BlockPos blockPos = aimEntity.getBlockPos();
+        for (int i = 0; i < 10; ++i) {
+            int j = random.nextInt(-3, 3);
+            int k = random.nextInt(-1, 1);
+            int l = random.nextInt(-3, 3);
+            boolean bl = this.tryTeleportTo(entity,aimEntity,blockPos.getX() + j, blockPos.getY() + k, blockPos.getZ() + l);
+            if (!bl) continue;
+            return;
+        }
+    }
+
+    private boolean tryTeleportTo(MobEntity entity,Entity aimEntity ,int x, int y, int z) {
+        if (Math.abs((double)x - aimEntity.getX()) < 2.0 && Math.abs((double)z - aimEntity.getZ()) < 2.0) {
+            return false;
+        }
+        entity.refreshPositionAndAngles((double)x + 0.5, y, (double)z + 0.5, aimEntity.getYaw(), aimEntity.getPitch());
+        entity.getNavigation().stop();
+        return true;
     }
 
     @Override

@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -66,8 +68,13 @@ public class InheritToolMagic extends Magic{
                 nbt.putFloat("attackDamage",ToolMaterials.WOOD.getAttackDamage());
             }
             tool.setNbt(nbt);
+            tool.setCustomName(Text.literal(tool.getName().getString()+material.getItem().getName().getString()));
         }
         if(user instanceof PlayerEntity playerEntity){
+            material.decrement(1);
+            if (material.isEmpty()) {
+                playerEntity.getInventory().removeOne(material);
+            }
             if(playerEntity.getInventory().getEmptySlot()!=-1){
                 playerEntity.getInventory().insertStack(tool);
             }else {
@@ -93,6 +100,7 @@ public class InheritToolMagic extends Magic{
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("item.masi.inherit_tool_magic.tooltip"));
+        tooltip.add(Text.translatable("item.masi.inherit_tool_magic.tooltip2"));
         super.appendTooltip(stack,world,tooltip,context);
     }
 }

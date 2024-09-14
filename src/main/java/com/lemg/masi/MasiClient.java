@@ -25,8 +25,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.text.Text;
@@ -59,6 +61,19 @@ public class MasiClient implements ClientModInitializer  {
         EntityRendererRegistry.register(ModEntities.ARCANE_ARROW, ArcaneArrowEntityRenderer::new);
 
         registerPullPredicate(ModItems.ARCANE_BOW);
+        registerInheritToolPredicate(ModItems.INHERIT_TOOL_ITEM);
+        ModelPredicateProviderRegistry.register(ModItems.INHERIT_TOOL_ITEM, new Identifier("cast"), (stack, world, entity, seed) -> {
+            boolean bl2;
+            if (entity == null) {
+                return 0.0f;
+            }
+            boolean bl = entity.getMainHandStack() == stack;
+            boolean bl3 = bl2 = entity.getOffHandStack() == stack;
+            if (entity.getMainHandStack().isOf(ModItems.INHERIT_TOOL_ITEM)) {
+                bl2 = false;
+            }
+            return (bl || bl2) && entity instanceof PlayerEntity && ((PlayerEntity)entity).fishHook != null ? 1.0f : 0.0f;
+        });
 
         ParticleFactoryRegistry.getInstance().register(Masi.CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Masi.LARGE_CIRCLE_FORWARD_BLUE, Circle_Forward_Particle.LargeFactory::new);
@@ -167,5 +182,14 @@ public class MasiClient implements ClientModInitializer  {
         });
 
         ModelPredicateProviderRegistry.register(item, new Identifier("pulling"), (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0f : 0.0f);
+    }
+    private void registerInheritToolPredicate(Item item) {
+        ModelPredicateProviderRegistry.register(item, new Identifier("tool"), (stack, world, entity, seed) -> {
+            if(stack.getNbt()!=null && stack.getNbt().contains("tool")){
+                return stack.getNbt().getFloat("tool");
+            }
+            return 0.0f;
+        });
+
     }
 }

@@ -21,6 +21,8 @@
   "item.masi.max_energy_bottle": "Max Energy Bottle",
   "item.masi.trial_card": "Trial Card",
   "item.masi.teleport_beacon": "Teleport Beacon",
+  "item.masi.inherit_tool_item": "Inherit Tool Item",
+
 
 
   "item.masi.mage_certificate.tooltip": "Recorded the magical journey of a mage,Right click to use",
@@ -33,7 +35,7 @@
   "item.masi.magic_sword2.tooltip": "to release sword energy, and can accumulate up to 5 seconds",
   "item.masi.arcane_bow.tooltip": "After pulling the bow for 0.1 seconds, the arrow can be released, accumulating up to 5 seconds. After the arrow collides,",
   "item.masi.arcane_bow2.tooltip": "it can split and shoot towards nearby targets. The longer the accumulation time, the more splits there will be",
-
+  "item.masi.inherit_tool_item.tooltip": "Sword's sweep,Axe's jump hit,Hoe、Shovel、Axe、PickAxe's use on block and post mine、FishingRod's fishing",
 
 
   "item.masi.fire_ball_magic": "Fire Ball Magic",
@@ -70,6 +72,7 @@
   "item.masi.space_pack_magic": "Space pack Magic",
   "item.masi.undead_summon_magic": "Undead Summon Magic",
   "item.masi.teleport_magic": "Teleport Magic",
+  "item.masi.inherit_tool_magic": "Inherit Tool Magic",
 
 
 
@@ -108,8 +111,10 @@
   "item.masi.block_hidden_magic.tooltip2": "other than the caster enter the area or after 1 minute,the replaced blocks will recover",
   "item.masi.space_pack_magic.tooltip": "This magic allow you pack blocks in 10*10*10,you can put them with original sample, when you release it again",
   "item.masi.space_pack_magic.tooltip2": "Mainly BlockStates and items in blocks will be saved true,the data are saved at level dir named masi_packs.dat",
-  "item.masi.undead_summon_magic.tooltip": "Summon undead entities at you around,they will attack your target in 60s,but they will lose control when you dead",
+  "item.masi.undead_summon_magic.tooltip": "Summon undead entities at you around,they will attack your target in 180s,but they will lose control when you dead",
   "item.masi.teleport_magic.tooltip": "Release this,you will get a beacon,which report your BlockPos.Put it on offhand,after release you will teleport there",
+  "item.masi.inherit_tool_magic.tooltip": "When your has the material(no stick) for tools on offhand and consumes 1 after release, you will get an Inherit Tool",
+  "item.masi.inherit_tool_magic.tooltip2": "it has all of tools function,material equal to your material on offhand,but its maxDamage only 1/3",
 
 
 

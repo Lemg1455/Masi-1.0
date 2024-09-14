@@ -21,7 +21,7 @@ public class ModItems {
     public static final Item MAGIC_SWORD = registerItems("magic_sword",new MagicSword(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
     public static final Item ARCANE_BOW = registerItems("arcane_bow",new ArcaneBow(new FabricItemSettings().maxCount(1).maxDamage(20).rarity(Rarity.UNCOMMON)));
     public static final Item TELEPORT_BEACON = registerItems("teleport_beacon",new Item(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
-    public static final Item INHERIT_TOOL_ITEM = registerItems("inherit_tool_item",new InheritToolItem(new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)));
+    public static final Item INHERIT_TOOL_ITEM = registerItems("inherit_tool_item",new InheritToolItem(new FabricItemSettings().maxCount(1).maxDamage(2000).rarity(Rarity.UNCOMMON)));
 
 
     //Magics

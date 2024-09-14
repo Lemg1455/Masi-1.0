@@ -1,6 +1,205 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "masi:item/staff"
-  }
+    "layer0": "masi:item/inherit_tool_item"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "tool": 0.01
+      },
+      "model": "item/wooden_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.02
+      },
+      "model": "item/wooden_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.03
+      },
+      "model": "item/wooden_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.04
+      },
+      "model": "item/wooden_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.05
+      },
+      "model": "item/wooden_shovel"
+    },
+
+    {
+      "predicate": {
+        "tool": 0.11
+      },
+      "model": "item/stone_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.12
+      },
+      "model": "item/stone_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.13
+      },
+      "model": "item/stone_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.14
+      },
+      "model": "item/stone_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.15
+      },
+      "model": "item/stone_shovel"
+    },
+
+    {
+      "predicate": {
+        "tool": 0.21
+      },
+      "model": "item/iron_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.22
+      },
+      "model": "item/iron_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.23
+      },
+      "model": "item/iron_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.24
+      },
+      "model": "item/iron_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.25
+      },
+      "model": "item/iron_shovel"
+    },
+
+    {
+      "predicate": {
+        "tool": 0.31
+      },
+      "model": "item/golden_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.32
+      },
+      "model": "item/golden_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.33
+      },
+      "model": "item/golden_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.34
+      },
+      "model": "item/golden_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.35
+      },
+      "model": "item/golden_shovel"
+    },
+
+    {
+      "predicate": {
+        "tool": 0.41
+      },
+      "model": "item/diamond_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.42
+      },
+      "model": "item/diamond_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.43
+      },
+      "model": "item/diamond_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.44
+      },
+      "model": "item/diamond_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.45
+      },
+      "model": "item/diamond_shovel"
+    },
+
+    {
+      "predicate": {
+        "tool": 0.51
+      },
+      "model": "item/netherite_sword"
+    },
+    {
+      "predicate": {
+        "tool": 0.52
+      },
+      "model": "item/netherite_axe"
+    },
+    {
+      "predicate": {
+        "tool": 0.53
+      },
+      "model": "item/netherite_pickaxe"
+    },
+    {
+      "predicate": {
+        "tool": 0.54
+      },
+      "model": "item/netherite_hoe"
+    },
+    {
+      "predicate": {
+        "tool": 0.55
+      },
+      "model": "item/netherite_shovel"
+    },
+    {
+      "predicate": {
+        "tool": 0.60
+      },
+      "model": "item/fishing_rod"
+    },
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "item/fishing_rod_cast"
+    }
+  ]
 }
