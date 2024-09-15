@@ -38,21 +38,9 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DimensionExileMagic extends Magic{
-    public DimensionExileMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 30;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 30;
-    }
-    @Override
-    public int studyNeed(){
-        return 999;
+    public DimensionExileMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

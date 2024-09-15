@@ -25,21 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class LoseCircleMagic extends Magic{
-    public LoseCircleMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 30;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 30;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
+    public LoseCircleMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

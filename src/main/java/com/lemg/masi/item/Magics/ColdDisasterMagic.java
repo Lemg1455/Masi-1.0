@@ -34,29 +34,8 @@ import java.util.function.Predicate;
 
 public class ColdDisasterMagic extends Magic{
 
-    public ColdDisasterMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 40;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
-    }
-    @Override
-    public boolean Multiple(){
-        return false;
-    }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
+    public ColdDisasterMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override
@@ -73,7 +52,7 @@ public class ColdDisasterMagic extends Magic{
                     livingEntity.getWorld().setBlockState(livingEntity.getBlockPos(), Blocks.ICE.getDefaultState());
                     livingEntity.getWorld().setBlockState(livingEntity.getBlockPos().add(0,1,0), Blocks.ICE.getDefaultState());
                     livingEntity.setFrozenTicks(1000);
-                    livingEntity.damage(livingEntity.getWorld().getDamageSources().freeze(), 5);
+                    livingEntity.damage(livingEntity.getWorld().getDamageSources().freeze(), 10);
                 }
             }
         }

@@ -27,22 +27,11 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ElementAggregationMagic extends Magic{
-    public ElementAggregationMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 200;
+
+    public ElementAggregationMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 10;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
-    }
     public ConcurrentHashMap<PlayerEntity,ConcurrentHashMap<LivingEntity, Integer>> aim = new ConcurrentHashMap<>();
 
     @Override

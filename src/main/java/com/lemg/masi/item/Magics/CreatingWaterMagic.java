@@ -44,22 +44,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class CreatingWaterMagic extends Magic{
-    public CreatingWaterMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 10;
+    public CreatingWaterMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 10;
-    }
-    @Override
-    public int studyNeed(){
-        return 3;
-    }
     @Override
     public boolean Multiple(){
         return true;

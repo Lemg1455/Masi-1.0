@@ -36,21 +36,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class BlockHiddenMagic extends Magic{
-    public BlockHiddenMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 15;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
+    public BlockHiddenMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

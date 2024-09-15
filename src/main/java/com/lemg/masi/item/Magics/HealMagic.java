@@ -43,21 +43,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class HealMagic extends Magic{
-    public HealMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 10;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 20;
-    }
-    @Override
-    public int studyNeed(){
-        return 3;
+    public HealMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

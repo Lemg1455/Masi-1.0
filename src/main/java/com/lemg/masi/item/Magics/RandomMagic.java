@@ -20,26 +20,11 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomMagic extends Magic{
-    public RandomMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 20;
+
+    public RandomMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 20;
-    }
-    @Override
-    public int studyNeed(){
-        return 999;
-    }
-    @Override
-    public boolean Multiple(){
-        return false;
-    }
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         List<Item> items = new ArrayList<>();

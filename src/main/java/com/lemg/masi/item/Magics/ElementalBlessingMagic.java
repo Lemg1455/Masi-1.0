@@ -27,21 +27,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ElementalBlessingMagic extends Magic{
-    public ElementalBlessingMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 30;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 0;
-    }
-    @Override
-    public int studyNeed(){
-        return 999;
+    public ElementalBlessingMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

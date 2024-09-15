@@ -34,21 +34,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GainCircleMagic extends Magic{
-    public GainCircleMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 30;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 30;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
+    public GainCircleMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

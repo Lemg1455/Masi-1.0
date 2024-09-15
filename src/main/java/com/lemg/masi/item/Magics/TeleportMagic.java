@@ -24,21 +24,9 @@ import java.util.List;
 import java.util.Random;
 
 public class TeleportMagic extends Magic{
-    public TeleportMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 40;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 50;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
+    public TeleportMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){

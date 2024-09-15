@@ -27,21 +27,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PurificationMagic extends Magic{
-    public PurificationMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 20;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 20;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
+    public PurificationMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

@@ -35,29 +35,8 @@ import java.util.Objects;
 
 public class ArcaneTentaclesMagic extends Magic{
 
-    public ArcaneTentaclesMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 200;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 0;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
-    }
-    @Override
-    public boolean Multiple(){
-        return false;
-    }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
+    public ArcaneTentaclesMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

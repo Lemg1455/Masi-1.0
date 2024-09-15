@@ -33,22 +33,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SpacePackMagic extends Magic{
-    public SpacePackMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 20;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-
-    @Override
-    public int studyNeed(){
-        return 999;
+    public SpacePackMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     public static ConcurrentHashMap<String,ConcurrentHashMap<BlockPos, List<Object>>> packs = new ConcurrentHashMap<>();

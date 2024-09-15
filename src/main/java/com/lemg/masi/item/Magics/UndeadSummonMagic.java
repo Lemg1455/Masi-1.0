@@ -33,29 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UndeadSummonMagic extends Magic{
 
-    public UndeadSummonMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 30;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 50;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
-    }
-    @Override
-    public boolean Multiple(){
-        return false;
-    }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
+    public UndeadSummonMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
     public static ConcurrentHashMap<LivingEntity, List<LivingEntity>> teams = new ConcurrentHashMap<>();
 

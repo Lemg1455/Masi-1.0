@@ -7,6 +7,7 @@
   "item.masi.magic.nbtstring1": "ExperienceLevels Cost : ",
   "item.masi.magic.nbtstring2": "EnergyConsume : ",
   "item.masi.magic.nbtstring3": "SingFinishTick : ",
+  "item.masi.magic.nbtstring4": "Multiple Enchantment: Ture",
 
   "itemGroup.masi_group": "Magic Singing Group",
   "magicGroup.elemental": "Elemental Magic",

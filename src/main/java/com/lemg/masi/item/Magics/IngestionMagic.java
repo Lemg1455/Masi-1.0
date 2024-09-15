@@ -39,21 +39,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class IngestionMagic extends Magic{
-    public IngestionMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 200;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 10;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
+    public IngestionMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

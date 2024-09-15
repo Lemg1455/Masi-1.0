@@ -29,22 +29,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class ImprisonMagic extends Magic{
-    public ImprisonMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 200;
+
+    public ImprisonMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 10;
-    }
-    @Override
-    public int studyNeed(){
-        return 3;
-    }
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){

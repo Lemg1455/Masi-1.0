@@ -33,30 +33,15 @@ import java.util.List;
 
 public class DeathDeclarationMagic extends Magic{
 
-    public DeathDeclarationMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 20;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 999;
+    public DeathDeclarationMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
     @Override
     public boolean Multiple(){
         return true;
     }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
-    }
+
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         MagicBulletEntity magicBullet = new MagicBulletEntity(user.getWorld(), user);

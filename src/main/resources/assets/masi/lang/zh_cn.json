@@ -7,6 +7,8 @@
   "item.masi.magic.nbtstring1": "学习经验花费 : ",
   "item.masi.magic.nbtstring2": "魔力消耗 : ",
   "item.masi.magic.nbtstring3": "咏唱时间 : ",
+  "item.masi.magic.nbtstring4": "多重释放附魔有效",
+
 
   "itemGroup.masi_group": "魔法咏唱物品组",
   "magicGroup.elemental": "自然魔法",

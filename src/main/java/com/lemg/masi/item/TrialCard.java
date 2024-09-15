@@ -34,7 +34,7 @@ import java.util.Map;
 public class TrialCard extends Magic {
 
     public TrialCard(Settings settings) {
-        super(settings);
+        super(settings,0,0,0);
     }
 
 

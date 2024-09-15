@@ -36,31 +36,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ArcaneMissileMagic extends Magic{
 
-    public ArcaneMissileMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 40;
+    public ArcaneMissileMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 30;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
-    }
     @Override
     public boolean Multiple(){
         return true;
     }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
-    }
-
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         List<Entity> list = world.getOtherEntities(user, user.getBoundingBox().expand(20,20,20));

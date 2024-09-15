@@ -15,9 +15,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ArcaneBowMagic extends Magic{
-    public ArcaneBowMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed,boolean Multiple,boolean passive,int releaseContinueTime) {
-        super(settings,singFinishTick,energyConsume,studyNeed,Multiple,passive,releaseContinueTime);
+    public ArcaneBowMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
+
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){

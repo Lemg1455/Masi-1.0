@@ -30,29 +30,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ShadowManeMagic extends Magic{
 
-    public ShadowManeMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 40;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
-    }
-    @Override
-    public boolean Multiple(){
-        return false;
-    }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
+    public ShadowManeMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     public ConcurrentHashMap<LivingEntity,List<LivingEntity>> Missile = new ConcurrentHashMap<>();
@@ -105,7 +85,7 @@ public class ShadowManeMagic extends Magic{
                 LivingEntity livingEntity = list.get(0);
                 if(livingEntity.isAlive()){
                     user.teleport(livingEntity.getX(),livingEntity.getY(),livingEntity.getZ(),true);
-                    float amount = 10;
+                    float amount = 15;
                     livingEntity.damage(player.getWorld().getDamageSources().mobAttack(player), amount);
                 }
                 list.remove(0);

@@ -22,21 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class InheritToolMagic extends Magic{
-    public InheritToolMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 20;
-    }
-
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
+    public InheritToolMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
     @Override

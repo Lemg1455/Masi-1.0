@@ -35,30 +35,15 @@ import java.util.Objects;
 
 public class LightningMagic extends Magic{
 
-    public LightningMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 15;
+    public LightningMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
 
-    @Override
-    public int energyConsume(){
-        return 20;
-    }
-    @Override
-    public int studyNeed(){
-        return 5;
-    }
     @Override
     public boolean Multiple(){
         return true;
     }
-    @Override
-    public int releaseContinueTime(){
-        return 0;
-    }
+
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks){
         MagicBulletEntity magicBullet = new MagicBulletEntity(user.getWorld(), user);

@@ -26,21 +26,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ArcaneTorrentMagic extends Magic{
-    public ArcaneTorrentMagic(Settings settings) {
-        super(settings);
-    }
-    @Override
-    public int singFinishTick(){
-        return 40;
-    }
 
-    @Override
-    public int energyConsume(){
-        return 40;
-    }
-    @Override
-    public int studyNeed(){
-        return 10;
+    public ArcaneTorrentMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
+        super(settings,singFinishTick,energyConsume,studyNeed);
     }
     public int releaseContinueTime(){return 200;}
 
