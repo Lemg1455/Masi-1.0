@@ -131,7 +131,7 @@ public class UndeadSummonMagic extends Magic{
                     }
                 }
             }else {
-                int k = random.nextInt(3);
+                /*int k = random.nextInt(3);
                 if(k==0){
                     WitherEntity witherEntity = EntityType.WITHER.spawn((ServerWorld) world,user.getBlockPos().add(i,2,i), SpawnReason.SPAWNER);
                     if (witherEntity != null) {
@@ -140,7 +140,7 @@ public class UndeadSummonMagic extends Magic{
                         list.add(witherEntity);
                         teams.put(user,list);
                     }
-                }else {
+                }*/
                     for(int j=0;j<3;j++){
                         ZombieVillagerEntity zombieVillagerEntity = EntityType.ZOMBIE_VILLAGER.spawn((ServerWorld) world,user.getBlockPos().add(i+j,2,i+j), SpawnReason.SPAWNER);
                         DrownedEntity drownedEntity = EntityType.DROWNED.spawn((ServerWorld) world,user.getBlockPos().add(i-j,2,i-j), SpawnReason.SPAWNER);
@@ -166,7 +166,7 @@ public class UndeadSummonMagic extends Magic{
                         }
                     }
                 }
-            }
+
             if(teams.get(user)!=null){
                 MagicUtil.putEffect(world,teams.get(user),user,this,3600);
             }
@@ -205,7 +205,7 @@ public class UndeadSummonMagic extends Magic{
                         }else {
                             mob.setTarget(null);
                         }
-                        if(mob.getTarget()==user){
+                        if(mob.getTarget()==user || list.contains(mob.getTarget())){
                             mob.setTarget(null);
                         }
                         if(mob.age%10==0){

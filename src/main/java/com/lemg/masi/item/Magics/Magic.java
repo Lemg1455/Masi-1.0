@@ -28,9 +28,21 @@ import java.util.List;
  *所有魔法的父类
  */
 public abstract class Magic extends Item {
+    public int singFinishTick=60;
+    public int energyConsume=60;
+    public int studyNeed=1;
+    public boolean Multiple=false;
+    public boolean passive=false;
+    public int releaseContinueTime=0;
 
-    public Magic(Settings settings) {
+    public Magic(Settings settings,int singFinishTick,int energyConsume,int studyNeed,boolean Multiple,boolean passive,int releaseContinueTime) {
         super(settings);
+        this.singFinishTick=singFinishTick;
+        this.energyConsume=energyConsume;
+        this.studyNeed=studyNeed;
+        this.Multiple=Multiple;
+        this.passive=passive;
+        this.releaseContinueTime=releaseContinueTime;
     }
 
     //魔法的释放效果
@@ -61,31 +73,31 @@ public abstract class Magic extends Item {
     }
     //需要咏唱的时间
     public int singFinishTick(){
-        return 60;
+        return singFinishTick;
     }
 
     //消耗的魔力
     public int energyConsume(){
-        return 60;
+        return energyConsume;
     }
 
     //学习该魔法需要的经验等级
     public int studyNeed(){
-        return 1;
+        return studyNeed;
     }
 
     //是否具有多重释放的附魔效果
     public boolean Multiple(){
-        return false;
+        return Multiple;
     }
 
     //是否是被动的
     public boolean passive(){
-        return false;
+        return passive;
     }
 
     //如果魔法在释放后会持续一段时间，此为持续的时间
-    public int releaseContinueTime(){return 0;}
+    public int releaseContinueTime(){return releaseContinueTime;}
 
         //魔法的描述
     @Override
