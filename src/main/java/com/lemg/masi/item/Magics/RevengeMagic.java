@@ -1,23 +1,17 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ArcaneMinionEntity;
-import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RevengeMagic extends Magic{

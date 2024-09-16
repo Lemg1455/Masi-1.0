@@ -1,9 +1,7 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ArcaneMinionEntity;
 import com.lemg.masi.item.ModItems;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,10 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;

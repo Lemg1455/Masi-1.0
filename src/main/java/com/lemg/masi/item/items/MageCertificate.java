@@ -1,4 +1,4 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
 import com.lemg.masi.Masi;
 import com.lemg.masi.event.KeyInputHandler;

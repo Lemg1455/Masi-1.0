@@ -2,6 +2,7 @@ package com.lemg.masi.item;
 
 import com.lemg.masi.Masi;
 import com.lemg.masi.item.Magics.*;
+import com.lemg.masi.item.items.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;

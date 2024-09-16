@@ -1,17 +1,12 @@
-package com.lemg.masi.entity;
+package com.lemg.masi.entity.entities.minions;
 
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ai.ArcaneMinionAttackGoal;
-import com.lemg.masi.entity.ai.AttackWithMinionOwnerGoal;
-import com.lemg.masi.entity.ai.FollowMinionOwnerGoal;
-import com.lemg.masi.entity.ai.TrackMinionOwnerAttackerGoal;
+import com.lemg.masi.entity.ai.*;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.ModItems;
 import com.lemg.masi.util.MagicUtil;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -19,39 +14,18 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.ServerConfigHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
-import net.minecraft.world.EntityView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +35,7 @@ import java.util.Random;
 import java.util.UUID;
 
 
-public class ArcaneMinionEntity extends AnimalEntity {
+public class ArcaneMinionEntity extends AnimalEntity implements Minion{
     private static final TrackedData<Boolean> ATTACKING =
             DataTracker.registerData(ArcaneMinionEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> MAGIC =
@@ -315,16 +289,16 @@ public class ArcaneMinionEntity extends AnimalEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0,new SwimGoal(this));
-        this.goalSelector.add(1, new FollowMinionOwnerGoal(this, 1.0, 12.0f, 4.0f, false));//跟随主人
+        this.goalSelector.add(1, new FollowMinionOwnerGoal(this, 1.0, 10.0f, 2.0f, false));//跟随主人
 
         this.goalSelector.add(4,new WanderAroundFarGoal(this,1.0D));//徘徊
         this.goalSelector.add(5,new LookAtEntityGoal(this, PlayerEntity.class,5f));
         this.goalSelector.add(6,new LookAroundGoal(this));
 
-        this.goalSelector.add(3,new ArcaneMinionAttackGoal(this,1D,true));
+        this.goalSelector.add(3,new MinionAttackGoal(this,1D,true));
         this.targetSelector.add(1, new TrackMinionOwnerAttackerGoal(this));//保护主人
         this.targetSelector.add(2, new AttackWithMinionOwnerGoal(this));//攻击主人的目标
-        this.targetSelector.add(3,new RevengeGoal(this));//攻击仇恨目标
+        this.targetSelector.add(3,new MinionRevengeGoal(this));//攻击仇恨目标
 
     }
     public static DefaultAttributeContainer.Builder createArcaneMinionAttributes(){
@@ -341,5 +315,10 @@ public class ArcaneMinionEntity extends AnimalEntity {
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return null;
+    }
+
+    @Override
+    public boolean isMinion() {
+        return true;
     }
 }

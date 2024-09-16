@@ -1,22 +1,24 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.lemg.masi.Masi;
 import com.lemg.masi.entity.*;
-import com.lemg.masi.item.Magics.Magic;
+import com.lemg.masi.entity.entities.SwordEnergyEntity;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -26,14 +28,23 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+
 public class MagicSword extends Item {
+    private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
     public MagicSword(Settings settings) {
         super(settings);
+        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", (double)6, EntityAttributeModifier.Operation.ADDITION));
+        this.attributeModifiers = builder.build();
     }
-
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND) {
+            return this.attributeModifiers;
+        }
+        return super.getAttributeModifiers(slot);
+    }
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         float time = getProgress(this.getMaxUseTime(stack) - remainingUseTicks);
@@ -88,6 +99,7 @@ public class MagicSword extends Item {
         if(entity instanceof PlayerEntity player){
             if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof MagicSword){
                 if(world.isClient()){
+                    stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", (double)6, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 
                 }
             }

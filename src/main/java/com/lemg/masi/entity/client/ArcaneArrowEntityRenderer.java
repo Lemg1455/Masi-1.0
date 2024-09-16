@@ -1,13 +1,11 @@
 package com.lemg.masi.entity.client;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ArcaneArrowEntity;
-import com.lemg.masi.entity.ArcaneMinionEntity;
+import com.lemg.masi.entity.entities.ArcaneArrowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 @Environment(value = EnvType.CLIENT)

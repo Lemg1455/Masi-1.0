@@ -1,6 +1,9 @@
 package com.lemg.masi.entity;
 
 import com.lemg.masi.Masi;
+import com.lemg.masi.entity.entities.ArcaneArrowEntity;
+import com.lemg.masi.entity.entities.minions.ArcaneMinionEntity;
+import com.lemg.masi.entity.entities.SwordEnergyEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -18,13 +21,13 @@ public class ModEntities {
 
     public static final EntityType<SwordEnergyEntity> SWORD_ENERGY = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Masi.MOD_ID,"sword_energy"),
-            FabricEntityTypeBuilder.create(SpawnGroup.MISC,SwordEnergyEntity::new)
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC, SwordEnergyEntity::new)
                     .trackRangeChunks(15)
                     .dimensions(EntityDimensions.fixed(5.0f,0.5f)).build());
 
     public static final EntityType<ArcaneArrowEntity> ARCANE_ARROW = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Masi.MOD_ID,"arcane_arrow"),
-            FabricEntityTypeBuilder.<ArcaneArrowEntity>create(SpawnGroup.MISC,ArcaneArrowEntity::new)
+            FabricEntityTypeBuilder.<ArcaneArrowEntity>create(SpawnGroup.MISC, ArcaneArrowEntity::new)
                     .trackRangeChunks(4)
                     .trackedUpdateRate(10)
                     .dimensions(EntityDimensions.fixed(0.5f,0.5f)).build());

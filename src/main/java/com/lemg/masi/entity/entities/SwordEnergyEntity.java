@@ -1,17 +1,8 @@
-package com.lemg.masi.entity;
+package com.lemg.masi.entity.entities;
 
 
-import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ai.ArcaneMinionAttackGoal;
-import com.lemg.masi.entity.ai.AttackWithMinionOwnerGoal;
-import com.lemg.masi.entity.ai.FollowMinionOwnerGoal;
-import com.lemg.masi.entity.ai.TrackMinionOwnerAttackerGoal;
-import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
-import com.lemg.masi.item.ModItems;
-import com.lemg.masi.util.MagicUtil;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -21,21 +12,13 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 

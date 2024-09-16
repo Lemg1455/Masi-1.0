@@ -1,8 +1,5 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
-import com.google.common.collect.ImmutableMap;
-import com.lemg.masi.util.MagicUtil;
-import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -34,8 +31,6 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 public class InheritToolItem extends Item {

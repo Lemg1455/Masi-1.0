@@ -1,7 +1,7 @@
 package com.lemg.masi.entity.client;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.ArcaneMinionEntity;
+import com.lemg.masi.entity.entities.minions.ArcaneMinionEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

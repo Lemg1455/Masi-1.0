@@ -1,22 +1,11 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.MagicBulletEntity;
-import com.lemg.masi.network.ModMessage;
-import com.lemg.masi.util.MagicUtil;
-import it.unimi.dsi.fastutil.io.TextIO;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import com.lemg.masi.entity.entities.MagicBulletEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.HitResult;

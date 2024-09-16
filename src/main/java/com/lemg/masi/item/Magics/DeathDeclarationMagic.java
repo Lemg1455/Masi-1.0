@@ -1,32 +1,20 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.MagicBulletEntity;
+import com.lemg.masi.entity.entities.MagicBulletEntity;
 import com.lemg.masi.item.ModItems;
-import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.*;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.util.CaveSurface;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

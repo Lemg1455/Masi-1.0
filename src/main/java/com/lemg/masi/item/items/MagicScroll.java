@@ -1,4 +1,4 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.network.ModMessage;

@@ -1,4 +1,4 @@
-package com.lemg.masi.entity;
+package com.lemg.masi.entity.entities;
 
 import com.lemg.masi.item.Magics.DeathDeclarationMagic;
 import com.lemg.masi.item.Magics.Magic;

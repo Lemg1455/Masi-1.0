@@ -1,7 +1,9 @@
 package com.lemg.masi.mixin;
 
-import com.lemg.masi.item.*;
 import com.lemg.masi.item.Magics.Magic;
+import com.lemg.masi.item.items.EnergyBottle;
+import com.lemg.masi.item.items.InheritToolItem;
+import com.lemg.masi.item.items.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;

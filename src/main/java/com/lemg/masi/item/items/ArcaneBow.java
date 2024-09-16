@@ -1,20 +1,12 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
-import com.lemg.masi.entity.ArcaneArrowEntity;
+import com.lemg.masi.entity.entities.ArcaneArrowEntity;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.Vanishable;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
@@ -26,8 +18,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class ArcaneBow extends RangedWeaponItem implements Vanishable {

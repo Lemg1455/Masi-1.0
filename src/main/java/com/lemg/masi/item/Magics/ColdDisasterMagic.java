@@ -1,36 +1,19 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
-import com.lemg.masi.entity.MagicBulletEntity;
-import com.lemg.masi.item.ModItems;
-import com.lemg.masi.network.ModMessage;
-import com.lemg.masi.util.MagicUtil;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class ColdDisasterMagic extends Magic{
 

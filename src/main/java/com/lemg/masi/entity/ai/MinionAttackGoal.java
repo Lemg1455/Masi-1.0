@@ -1,20 +1,18 @@
 package com.lemg.masi.entity.ai;
 
 
-import com.lemg.masi.entity.ArcaneMinionEntity;
+import com.lemg.masi.entity.entities.minions.ArcaneMinionEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.Hand;
 
-public class ArcaneMinionAttackGoal extends MeleeAttackGoal {
+public class MinionAttackGoal extends MeleeAttackGoal {
     private final ArcaneMinionEntity entity;
     private int attackDelay = 100;
     private int tickUntilNextAttack = 100;
     private boolean shouldCountTillNextAttack = false;
-    public ArcaneMinionAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
+    public MinionAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
         super(mob, speed, pauseWhenMobIdle);
         this.entity = ((ArcaneMinionEntity) mob) ;
     }

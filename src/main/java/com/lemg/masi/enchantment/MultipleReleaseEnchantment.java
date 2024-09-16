@@ -1,11 +1,9 @@
 package com.lemg.masi.enchantment;
 
-import com.lemg.masi.item.Staff;
+import com.lemg.masi.item.items.Staff;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class MultipleReleaseEnchantment

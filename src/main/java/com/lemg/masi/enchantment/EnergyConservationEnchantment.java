@@ -1,6 +1,6 @@
 package com.lemg.masi.enchantment;
 
-import com.lemg.masi.item.Staff;
+import com.lemg.masi.item.items.Staff;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;

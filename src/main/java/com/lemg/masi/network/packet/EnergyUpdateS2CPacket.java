@@ -1,15 +1,11 @@
 package com.lemg.masi.network.packet;
 
-import com.lemg.masi.Masi;
-import com.lemg.masi.item.EnergyBottle;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
-
-import java.util.UUID;
 
 public class EnergyUpdateS2CPacket {
     public static void receive(MinecraftClient client, ClientPlayNetworkHandler handler,

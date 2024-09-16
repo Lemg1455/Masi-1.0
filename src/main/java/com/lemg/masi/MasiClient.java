@@ -4,11 +4,11 @@ package com.lemg.masi;
 import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.entity.client.*;
 import com.lemg.masi.event.KeyInputHandler;
-import com.lemg.masi.item.ArcaneBow;
-import com.lemg.masi.item.MagicSword;
+import com.lemg.masi.item.items.ArcaneBow;
+import com.lemg.masi.item.items.MagicSword;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.ModItems;
-import com.lemg.masi.item.Staff;
+import com.lemg.masi.item.items.Staff;
 import com.lemg.masi.network.ModMessage;
 import com.lemg.masi.particles.Circle_Forward_Particle;
 import com.lemg.masi.particles.Circle_Ground_Particle;
@@ -20,24 +20,15 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MasiClient implements ClientModInitializer  {

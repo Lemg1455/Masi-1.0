@@ -1,21 +1,16 @@
-package com.lemg.masi.item;
+package com.lemg.masi.item.items;
 
 import com.lemg.masi.network.ModMessage;
-import com.lemg.masi.screen.MagicPanelScreen;
 import com.lemg.masi.util.MagicUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
@@ -23,17 +18,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
-public class EnergyBottle extends Item {
-    public EnergyBottle(Settings settings) {
+public class MaxEnergyBottle extends Item {
+    public MaxEnergyBottle(Settings settings) {
         super(settings);
     }
 
@@ -45,22 +36,18 @@ public class EnergyBottle extends Item {
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected){
         if(entity instanceof PlayerEntity player){
-            if(!world.isClient()){
+            if(player.getStackInHand(player.getActiveHand()).getItem()==this){
                 if(player.getItemUseTime()>0 && player.getItemUseTime() % 30==0){
-                if(player.getStackInHand(player.getActiveHand()).getItem()==this){
-                    if(MagicUtil.ENERGY.get(player)!=null){
-                        //补充魔力
+                    if(MagicUtil.MAX_ENERGY.get(player)!=null){
+                        //增加魔力上限
+                        if(!world.isClient()){
+                            int energy = MagicUtil.MAX_ENERGY.get(player)+10;
 
-                            int energy = MagicUtil.ENERGY.get(player)+20;
-                            if(energy>MagicUtil.MAX_ENERGY.get(player)){
-                                energy=MagicUtil.MAX_ENERGY.get(player);
+                            MagicUtil.energyUpdate(player,energy,true);
+
+                            if(!player.getAbilities().creativeMode){
+                                stack.decrement(1);
                             }
-
-                            MagicUtil.energyUpdate(player,energy,false);
-
-                    }
-                        if(!player.getAbilities().creativeMode){
-                            stack.decrement(1);
                         }
                     }
                 }
@@ -90,7 +77,7 @@ public class EnergyBottle extends Item {
     //对法杖的描述
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.masi.energy_bottle.tooltip"));
+        tooltip.add(Text.translatable("item.masi.max_energy_bottle.tooltip"));
     }
 
 }

@@ -1,15 +1,9 @@
 package com.lemg.masi.entity.client;
-import com.lemg.masi.entity.ArcaneMinionEntity;
-import com.lemg.masi.entity.SwordEnergyEntity;
-import com.lemg.masi.entity.animation.ArcaneMinionEntityAnimation;
+import com.lemg.masi.entity.entities.SwordEnergyEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.math.MathHelper;
 
 public class SwordEnergyEntityModel<T extends SwordEnergyEntity> extends SinglePartEntityModel<T> {
 

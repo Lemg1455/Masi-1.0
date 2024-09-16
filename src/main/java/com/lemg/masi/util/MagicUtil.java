@@ -1,12 +1,10 @@
 package com.lemg.masi.util;
 
-import com.lemg.masi.Masi;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
-import com.lemg.masi.item.TrialCard;
+import com.lemg.masi.item.items.TrialCard;
 import com.lemg.masi.network.ModMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -17,11 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
