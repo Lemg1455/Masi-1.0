@@ -7,4 +7,5 @@ public interface Minion {
     LivingEntity getOwner();
 
     boolean canAttackWithOwner(LivingEntity target, LivingEntity owner);
+
 }

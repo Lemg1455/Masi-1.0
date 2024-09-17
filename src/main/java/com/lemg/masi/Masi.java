@@ -15,6 +15,10 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.mob.DrownedEntity;
+import net.minecraft.entity.mob.SkeletonEntity;
+import net.minecraft.entity.mob.WitherSkeletonEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -118,6 +122,14 @@ public class Masi implements ModInitializer {
 
 		FabricDefaultAttributeRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntity.createArcaneMinionAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntity.createSwordEnergyAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.METEORITE, SwordEnergyEntity.createSwordEnergyAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE, ZombieEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_DROWNED, DrownedEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_SKELETON, SkeletonEntity.createAbstractSkeletonAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE_PIGLIN, ZombieEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE_VILLAGER, ZombieEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.MASI_WITHER_SKELETON, WitherSkeletonEntity.createAbstractSkeletonAttributes());
 
 	}
 }

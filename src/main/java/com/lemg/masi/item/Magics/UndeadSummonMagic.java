@@ -1,20 +1,20 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
+import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.entity.entities.minions.*;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
@@ -37,42 +37,14 @@ public class UndeadSummonMagic extends Magic{
     public UndeadSummonMagic(Settings settings,int singFinishTick,int energyConsume,int studyNeed) {
         super(settings,singFinishTick,energyConsume,studyNeed);
     }
-    public static ConcurrentHashMap<LivingEntity, List<LivingEntity>> teams = new ConcurrentHashMap<>();
 
     @Override
     public void release(ItemStack stack, World world, LivingEntity user, float singingTicks) {
         if (!world.isClient()) {
-            int n = 6;
-            if (teams.get(user) == null) {
-                List<LivingEntity> list = new ArrayList<>();
-                teams.put(user,list);
-            }else {
-                List<LivingEntity> list = teams.get(user);
-                for(LivingEntity livingEntity : list){
-                    if(livingEntity instanceof Minion){
-                        n--;
-                    }
-                }
+            for (int j = 0; j < 6; j++) {
+                BlockPos pos = user.getBlockPos().add(j,1,0);
+                randomSpawn(world,pos,user);
             }
-            if(n>0){
-                for (int j = 0; j < n; j++) {
-                    BlockPos pos = user.getBlockPos().add(j,1,j);
-                    randomSpawn(world,pos,user);
-                }
-            }
-            if (teams.get(user) != null) {
-                MagicUtil.putEffect(world,user, user, this, 1200);
-            }
-            /*int k = random.nextInt(3);
-            if(k==0){
-                WitherEntity witherEntity = EntityType.WITHER.spawn((ServerWorld) world,user.getBlockPos().add(i,2,i), SpawnReason.SPAWNER);
-                if (witherEntity != null) {
-                    witherEntity.setHealth(50);
-                    ((ServerWorld)user.getWorld()).spawnEntityAndPassengers(witherEntity);
-                    list.add(witherEntity);
-                    teams.put(user,list);
-                }
-            }*/
         }
     }
     @Override
@@ -90,60 +62,17 @@ public class UndeadSummonMagic extends Magic{
         }
     }
 
-    @Override
-    public void magicEffect(ItemStack staffStack, World world, LivingEntity user, Object aim,float ticks){
-        if(!world.isClient()){
-            if(teams.get(user)==null){
-                return;
-            }
-            if(!user.isAlive()){
-                teams.remove(user);
-            }else {
-                List<LivingEntity> list = new ArrayList<>(teams.get(user));
-                for(LivingEntity livingEntity : list){
-                    if(livingEntity instanceof Minion minion&& livingEntity.isAlive()){
-                        if(((MobEntity)livingEntity).getTarget() instanceof Minion target && minion.getOwner()==target.getOwner()){
-                            ((MobEntity)livingEntity).setTarget(null);
-                        }
-                        ((ServerWorld)livingEntity.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), livingEntity.getX(), livingEntity.getBodyY(1.0)+1, livingEntity.getZ(), 0, 0, 0.0, 0, 0.0);
-                    }else if(livingEntity instanceof AbstractHorseEntity abstractHorse && livingEntity.isAlive()){
-                        if(!abstractHorse.hasPassengers()){
-                            livingEntity.kill();
-                            teams.get(user).remove(livingEntity);
-                        }
-                    }else if(!livingEntity.isAlive()){
-                        if(livingEntity instanceof Minion){
-                            randomSpawn(world,livingEntity.getBlockPos(),user);
-                            for(int i=0;i<3;i++){
-                                ((ServerWorld)livingEntity.getWorld()).spawnParticles(ParticleTypes.SOUL, livingEntity.getX(),livingEntity.getY()+1,livingEntity.getZ(), 5, 0, 0.0, 0, 0.0);
-                                ((ServerWorld)livingEntity.getWorld()).spawnParticles(ParticleTypes.SOUL, livingEntity.getX()+i/2.0f,livingEntity.getY()+1,livingEntity.getZ(), 5, 0, 0.0, 0, 0.0);
-                                ((ServerWorld)livingEntity.getWorld()).spawnParticles(ParticleTypes.SOUL, livingEntity.getX()-i/2.0f,livingEntity.getY()+1,livingEntity.getZ(), 5, 0, 0.0, 0, 0.0);
-                                ((ServerWorld)livingEntity.getWorld()).spawnParticles(ParticleTypes.SOUL, livingEntity.getX(),livingEntity.getY()+1,livingEntity.getZ()+i/2.0f, 5, 0, 0.0, 0, 0.0);
-                                ((ServerWorld)livingEntity.getWorld()).spawnParticles(ParticleTypes.SOUL, livingEntity.getX(),livingEntity.getY()+1,livingEntity.getZ()-i/2.0f, 5, 0, 0.0, 0, 0.0);
-
-                            }
-                        }
-                        teams.get(user).remove(livingEntity);
-                    }
-                }
-            }
-            if(ticks<=2){
-                teams.remove(user);
-            }
-        }
-    }
 
     public void randomSpawn(World world,BlockPos pos,LivingEntity user){
         Random random = new Random();
         int i = random.nextInt(6);
         switch (i) {
             case 0: {
-                MasiSkeletonEntity skeletonEntity = new MasiSkeletonEntity(EntityType.SKELETON, world);
+                MasiSkeletonEntity skeletonEntity = new MasiSkeletonEntity(ModEntities.MASI_SKELETON, world);
                 skeletonEntity.setOwner(user);
-                skeletonEntity.tryEquip(new ItemStack(Items.IRON_CHESTPLATE));
-                skeletonEntity.tryEquip(new ItemStack(Items.IRON_HELMET));
+                setRandomEquip(skeletonEntity);
                 skeletonEntity.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.BOW));
-                skeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1, false, true, true));
+                skeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 1, false, false, true));
 
                 SkeletonHorseEntity skeletonHorseEntity = EntityType.SKELETON_HORSE.spawn((ServerWorld) world,pos, SpawnReason.SPAWNER);
 
@@ -154,60 +83,47 @@ public class UndeadSummonMagic extends Magic{
                     ((ServerWorld) user.getWorld()).spawnEntityAndPassengers(skeletonHorseEntity);
                 }
 
-                teams.get(user).add(skeletonEntity);
-                teams.get(user).add(skeletonHorseEntity);
-
                 break;
             }
             case 1: {
-                MasiZombieEntity zombieEntity = new MasiZombieEntity(EntityType.ZOMBIE, world);
+                MasiZombieEntity zombieEntity = new MasiZombieEntity(ModEntities.MASI_ZOMBIE, world);
                 zombieEntity.setOwner(user);
-                zombieEntity.tryEquip(new ItemStack(Items.CHAINMAIL_CHESTPLATE));
-                zombieEntity.tryEquip(new ItemStack(Items.CHAINMAIL_HELMET));
+                setRandomEquip(zombieEntity);
                 zombieEntity.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.IRON_SWORD));
-                zombieEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1, false, true, true));
+                zombieEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 1, false, false, true));
 
                 ZombieHorseEntity zombieHorseEntity = EntityType.ZOMBIE_HORSE.spawn((ServerWorld) world, pos, SpawnReason.SPAWNER);
                 if (zombieHorseEntity != null) {
                     zombieEntity.startRiding(zombieHorseEntity);
+                    zombieHorseEntity.tryEquip(Items.IRON_HORSE_ARMOR.getDefaultStack());
                     zombieHorseEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 1, false, true, true));
                     ((ServerWorld) user.getWorld()).spawnEntityAndPassengers(zombieHorseEntity);
-                    teams.get(user).add(zombieEntity);
-                    teams.get(user).add(zombieHorseEntity);
+
                 }
                 break;
             }
             case 2: {
-                MasiZombifiedPiglinEntity zombifiedPiglinEntity = new MasiZombifiedPiglinEntity(EntityType.ZOMBIFIED_PIGLIN, world);
+                MasiZombifiedPiglinEntity zombifiedPiglinEntity = new MasiZombifiedPiglinEntity(ModEntities.MASI_ZOMBIE_PIGLIN, world);
                 zombifiedPiglinEntity.setPosition(pos.toCenterPos());
                 zombifiedPiglinEntity.setOwner(user);
-                zombifiedPiglinEntity.tryEquip(new ItemStack(Items.GOLDEN_CHESTPLATE));
-                zombifiedPiglinEntity.tryEquip(new ItemStack(Items.GOLDEN_HELMET));
+                setRandomEquip(zombifiedPiglinEntity);
                 zombifiedPiglinEntity.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
-                zombifiedPiglinEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1, false, true, true));
+                zombifiedPiglinEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 1, false, false, true));
                 ((ServerWorld) user.getWorld()).spawnEntityAndPassengers(zombifiedPiglinEntity);
-                teams.get(user).add(zombifiedPiglinEntity);
                 break;
             }
             case 3: {
-                MasiWitherSkeletonEntity witherSkeletonEntity = new MasiWitherSkeletonEntity(EntityType.WITHER_SKELETON, world);
+                MasiWitherSkeletonEntity witherSkeletonEntity = new MasiWitherSkeletonEntity(ModEntities.MASI_WITHER_SKELETON, world);
                 witherSkeletonEntity.setPosition(pos.toCenterPos());
                 witherSkeletonEntity.setOwner(user);
-                ItemStack itemStack;
-                itemStack = new ItemStack(Items.DIAMOND_CHESTPLATE);
-                itemStack.setDamage(450);
-                witherSkeletonEntity.tryEquip(itemStack);
-                itemStack = new ItemStack(Items.DIAMOND_HELMET);
-                itemStack.setDamage(400);
-                witherSkeletonEntity.tryEquip(itemStack);
+                setRandomEquip(witherSkeletonEntity);
                 witherSkeletonEntity.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.STONE_SWORD));
-                witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 1200, 1, false, true, true));
+                witherSkeletonEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 1, false, false, true));
                 ((ServerWorld) user.getWorld()).spawnEntityAndPassengers(witherSkeletonEntity);
-                teams.get(user).add(witherSkeletonEntity);
                 break;
             }
             case 4: {
-                MasiZombieVillagerEntity zombieVillagerEntity = new MasiZombieVillagerEntity(EntityType.ZOMBIE_VILLAGER, world);
+                MasiZombieVillagerEntity zombieVillagerEntity = new MasiZombieVillagerEntity(ModEntities.MASI_ZOMBIE_VILLAGER, world);
                 zombieVillagerEntity.setPosition(pos.toCenterPos());
                 zombieVillagerEntity.setOwner(user);
                 int h = random.nextInt(4);
@@ -222,24 +138,61 @@ public class UndeadSummonMagic extends Magic{
                     itemStack = new ItemStack(Items.IRON_SHOVEL);
                 }
                 zombieVillagerEntity.setStackInHand(Hand.MAIN_HAND, itemStack);
+                zombieVillagerEntity.tryEquip(Items.LEATHER_HELMET.getDefaultStack());
+                zombieVillagerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 2400, 0, false, false, true));
+                zombieVillagerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 2, false, false, true));
                 ((ServerWorld) user.getWorld()).spawnEntity(zombieVillagerEntity);
-                teams.get(user).add(zombieVillagerEntity);
                 break;
             }
             case 5: {
-                MasiDrownedEntity drownedEntity = new MasiDrownedEntity(EntityType.DROWNED, world);
+                MasiDrownedEntity drownedEntity = new MasiDrownedEntity(ModEntities.MASI_DROWNED, world);
                 drownedEntity.setPosition(pos.toCenterPos());
                 drownedEntity.setOwner(user);
-                drownedEntity.tryEquip(new ItemStack(Items.LEATHER_CHESTPLATE));
-                drownedEntity.tryEquip(new ItemStack(Items.LEATHER_HELMET));
+                setRandomEquip(drownedEntity);
                 drownedEntity.setStackInHand(Hand.MAIN_HAND, new ItemStack(Items.TRIDENT));
+                drownedEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 2400, 1, false, false, true));
                 ((ServerWorld) user.getWorld()).spawnEntity(drownedEntity);
-                teams.get(user).add(drownedEntity);
                 break;
             }
         }
+        for(int c=0;c<3;c++){
+            ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, pos.getX(),pos.getY()+1,pos.getZ(), 5, 0, 0.0, 0, 0.0);
+            ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, pos.getX()+c/2.0f,pos.getY()+1,pos.getZ(), 5, 0, 0.0, 0, 0.0);
+            ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, pos.getX()-c/2.0f,pos.getY()+1,pos.getZ(), 5, 0, 0.0, 0, 0.0);
+            ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, pos.getX(),pos.getY()+1,pos.getZ()+c/2.0f, 5, 0, 0.0, 0, 0.0);
+            ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, pos.getX(),pos.getY()+1,pos.getZ()-c/2.0f, 5, 0, 0.0, 0, 0.0);
+        }
     }
 
+    public void setRandomEquip(MobEntity mob){
+        List<Item> head = List.of(Items.LEATHER_HELMET,Items.CHAINMAIL_HELMET,Items.IRON_HELMET,Items.GOLDEN_HELMET,Items.DIAMOND_HELMET,Items.NETHERITE_HELMET);
+        List<Item> chest = List.of(Items.LEATHER_CHESTPLATE,Items.CHAINMAIL_CHESTPLATE,Items.IRON_CHESTPLATE,Items.GOLDEN_CHESTPLATE,Items.DIAMOND_CHESTPLATE,Items.NETHERITE_CHESTPLATE);
+        List<Item> legs = List.of(Items.LEATHER_LEGGINGS,Items.CHAINMAIL_LEGGINGS,Items.IRON_LEGGINGS,Items.GOLDEN_LEGGINGS,Items.DIAMOND_LEGGINGS,Items.NETHERITE_LEGGINGS);
+        List<Item> feet = List.of(Items.LEATHER_BOOTS,Items.CHAINMAIL_BOOTS,Items.IRON_BOOTS,Items.GOLDEN_BOOTS,Items.DIAMOND_BOOTS,Items.NETHERITE_BOOTS);
+
+        mob.tryEquip(head.get(new Random().nextInt(head.size())).getDefaultStack());
+        mob.tryEquip(chest.get(new Random().nextInt(chest.size())).getDefaultStack());
+        mob.tryEquip(legs.get(new Random().nextInt(legs.size())).getDefaultStack());
+        mob.tryEquip(feet.get(new Random().nextInt(feet.size())).getDefaultStack());
+    }
+
+    public static void tryRemoveMinion(Minion minion,World world){
+        if(!world.isClient()){
+            if(minion instanceof MobEntity mob){
+                ((ServerWorld)world).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x000000).toVector3f(), 1.0f), mob.getX(), mob.getBodyY(1.0)+0.5, mob.getZ(), 0, 0, 0.0, 0, 0.0);
+                if(mob.getStatusEffect(StatusEffects.RESISTANCE)==null){
+                    mob.remove(Entity.RemovalReason.DISCARDED);
+                    for(int c=0;c<3;c++){
+                        ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, mob.getX(),mob.getY()+1,mob.getZ(), 5, 0, 0.0, 0, 0.0);
+                        ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, mob.getX()+c,mob.getY()+1,mob.getZ(), 5, 0, 0.0, 0, 0.0);
+                        ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, mob.getX()-c,mob.getY()+1,mob.getZ(), 5, 0, 0.0, 0, 0.0);
+                        ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, mob.getX(),mob.getY()+1,mob.getZ()+c, 5, 0, 0.0, 0, 0.0);
+                        ((ServerWorld)world).spawnParticles(ParticleTypes.SOUL, mob.getX(),mob.getY()+1,mob.getZ()-c, 5, 0, 0.0, 0, 0.0);
+                    }
+                }
+            }
+        }
+    }
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("item.masi.undead_summon_magic.tooltip"));

@@ -10,6 +10,7 @@ public class ModModelLayers {
 
     public static final EntityModelLayer SWORD_ENERGY =
             new EntityModelLayer(new Identifier(Masi.MOD_ID,"sword_energy"),"main");
-
+    public static final EntityModelLayer METEORITE =
+            new EntityModelLayer(new Identifier(Masi.MOD_ID,"meteorite_entity"),"main");
 
 }

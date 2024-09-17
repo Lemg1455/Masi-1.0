@@ -9,7 +9,8 @@
 		"MinecraftClientMixin",
 		"WorldCloseEventMixin",
       "FishingBobberEntityMixin",
-		"FishingBobberEntityRendererMixin"
+		"FishingBobberEntityRendererMixin",
+		"EntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

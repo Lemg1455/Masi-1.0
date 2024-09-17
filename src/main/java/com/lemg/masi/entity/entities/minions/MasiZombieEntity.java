@@ -4,6 +4,7 @@ import com.lemg.masi.entity.ai.AttackWithMinionOwnerGoal;
 import com.lemg.masi.entity.ai.FollowMinionOwnerGoal;
 import com.lemg.masi.entity.ai.MinionRevengeGoal;
 import com.lemg.masi.entity.ai.TrackMinionOwnerAttackerGoal;
+import com.lemg.masi.item.Magics.UndeadSummonMagic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +24,7 @@ public class MasiZombieEntity extends ZombieEntity implements Minion{
     private UUID ownerUuid;
     private LivingEntity owner;
 
-    public MasiZombieEntity(EntityType<? extends ZombieEntity> entityType, World world) {
+    public MasiZombieEntity(EntityType<? extends MasiZombieEntity> entityType, World world) {
         super((EntityType<? extends ZombieEntity>) entityType, world);
     }
     public void setOwner(LivingEntity owner) {
@@ -39,7 +40,9 @@ public class MasiZombieEntity extends ZombieEntity implements Minion{
     public void setOwnerUuid(@Nullable UUID ownerUuid) {
         this.ownerUuid = ownerUuid;
     }
-
+    public void setOwnerByUuid(UUID uuid){
+        this.owner = getOwnerByUuid(uuid);
+    }
     @Nullable
     public LivingEntity getOwnerByUuid(UUID uuid) {
         if(!this.getWorld().isClient()){
@@ -88,6 +91,7 @@ public class MasiZombieEntity extends ZombieEntity implements Minion{
             uUID = nbt.getUuid("Owner");
             if (uUID != null) {
                 this.setOwnerUuid(uUID);
+                this.setOwnerByUuid(uUID);
             }
         }
     }
@@ -95,10 +99,14 @@ public class MasiZombieEntity extends ZombieEntity implements Minion{
     @Override
     public void tick() {
         super.tick();
+        UndeadSummonMagic.tryRemoveMinion(this,this.getWorld());
 
     }
 
-
+    @Override
+    protected boolean shouldDropLoot() {
+        return false;
+    }
     @Override
     protected void initGoals() {
 

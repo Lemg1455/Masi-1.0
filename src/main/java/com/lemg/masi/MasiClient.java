@@ -22,6 +22,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.entity.*;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.mob.ZombieVillagerEntity;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,6 +55,16 @@ public class MasiClient implements ClientModInitializer  {
         EntityRendererRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.ARCANE_ARROW, ArcaneArrowEntityRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.METEORITE, MeteoriteEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.METEORITE, MeteoriteEntityRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.MASI_ZOMBIE, ZombieEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MASI_DROWNED, DrownedEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MASI_SKELETON, SkeletonEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MASI_ZOMBIE_PIGLIN, context -> new ZombifiedPiglinEntityRenderer(context, EntityModelLayers.ZOMBIFIED_PIGLIN, EntityModelLayers.ZOMBIFIED_PIGLIN_INNER_ARMOR, EntityModelLayers.ZOMBIFIED_PIGLIN_OUTER_ARMOR, true));
+        EntityRendererRegistry.register(ModEntities.MASI_ZOMBIE_VILLAGER, ZombieVillagerEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MASI_WITHER_SKELETON, WitherSkeletonEntityRenderer::new);
 
         registerPullPredicate(ModItems.ARCANE_BOW);
         registerInheritToolPredicate(ModItems.INHERIT_TOOL_ITEM);
@@ -114,7 +129,7 @@ public class MasiClient implements ClientModInitializer  {
         int scaledHeight = context.getScaledWindowHeight();
 
         int singFinishTick = -1;
-        if(player.isUsingItem()){
+        if(player.isUsingItem() && player.getActiveHand()==Hand.MAIN_HAND){
             if(stack.getItem() instanceof Staff staff){
                 if(Staff.UsersMagic.get(player) instanceof Magic magic){
                     singFinishTick = magic.singFinishTick();

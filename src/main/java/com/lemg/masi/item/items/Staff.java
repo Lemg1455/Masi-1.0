@@ -1,6 +1,8 @@
 package com.lemg.masi.item.items;
 
 import com.lemg.masi.Masi;
+import com.lemg.masi.entity.ModEntities;
+import com.lemg.masi.entity.entities.MeteoriteEntity;
 import com.lemg.masi.entity.entities.minions.MasiSkeletonEntity;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.util.MagicUtil;
@@ -12,11 +14,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +40,14 @@ public class Staff extends Item {
 
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+        /*if(!world.isClient()){
+            MeteoriteEntity meteoriteEntity = ModEntities.METEORITE.create(world);
+            if(meteoriteEntity!=null){
+                Vec3d pos = user.getPos();
+                meteoriteEntity.refreshPositionAndAngles(pos.getX(),pos.getY()+10,pos.getZ(),0,0);
+                world.spawnEntity(meteoriteEntity);
+            }
+        }*/
         boolean trial = MagicUtil.isTrial((PlayerEntity) user);
         float singingTick = 0;//咏唱时间
         singingTick = this.getMaxUseTime(stack) - remainingUseTicks;//咏唱时间，tick

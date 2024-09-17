@@ -4,6 +4,7 @@ import com.lemg.masi.entity.ai.AttackWithMinionOwnerGoal;
 import com.lemg.masi.entity.ai.FollowMinionOwnerGoal;
 import com.lemg.masi.entity.ai.MinionRevengeGoal;
 import com.lemg.masi.entity.ai.TrackMinionOwnerAttackerGoal;
+import com.lemg.masi.item.Magics.UndeadSummonMagic;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +24,7 @@ public class MasiZombifiedPiglinEntity extends ZombifiedPiglinEntity implements 
     private UUID ownerUuid;
     private LivingEntity owner;
 
-    public MasiZombifiedPiglinEntity(EntityType<? extends ZombifiedPiglinEntity> entityType, World world) {
+    public MasiZombifiedPiglinEntity(EntityType<? extends MasiZombifiedPiglinEntity> entityType, World world) {
         super((EntityType<? extends ZombifiedPiglinEntity>) entityType, world);
     }
     public void setOwner(LivingEntity owner) {
@@ -39,7 +40,9 @@ public class MasiZombifiedPiglinEntity extends ZombifiedPiglinEntity implements 
     public void setOwnerUuid(@Nullable UUID ownerUuid) {
         this.ownerUuid = ownerUuid;
     }
-
+    public void setOwnerByUuid(UUID uuid){
+        this.owner = getOwnerByUuid(uuid);
+    }
     @Nullable
     public LivingEntity getOwnerByUuid(UUID uuid) {
         if(!this.getWorld().isClient()){
@@ -88,6 +91,7 @@ public class MasiZombifiedPiglinEntity extends ZombifiedPiglinEntity implements 
             uUID = nbt.getUuid("Owner");
             if (uUID != null) {
                 this.setOwnerUuid(uUID);
+                this.setOwnerByUuid(uUID);
             }
         }
     }
@@ -95,10 +99,14 @@ public class MasiZombifiedPiglinEntity extends ZombifiedPiglinEntity implements 
     @Override
     public void tick() {
         super.tick();
+        UndeadSummonMagic.tryRemoveMinion(this,this.getWorld());
 
     }
 
-
+    @Override
+    protected boolean shouldDropLoot() {
+        return false;
+    }
     @Override
     protected void initGoals() {
         this.goalSelector.add(2, new ZombieAttackGoal(this, 1.0, false));

@@ -1,6 +1,7 @@
 package com.lemg.masi.entity.entities.minions;
 
 import com.lemg.masi.entity.ai.*;
+import com.lemg.masi.item.Magics.UndeadSummonMagic;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
@@ -19,7 +20,7 @@ public class MasiSkeletonEntity extends SkeletonEntity implements Minion{
     private UUID ownerUuid;
     private LivingEntity owner;
 
-    public MasiSkeletonEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
+    public MasiSkeletonEntity(EntityType<? extends MasiSkeletonEntity> entityType, World world) {
         super((EntityType<? extends SkeletonEntity>) entityType, world);
     }
     public void setOwner(LivingEntity owner) {
@@ -35,7 +36,9 @@ public class MasiSkeletonEntity extends SkeletonEntity implements Minion{
     public void setOwnerUuid(@Nullable UUID ownerUuid) {
         this.ownerUuid = ownerUuid;
     }
-
+    public void setOwnerByUuid(UUID uuid){
+        this.owner = getOwnerByUuid(uuid);
+    }
     @Nullable
     public LivingEntity getOwnerByUuid(UUID uuid) {
         if(!this.getWorld().isClient()){
@@ -84,6 +87,7 @@ public class MasiSkeletonEntity extends SkeletonEntity implements Minion{
             uUID = nbt.getUuid("Owner");
             if (uUID != null) {
                 this.setOwnerUuid(uUID);
+                this.setOwnerByUuid(uUID);
             }
         }
     }
@@ -91,9 +95,13 @@ public class MasiSkeletonEntity extends SkeletonEntity implements Minion{
     @Override
     public void tick() {
         super.tick();
+        UndeadSummonMagic.tryRemoveMinion(this,this.getWorld());
 
     }
-
+    @Override
+    protected boolean shouldDropLoot() {
+        return false;
+    }
 
     @Override
     protected void initGoals() {
