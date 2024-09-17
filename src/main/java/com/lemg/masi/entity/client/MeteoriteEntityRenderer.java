@@ -21,8 +21,7 @@ public class MeteoriteEntityRenderer extends MobEntityRenderer<MeteoriteEntity,M
     }
     @Override
     protected void scale(MeteoriteEntity meteoriteEntity, MatrixStack matrixStack, float f) {
-        float size = 1.5f * meteoriteEntity.getSize();
-        matrixStack.scale(size,size,size);
+        matrixStack.scale(2.5f,2.5f,2.5f);
         super.scale(meteoriteEntity, matrixStack, f);
     }
 

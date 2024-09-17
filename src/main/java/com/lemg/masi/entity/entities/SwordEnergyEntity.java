@@ -151,7 +151,7 @@ public class SwordEnergyEntity extends AnimalEntity {
     public static DefaultAttributeContainer.Builder createSwordEnergyAttributes(){
 
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH,50)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH,100)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED,0.20F)
                 .add(EntityAttributes.GENERIC_ARMOR,0.5F)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,10)

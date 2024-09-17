@@ -74,6 +74,8 @@
   "item.masi.undead_summon_magic": "Undead Summon Magic",
   "item.masi.teleport_magic": "Teleport Magic",
   "item.masi.inherit_tool_magic": "Inherit Tool Magic",
+  "item.masi.meteorite_magic": "Meteorite Magic",
+  "item.masi.spread_fire_magic": "Spread Fire Magic",
 
 
 
@@ -116,6 +118,8 @@
   "item.masi.teleport_magic.tooltip": "Release this,you will get a beacon,which report your BlockPos.Put it on offhand,after release you will teleport there",
   "item.masi.inherit_tool_magic.tooltip": "When your has the material(no stick) for tools on offhand and consumes 1 after release, you will get an Inherit Tool",
   "item.masi.inherit_tool_magic.tooltip2": "it has all of tools function,material equal to your material on offhand,but its maxDamage only 1/3",
+  "item.masi.meteorite_magic.tooltip": "Summon a meteorite,createExplosion when it collision,set around LivingEntity fire ticks 300",
+  "item.masi.spread_fire_magic.tooltip": "If a creature is burned to death within a range of 10 * 10 * 10, the remaining burning time will be passed on to other nearby creatures",
 
 
 

@@ -16,8 +16,10 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,13 +34,12 @@ public class MeteoriteEntity extends AnimalEntity {
     @Nullable
     private UUID ownerUuid;
     private PlayerEntity owner;
-    public float size;
-    public static float size1 = 1.0f;
+
     Magic magic = null;
 
     public MeteoriteEntity(EntityType<? extends MeteoriteEntity> entityType, World world) {
         super((EntityType<? extends AnimalEntity>) entityType, world);
-        this.size = size1;
+        this.noClip=true;
     }
 
     @Override
@@ -59,13 +60,6 @@ public class MeteoriteEntity extends AnimalEntity {
         this.ownerUuid=player.getUuid();
     }
 
-    public void setSize(float size) {
-        this.size=size;
-    }
-
-    public float getSize() {
-        return this.size;
-    }
 
     @Override
     public boolean canHit() {
@@ -79,7 +73,6 @@ public class MeteoriteEntity extends AnimalEntity {
         if (this.getOwnerUuid() != null) {
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
-        nbt.putFloat("size",this.size);
     }
 
     @Override
@@ -95,30 +88,40 @@ public class MeteoriteEntity extends AnimalEntity {
         if (uUID != null) {
             this.setOwnerUuid(uUID);
         }
-        if (nbt.contains("size")) {
-            this.size=nbt.getFloat("size");
-        }
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(this.age>=40){
-            this.remove(RemovalReason.DISCARDED);
+        if(this.age<10){
+            this.setVelocity(0,-0.1,0);
+        }else {
+            this.noClip=false;
         }
-        double width = size - 1;
-        double height = size - 1;
-        float amount = (float) (5 + Math.pow(2,size));
-        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(width,height,width));
-        if(!list.isEmpty()){
-            for(Entity entity : list) {
-                if (entity instanceof LivingEntity livingEntity) {
-                    if(livingEntity!=this.owner){
-                        livingEntity.damage(this.getWorld().getDamageSources().magic(),amount);
+
+        this.setFireTicks(20);
+        if(!this.getWorld().isClient()){
+            ((ServerWorld)this.getWorld()).spawnParticles(ParticleTypes.LARGE_SMOKE, this.getX(),this.getY(),this.getZ(), 5, 0, 0.0, 0, 0.0);
+        }
+        if(this.groundCollision || this.horizontalCollision || this.verticalCollision){
+            this.getWorld().createExplosion(this,this.getX(),this.getY(),this.getZ(),5, World.ExplosionSourceType.TNT);
+            List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().expand(5,1,5));
+            if(list!=null){
+                for(Entity entity:list){
+                    if(entity instanceof LivingEntity livingEntity){
+                        if(livingEntity!=this.owner){
+                            livingEntity.setFireTicks(300);
+                        }
                     }
                 }
             }
+            this.remove(RemovalReason.DISCARDED);
         }
+
+        if(this.age>=400){
+            this.remove(RemovalReason.DISCARDED);
+        }
+
     }
     @Override
     protected boolean updateWaterState() {

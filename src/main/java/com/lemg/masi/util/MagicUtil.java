@@ -1,5 +1,6 @@
 package com.lemg.masi.util;
 
+import com.lemg.masi.entity.entities.minions.Minion;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.Magics.Magic;
 import com.lemg.masi.item.items.TrialCard;
@@ -7,8 +8,10 @@ import com.lemg.masi.network.ModMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Tameable;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -165,6 +168,25 @@ public class MagicUtil {
                 ServerPlayNetworking.send((ServerPlayerEntity) player,ModMessage.ENERGY_UPDATE_ID,buf);
             }
         }
+    }
+
+    public static boolean teamEntity(LivingEntity livingEntity,LivingEntity Owner){
+        if(livingEntity instanceof Minion minion){
+            if(minion.getOwner()==Owner){
+                return true;
+            }
+        }
+        if(livingEntity instanceof Tameable tameable){
+            if(tameable.getOwner()==Owner){
+                return true;
+            }
+        }
+        if(livingEntity instanceof TameableEntity tameable){
+            if(tameable.getOwner()==Owner){
+                return true;
+            }
+        }
+        return false;
     }
     public static List<StatusEffect> beneficial = Arrays.asList(StatusEffects.SPEED,StatusEffects.HASTE,StatusEffects.STRENGTH,StatusEffects.INSTANT_HEALTH,StatusEffects.JUMP_BOOST,StatusEffects.REGENERATION,StatusEffects.RESISTANCE,StatusEffects.FIRE_RESISTANCE,StatusEffects.WATER_BREATHING,StatusEffects.INVISIBILITY,StatusEffects.NIGHT_VISION,StatusEffects.HEALTH_BOOST,StatusEffects.ABSORPTION,StatusEffects.SATURATION,StatusEffects.LUCK,StatusEffects.SLOW_FALLING,StatusEffects.CONDUIT_POWER,StatusEffects.DOLPHINS_GRACE);
     public static List<StatusEffect> harmful = Arrays.asList(StatusEffects.SLOWNESS,StatusEffects.MINING_FATIGUE,StatusEffects.INSTANT_DAMAGE,StatusEffects.NAUSEA,StatusEffects.BLINDNESS,StatusEffects.HUNGER,StatusEffects.WEAKNESS,StatusEffects.POISON,StatusEffects.WITHER,StatusEffects.LEVITATION,StatusEffects.UNLUCK);

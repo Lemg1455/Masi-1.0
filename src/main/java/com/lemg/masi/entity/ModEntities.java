@@ -49,6 +49,7 @@ public class ModEntities {
             new Identifier(Masi.MOD_ID,"masi_zombified_piglin"),
             FabricEntityTypeBuilder.<MasiZombifiedPiglinEntity>create(SpawnGroup.MISC, MasiZombifiedPiglinEntity::new)
                     .trackRangeChunks(8)
+                    .fireImmune()
                     .dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
     public static final EntityType<MasiZombieEntity> MASI_ZOMBIE = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Masi.MOD_ID,"masi_zombie"),
@@ -71,5 +72,6 @@ public class ModEntities {
             new Identifier(Masi.MOD_ID,"masi_wither_skeleton"),
             FabricEntityTypeBuilder.<MasiWitherSkeletonEntity>create(SpawnGroup.MISC, MasiWitherSkeletonEntity::new)
                     .trackRangeChunks(8)
+                    .fireImmune()
                     .dimensions(EntityDimensions.fixed(0.7f, 2.4f)).build());
 }

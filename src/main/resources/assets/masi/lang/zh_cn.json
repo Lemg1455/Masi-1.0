@@ -75,6 +75,8 @@
   "item.masi.undead_summon_magic": "亡灵召唤",
   "item.masi.teleport_magic": "传送魔法",
   "item.masi.inherit_tool_magic": "应急工具包",
+  "item.masi.meteorite_magic": "陨石术",
+  "item.masi.spread_fire_magic": "传火",
 
 
 
@@ -117,6 +119,8 @@
   "item.masi.teleport_magic.tooltip": "释放后获得一个记录了当前位置的信标，将它放在副手，再次释放，会将自己及周围3*3*3的实体传送至记录的坐标",
   "item.masi.inherit_tool_magic.tooltip": "副手持木头(或任意)/原石/铁锭/金锭/钻石/合金锭，在释放后会消耗一个，获得对应品质的集成工具",
   "item.masi.inherit_tool_magic.tooltip2": "集成工具拥有工具五件套和钓竿的集成功能，但耐久只有对应品质的1/3",
+  "item.masi.meteorite_magic.tooltip": "生成一颗陨石，在片刻后砸向地面，造成爆炸并点燃附近生物，持续15秒",
+  "item.masi.spread_fire_magic.tooltip": "如果10*10*10范围内有生物被烧死，会将他未尽的燃烧时间传递给附近其它非己方生物",
 
 
 

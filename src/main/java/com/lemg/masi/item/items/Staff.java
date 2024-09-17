@@ -40,14 +40,6 @@ public class Staff extends Item {
 
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        /*if(!world.isClient()){
-            MeteoriteEntity meteoriteEntity = ModEntities.METEORITE.create(world);
-            if(meteoriteEntity!=null){
-                Vec3d pos = user.getPos();
-                meteoriteEntity.refreshPositionAndAngles(pos.getX(),pos.getY()+10,pos.getZ(),0,0);
-                world.spawnEntity(meteoriteEntity);
-            }
-        }*/
         boolean trial = MagicUtil.isTrial((PlayerEntity) user);
         float singingTick = 0;//咏唱时间
         singingTick = this.getMaxUseTime(stack) - remainingUseTicks;//咏唱时间，tick

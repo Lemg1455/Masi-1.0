@@ -61,6 +61,8 @@ public class ModItems {
     public static final Item UNDEAD_SUMMON_MAGIC = registerItems("undead_summon_magic",new UndeadSummonMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),30,60,10));
     public static final Item TELEPORT_MAGIC = registerItems("teleport_magic",new TeleportMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),40,50,10));
     public static final Item INHERIT_TOOL_MAGIC = registerItems("inherit_tool_magic",new InheritToolMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),20,40,5));
+    public static final Item METEORITE_MAGIC = registerItems("meteorite_magic",new MeteoriteMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),20,40,10));
+    public static final Item SPREAD_FIRE_MAGIC = registerItems("spread_fire_magic",new SpreadFireMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),0,0,5));
 
 
 

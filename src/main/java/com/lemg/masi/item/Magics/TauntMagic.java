@@ -1,10 +1,12 @@
 package com.lemg.masi.item.Magics;
 
 import com.lemg.masi.Masi;
+import com.lemg.masi.entity.entities.minions.Minion;
 import com.lemg.masi.util.MagicUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Tameable;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -48,7 +50,9 @@ public class TauntMagic extends Magic{
             List<Entity> list = world.getOtherEntities(player,new Box(player.getX()-15,player.getY(),player.getZ()-15,player.getX()+15,player.getY()+9,player.getZ()+15));
             for(Entity entity : list){
                 if(entity instanceof MobEntity mobEntity){
-                    mobEntity.setTarget(player);
+                    if(!MagicUtil.teamEntity(mobEntity,user)){
+                        mobEntity.setTarget(player);
+                    }
                 }
             }
         }
