@@ -59,6 +59,9 @@ public class MasiClient implements ClientModInitializer  {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.METEORITE, MeteoriteEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.METEORITE, MeteoriteEntityRenderer::new);
 
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SWORD_MAN, SwordManEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.SWORD_MAN, SwordManEntityRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.MASI_ZOMBIE, ZombieEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.MASI_DROWNED, DrownedEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.MASI_SKELETON, SkeletonEntityRenderer::new);

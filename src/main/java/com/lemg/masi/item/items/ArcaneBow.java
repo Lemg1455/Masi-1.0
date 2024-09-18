@@ -1,6 +1,8 @@
 package com.lemg.masi.item.items;
 
+import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.entity.entities.ArcaneArrowEntity;
+import com.lemg.masi.entity.entities.minions.SwordManEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,6 +29,12 @@ public class ArcaneBow extends RangedWeaponItem implements Vanishable {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if (!(user instanceof PlayerEntity playerEntity)) {
             return;
+        }
+        if(!world.isClient()){
+            SwordManEntity swordManEntity = new SwordManEntity(ModEntities.SWORD_MAN,world);
+            swordManEntity.setPosition(user.getPos());
+            swordManEntity.setOwner(user);
+            world.spawnEntity(swordManEntity);
         }
 
         boolean bl = playerEntity.getAbilities().creativeMode;

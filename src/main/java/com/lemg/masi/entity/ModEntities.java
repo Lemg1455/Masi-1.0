@@ -38,7 +38,13 @@ public class ModEntities {
             FabricEntityTypeBuilder.<MeteoriteEntity>create(SpawnGroup.MISC, MeteoriteEntity::new)
                     .trackRangeChunks(4)
                     .trackedUpdateRate(10)
-                    .dimensions(EntityDimensions.fixed(1.0f,1.0f)).build());
+                    .dimensions(EntityDimensions.fixed(4.0f,4.0f)).build());
+
+    public static final EntityType<SwordManEntity> SWORD_MAN = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Masi.MOD_ID,"sword_man"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC,SwordManEntity::new)
+                    .trackRangeChunks(10)
+                    .dimensions(EntityDimensions.fixed(0.6f,1.95f)).build());
 
     public static final EntityType<MasiZombieVillagerEntity> MASI_ZOMBIE_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Masi.MOD_ID,"masi_zombie_villager"),

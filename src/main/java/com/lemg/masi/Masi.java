@@ -123,6 +123,8 @@ public class Masi implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.ARCANE_MINION, ArcaneMinionEntity.createArcaneMinionAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntity.createSwordEnergyAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.METEORITE, SwordEnergyEntity.createSwordEnergyAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_MAN, WitherSkeletonEntity.createAbstractSkeletonAttributes());
+
 
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE, ZombieEntity.createZombieAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_DROWNED, DrownedEntity.createZombieAttributes());
@@ -130,6 +132,7 @@ public class Masi implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE_PIGLIN, ZombieEntity.createZombieAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE_VILLAGER, ZombieEntity.createZombieAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_WITHER_SKELETON, WitherSkeletonEntity.createAbstractSkeletonAttributes());
+
 
 	}
 }
