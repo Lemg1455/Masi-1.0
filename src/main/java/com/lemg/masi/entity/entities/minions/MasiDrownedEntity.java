@@ -83,6 +83,16 @@ public class MasiDrownedEntity extends DrownedEntity implements Minion,RangedAtt
         return true;
     }
 
+    @Override
+    public void setSitting(boolean bl) {
+
+    }
+
+    @Override
+    public boolean isSitting() {
+        return false;
+    }
+
 
     //读写NBT
     @Override

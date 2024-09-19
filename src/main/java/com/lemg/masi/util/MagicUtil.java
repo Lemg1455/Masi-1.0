@@ -15,6 +15,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -183,6 +184,12 @@ public class MagicUtil {
         }
         if(livingEntity instanceof TameableEntity tameable){
             if(tameable.getOwner()==Owner){
+                return true;
+            }
+        }
+        NbtCompound nbt = livingEntity.writeNbt(new NbtCompound());
+        if(nbt.contains("Owner") && nbt.getUuid("Owner")!=null){
+            if(nbt.getUuid("Owner")==Owner.getUuid()){
                 return true;
             }
         }

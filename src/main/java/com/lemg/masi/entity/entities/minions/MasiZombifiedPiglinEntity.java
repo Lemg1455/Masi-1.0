@@ -73,6 +73,16 @@ public class MasiZombifiedPiglinEntity extends ZombifiedPiglinEntity implements 
         return true;
     }
 
+    @Override
+    public void setSitting(boolean bl) {
+
+    }
+
+    @Override
+    public boolean isSitting() {
+        return false;
+    }
+
 
     //读写NBT
     @Override

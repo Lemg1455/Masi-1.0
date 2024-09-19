@@ -74,6 +74,16 @@ public class MasiZombieVillagerEntity extends ZombieVillagerEntity implements Mi
         return true;
     }
 
+    @Override
+    public void setSitting(boolean bl) {
+
+    }
+
+    @Override
+    public boolean isSitting() {
+        return false;
+    }
+
 
     //读写NBT
     @Override

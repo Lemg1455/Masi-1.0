@@ -5,7 +5,8 @@ import net.minecraft.entity.LivingEntity;
 public interface Minion {
     boolean isMinion();
     LivingEntity getOwner();
-
     boolean canAttackWithOwner(LivingEntity target, LivingEntity owner);
+    void setSitting(boolean bl);
+    boolean isSitting();
 
 }

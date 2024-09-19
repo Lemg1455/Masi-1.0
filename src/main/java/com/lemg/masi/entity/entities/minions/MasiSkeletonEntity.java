@@ -69,6 +69,16 @@ public class MasiSkeletonEntity extends SkeletonEntity implements Minion{
         return true;
     }
 
+    @Override
+    public void setSitting(boolean bl) {
+
+    }
+
+    @Override
+    public boolean isSitting() {
+        return false;
+    }
+
 
     //读写NBT
     @Override

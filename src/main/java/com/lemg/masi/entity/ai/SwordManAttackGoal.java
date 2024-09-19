@@ -12,7 +12,7 @@ import net.minecraft.util.Hand;
 public class SwordManAttackGoal extends MeleeAttackGoal {
     private final SwordManEntity entity;
     private int attackDelay = 40;
-    private int tickUntilNextAttack = 40;
+    private int tickUntilNextAttack = 20;
     private boolean shouldCountTillNextAttack = false;
     public SwordManAttackGoal(PathAwareEntity mob, double speed, boolean pauseWhenMobIdle) {
         super(mob, speed, pauseWhenMobIdle);
@@ -27,7 +27,7 @@ public class SwordManAttackGoal extends MeleeAttackGoal {
         super.start();
 
         attackDelay = 40;
-        tickUntilNextAttack = 40;
+        tickUntilNextAttack = 20;
     }
 
     @Override
@@ -60,12 +60,12 @@ public class SwordManAttackGoal extends MeleeAttackGoal {
             resetAttackCoolDown();
             shouldCountTillNextAttack = false;
             entity.setAttacking(false);
-            entity.attackAnimationTimeOut = 0;
+            entity.clientAttackTimeOut = 0;
         }
     }
 
     private void resetAttackCoolDown() {
-        this.tickUntilNextAttack = this.getTickCount(attackDelay * 2);
+        this.tickUntilNextAttack = this.getTickCount(attackDelay * 1);
     }
 
     private void preformAttack(LivingEntity target) {

@@ -110,6 +110,16 @@ public class ArcaneMinionEntity extends AnimalEntity implements Minion{
         return true;
     }
 
+    @Override
+    public void setSitting(boolean bl) {
+
+    }
+
+    @Override
+    public boolean isSitting() {
+        return false;
+    }
+
 
     //读写NBT
     @Override
