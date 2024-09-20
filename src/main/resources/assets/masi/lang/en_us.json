@@ -122,6 +122,8 @@
   "item.masi.spread_fire_magic.tooltip": "If a creature is burned to death within a range of 10 * 10 * 10, the remaining burning time will be passed on to other nearby creatures",
 
 
+  "entity.masi.sword_man": "Sword Man",
+
 
   "masi.panel.exp.message": "Lack of experience, unable to learn",
   "masi.panel.learned.message": "Already Learned",

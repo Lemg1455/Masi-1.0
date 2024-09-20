@@ -49,6 +49,7 @@ public class SwordManSitGoal
     public void start() {
         this.swordMan.getNavigation().stop();
         this.swordMan.setInSittingPose(true);
+        this.swordMan.setSitting(true);
     }
 
     @Override

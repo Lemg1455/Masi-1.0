@@ -188,7 +188,7 @@ public class MagicUtil {
             }
         }
         NbtCompound nbt = livingEntity.writeNbt(new NbtCompound());
-        if(nbt.contains("Owner") && nbt.getUuid("Owner")!=null){
+        if(nbt.contains("Owner") && nbt.getUuid("Owner")!=null && Owner!=null){
             if(nbt.getUuid("Owner")==Owner.getUuid()){
                 return true;
             }

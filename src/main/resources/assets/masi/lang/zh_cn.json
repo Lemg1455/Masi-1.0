@@ -122,7 +122,7 @@
   "item.masi.meteorite_magic.tooltip": "生成一颗陨石，在片刻后砸向地面，造成爆炸并点燃附近生物，持续15秒",
   "item.masi.spread_fire_magic.tooltip": "如果10*10*10范围内有生物被烧死，会将他未尽的燃烧时间传递给附近其它非己方生物",
 
-
+  "entity.masi.sword_man": "双手剑士",
 
   "masi.panel.exp.message": "经验不足，无法学习",
   "masi.panel.learned.message": "已经学习",

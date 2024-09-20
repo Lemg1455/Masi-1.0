@@ -61,11 +61,13 @@ public class SwordManEntityModel<T extends SwordManEntity> extends BipedEntityMo
         this.setHeadAngles(netHeadYaw,headPitch);
         this.animateMovement(this,SwordManEntityAnimation.walk,limbSwing,limbSwingAmount,2f,2.5f);
         this.updateAnimation(this,entity.idleAnimationState,SwordManEntityAnimation.idle,ageInTicks,1f);
+        this.updateAnimation(this,entity.sittingAnimationState,SwordManEntityAnimation.sitting,ageInTicks,1f);
         this.updateAnimation(this,entity.attackAnimation1,SwordManEntityAnimation.common_attack_1,ageInTicks,1f);
         this.updateAnimation(this,entity.attackAnimation2,SwordManEntityAnimation.common_attack_2,ageInTicks,1f);
         this.updateAnimation(this,entity.attackAnimation3,SwordManEntityAnimation.common_attack_3,ageInTicks,1f);
         this.updateAnimation(this,entity.attackAnimation4,SwordManEntityAnimation.common_attack_4,ageInTicks,1f);
         this.updateAnimation(this,entity.jump_hit,SwordManEntityAnimation.jump_hit,ageInTicks,1f);
+        this.updateAnimation(this,entity.sword_ground,SwordManEntityAnimation.sword_ground,ageInTicks,1f);
 
     }
 
