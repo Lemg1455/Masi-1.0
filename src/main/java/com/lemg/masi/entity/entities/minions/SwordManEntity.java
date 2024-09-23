@@ -23,6 +23,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -37,10 +38,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import static org.apache.commons.lang3.math.NumberUtils.max;
 
@@ -81,6 +79,8 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
     }
     public boolean sitting = false;
 
+    public List<LivingEntity> livingList = new ArrayList<>();
+
     //待机动作
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeOut = 0;
@@ -94,7 +94,8 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
     public final AnimationState jump_hit = new AnimationState();
     public int JumpHitTimeOut = 0;
     public final AnimationState sword_ground = new AnimationState();
-    public int SwordGroundTimeOut = 200;
+    public int SwordGroundTimeOut = 1200;
+    public int ShadowManeTimeOut = 600;
     public int clientAttackTimeOut = 0;
     public int serverAttackTimeOut = 0;
 
@@ -186,6 +187,20 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
                     this.SwordGroundTimeOut=1200;
                     serverAttackTimeOut = 50;
                 }
+                else if(ShadowManeTimeOut<=0 && this.serverAttackTimeOut<=0){
+                    List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(10, 5, 10));
+                    for(LivingEntity livingEntity : list){
+                        if(!MagicUtil.teamEntity(livingEntity,this.owner) && !(livingEntity instanceof PassiveEntity)){
+                            livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 1,false,true,true));
+                            livingList.add(livingEntity);
+                        }
+                    }
+                    if(!livingList.isEmpty()){
+                        this.setSkill(3);
+                        this.ShadowManeTimeOut=new Random().nextInt(800,1500);
+                        serverAttackTimeOut = livingList.size()*10;
+                    }
+                }
             }
 
 
@@ -199,6 +214,23 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
             }
             if(this.SwordGroundTimeOut>0){
                 SwordGroundTimeOut--;
+            }
+            if(this.ShadowManeTimeOut>0){
+                ShadowManeTimeOut--;
+            }
+
+            if(this.deathTime==10){
+                if(this.getOwner()!=null){
+                    Vec3d direction = this.getPos().add(0,1,0).subtract(this.getOwner().getPos()).normalize();
+                    double length = this.getPos().add(0,1,0).distanceTo(this.getOwner().getPos());
+                    for (int i = 0; i <= 10; i++) {
+                        double fraction = (double) i / 10;
+                        Vec3d particlePos = this.getOwner().getPos().add(direction.multiply(fraction * length));
+                        ((ServerWorld)this.getWorld()).spawnParticles(new DustParticleEffect(Vec3d.unpackRgb(0x00FF90).toVector3f(), 2.0f), particlePos.x, particlePos.y, particlePos.z, 5, 0, 0.0, 0, 0.0);
+                    }
+                    this.getOwner().addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1,false,true,true));
+                    this.getOwner().addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0,false,true,true));
+                }
             }
         }
     }
@@ -263,6 +295,28 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
                 }
                 break;
             }
+            case 3: {
+                if(this.serverAttackTimeOut%10==0){
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 2,false,false,true));
+                    LivingEntity aim = null;
+                    List<LivingEntity> livingEntities = new ArrayList<>(livingList);
+                    for(LivingEntity livingEntity : livingEntities){
+                        if(livingEntity!=null && livingEntity.isAlive()){
+                            aim = livingEntity;
+                            break;
+                        }else if(livingEntity!=null && !livingEntity.isAlive()){
+                            livingList.remove(livingEntity);
+                        }
+                    }
+                    if(aim!=null){
+                        livingList.remove(aim);
+                        this.teleport(aim.getX(),aim.getY(),aim.getZ(),true);
+                        this.spawnSweepAttackParticles();
+                        aim.damage(this.getWorld().getDamageSources().mobAttack(this),10.0f);
+                    }
+                }
+                break;
+            }
         }
         if(this.serverAttackTimeOut<=0){
             this.setSkill(0);
@@ -280,7 +334,14 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
                 if(!this.getEquippedStack(armorItem.getSlotType()).isEmpty()){
                     this.dropStack(this.getEquippedStack(armorItem.getSlotType()));
                 }
-                this.tryEquip(itemStack);
+                this.tryEquip(itemStack.copy());
+                if(!player.getAbilities().creativeMode){
+                    itemStack.decrement(1);
+                    if (itemStack.isEmpty()) {
+                        player.getInventory().removeOne(itemStack);
+                    }
+                }
+
                 return ActionResult.SUCCESS;
             }else if(itemStack.isFood() && itemStack.getItem().getFoodComponent()!=null){
                 int hunger = itemStack.getItem().getFoodComponent().getHunger();
@@ -292,6 +353,12 @@ public class SwordManEntity extends PathAwareEntity implements Minion{
                     ((ServerWorld)this.getWorld()).spawnParticles(ParticleTypes.HEART, this.getX(),this.getY()+1,this.getZ(), 2, 0, 0.0, 0, 0.0);
                 }
                 player.sendMessage(Text.literal(this.getName().getString()+" HEALTH: "+this.getHealth()));
+                if(!player.getAbilities().creativeMode){
+                    itemStack.decrement(1);
+                    if (itemStack.isEmpty()) {
+                        player.getInventory().removeOne(itemStack);
+                    }
+                }
                 return ActionResult.SUCCESS;
             }
             this.setSitting(!this.isSitting());

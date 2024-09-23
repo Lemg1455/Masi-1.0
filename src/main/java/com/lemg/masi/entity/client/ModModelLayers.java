@@ -14,5 +14,6 @@ public class ModModelLayers {
             new EntityModelLayer(new Identifier(Masi.MOD_ID,"meteorite_entity"),"main");
     public static final EntityModelLayer SWORD_MAN =
             new EntityModelLayer(new Identifier(Masi.MOD_ID,"sword_man"),"main");
-
+    public static final EntityModelLayer LIGHTNING_CLOUD =
+            new EntityModelLayer(new Identifier(Masi.MOD_ID,"lightning_cloud"),"main");
 }

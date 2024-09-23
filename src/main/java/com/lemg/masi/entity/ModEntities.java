@@ -46,6 +46,15 @@ public class ModEntities {
                     .trackRangeChunks(10)
                     .dimensions(EntityDimensions.fixed(0.6f,1.95f)).build());
 
+    public static final EntityType<LightningCloudEntity> LIGHTNING_CLOUD = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Masi.MOD_ID,"lightning_cloud"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC,LightningCloudEntity::new)
+                    .trackRangeChunks(10)
+                    .fireImmune()
+                    .dimensions(EntityDimensions.fixed(2f,1f)).build());
+
+
+
     public static final EntityType<MasiZombieVillagerEntity> MASI_ZOMBIE_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Masi.MOD_ID,"masi_zombie_villager"),
             FabricEntityTypeBuilder.<MasiZombieVillagerEntity>create(SpawnGroup.MISC, MasiZombieVillagerEntity::new)

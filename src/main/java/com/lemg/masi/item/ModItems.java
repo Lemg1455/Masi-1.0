@@ -63,6 +63,7 @@ public class ModItems {
     public static final Item INHERIT_TOOL_MAGIC = registerItems("inherit_tool_magic",new InheritToolMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),20,40,5));
     public static final Item METEORITE_MAGIC = registerItems("meteorite_magic",new MeteoriteMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),20,40,10));
     public static final Item SPREAD_FIRE_MAGIC = registerItems("spread_fire_magic",new SpreadFireMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),0,0,5));
+    public static final Item SWORD_MAN_SUMMON_MAGIC = registerItems("sword_man_summon_magic",new SwordManSummonMagic(new FabricItemSettings().maxCount(1).rarity(Rarity.EPIC),30,60,10));
 
 
 

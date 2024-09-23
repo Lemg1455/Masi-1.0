@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.lemg.masi.entity.entities.minions.Minion;
+import com.lemg.masi.util.MagicUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -38,8 +39,8 @@ public class MinionRevengeGoal
     public boolean canStart() {
         int i = this.mob.getLastAttackedTime();
         LivingEntity livingEntity = this.mob.getAttacker();
-        if(this.mob instanceof Minion minionEntity && livingEntity instanceof Minion attacker){
-            if(minionEntity.getOwner()==attacker.getOwner()){
+        if(this.mob instanceof Minion minionEntity){
+            if(MagicUtil.teamEntity(livingEntity,minionEntity.getOwner())){
                 return false;
             }
         }

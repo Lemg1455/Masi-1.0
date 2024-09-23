@@ -37,7 +37,7 @@ public class ArcaneMissileMagic extends Magic{
         if(!list.isEmpty()){
             for(Entity entity : list){
                 if(entity instanceof LivingEntity livingEntity){
-                    if(entity instanceof PlayerEntity player && user instanceof ArcaneMinionEntity arcaneMinionEntity && player==arcaneMinionEntity.getOwner()){
+                    if(MagicUtil.teamEntity(livingEntity,user)){
                         continue;
                     }
                     if(!world.isClient()){

@@ -77,6 +77,7 @@
   "item.masi.inherit_tool_magic": "应急工具包",
   "item.masi.meteorite_magic": "陨石术",
   "item.masi.spread_fire_magic": "传火",
+  "item.masi.sword_man_summon_magic": "召唤剑士",
 
 
 
@@ -121,6 +122,10 @@
   "item.masi.inherit_tool_magic.tooltip2": "集成工具拥有工具五件套和钓竿的集成功能，但耐久只有对应品质的1/3",
   "item.masi.meteorite_magic.tooltip": "生成一颗陨石，在片刻后砸向地面，造成爆炸并点燃附近生物，持续15秒",
   "item.masi.spread_fire_magic.tooltip": "如果10*10*10范围内有生物被烧死，会将他未尽的燃烧时间传递给附近其它非己方生物",
+  "item.masi.sword_man_summon_magic.tooltip": "招募一位剑士，他会使用各种剑技。拿盔甲对他右键可以穿戴，拿食物可以回血，否则会让他坐下。",
+  "item.masi.sword_man_summon_magic.tooltip2": "他会主动攻击所有怪物，不会主动攻击认你为主的其他生物，或者被动生物。",
+  "item.masi.sword_man_summon_magic.tooltip3": "在他死亡时，他会为你丢出最后的治疗和速度效果。",
+
 
   "entity.masi.sword_man": "双手剑士",
 

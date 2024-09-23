@@ -5,6 +5,7 @@ import com.lemg.masi.enchantment.MultipleReleaseEnchantment;
 import com.lemg.masi.entity.entities.minions.ArcaneMinionEntity;
 import com.lemg.masi.entity.ModEntities;
 import com.lemg.masi.entity.entities.SwordEnergyEntity;
+import com.lemg.masi.entity.entities.minions.LightningCloudEntity;
 import com.lemg.masi.entity.entities.minions.SwordManEntity;
 import com.lemg.masi.item.MagicGroups;
 import com.lemg.masi.item.ModItems;
@@ -125,6 +126,7 @@ public class Masi implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_ENERGY, SwordEnergyEntity.createSwordEnergyAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.METEORITE, SwordEnergyEntity.createSwordEnergyAttributes());
 		FabricDefaultAttributeRegistry.register(ModEntities.SWORD_MAN, SwordManEntity.createSwordManAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.LIGHTNING_CLOUD, LightningCloudEntity.createLightningCloudAttributes());
 
 
 		FabricDefaultAttributeRegistry.register(ModEntities.MASI_ZOMBIE, ZombieEntity.createZombieAttributes());

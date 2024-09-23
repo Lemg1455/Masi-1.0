@@ -172,6 +172,9 @@ public class MagicUtil {
     }
 
     public static boolean teamEntity(LivingEntity livingEntity,LivingEntity Owner){
+        if(livingEntity==null || Owner==null){
+            return false;
+        }
         if(livingEntity instanceof Minion minion){
             if(minion.getOwner()==Owner){
                 return true;
@@ -188,10 +191,13 @@ public class MagicUtil {
             }
         }
         NbtCompound nbt = livingEntity.writeNbt(new NbtCompound());
-        if(nbt.contains("Owner") && nbt.getUuid("Owner")!=null && Owner!=null){
+        if(nbt.contains("Owner") && nbt.getUuid("Owner")!=null){
             if(nbt.getUuid("Owner")==Owner.getUuid()){
                 return true;
             }
+        }
+        if(livingEntity.getUuid()==Owner.getUuid()){
+            return true;
         }
         return false;
     }
